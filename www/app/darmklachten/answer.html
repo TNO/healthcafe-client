@@ -41,7 +41,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Heeft u gedurende de afgelopen 24 uur vet voedsel geconsumeerd?
+          Heeft u gedurende de afgelopen 24 uur vet voedsel geconsumeerd? <i class="ion-information-circled" ng-click="showVetInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -68,6 +68,20 @@
             </ul>
           </div>
         </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedurende de afgelopen 24 uur koffie gedronken?  <i class="ion-information-circled" ng-click="showKoffieInformation()"></i>
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q05" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, 1-2 kopjes</li>
+              <li>Ja, 3-4 kopjes</li>
+              <li>Ja, 5 kopjes of meer</li>
+            </ul>
+          </div>
+        </ion-item>
         <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
           Wilt u een extra voedingsgroep toevoegen?
         </ion-item>
@@ -79,7 +93,7 @@
         </ion-item>
         <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep1">
           <div class="questionnaire-input-range">
-            <input type="range" ng-model="darmklachten.data.body.answers.q05" min="1" max="4">
+            <input type="range" ng-model="darmklachten.data.body.answers.q06" min="1" max="4">
             <ul>
               <li>Nee</li>
               <li>Ja, weinig</li>
@@ -99,26 +113,12 @@
         </ion-item>
         <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep2">
           <div class="questionnaire-input-range">
-            <input type="range" ng-model="darmklachten.data.body.answers.q06" min="1" max="4">
+            <input type="range" ng-model="darmklachten.data.body.answers.q07" min="1" max="4">
             <ul>
               <li>Nee</li>
               <li>Ja, weinig</li>
               <li>Ja, gemiddeld</li>
               <li>Ja, veel</li>
-            </ul>
-          </div>
-        </ion-item>
-        <ion-item class="item-divider">
-          Heeft u gedurende de afgelopen 24 uur koffie gedronken?
-        </ion-item>
-        <ion-item>
-          <div class="questionnaire-input-range">
-            <input type="range" ng-model="darmklachten.data.body.answers.q07" min="1" max="4">
-            <ul>
-              <li>Nee</li>
-              <li>Ja, 1-2 kopjes</li>
-              <li>Ja, 3-4 kopjes</li>
-              <li>Ja, 5 kopjes of meer</li>
             </ul>
           </div>
         </ion-item>
@@ -216,7 +216,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          In welke mate heeft u de afgelopen 24 uur last gehad van buikpijn?
+          In welke mate heeft u de afgelopen 24 uur last gehad van buikpijn?  <i class="ion-information-circled" ng-click="showBuikpijnInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -241,7 +241,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          In welke mate heeft u de afgelopen 24 uur last gehad van een opgeblazen gevoel?
+          In welke mate heeft u de afgelopen 24 uur last gehad van een opgeblazen gevoel? <i class="ion-information-circled" ng-click="showOpgeblazenInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -266,7 +266,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          In welke mate heeft u de afgelopen 24 uur last gehad van een zichtbaar opgezwollen buik?
+          In welke mate heeft u de afgelopen 24 uur last gehad van een zichtbaar opgezwollen buik? <i class="ion-information-circled" ng-click="showOpgezwollenInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
