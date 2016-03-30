@@ -30,7 +30,8 @@
       var answer = {
         date_time: new Date(),
         questionnaire: body.questionnaire,
-        answers: body.answers
+        answers: body.answers,
+        variables: body.variables
       }
 
       return answer;

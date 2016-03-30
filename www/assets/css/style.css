@@ -115,7 +115,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 .questionnaire-input-range input[type=range] {
-  width: 85%;
+  width: 75%;
 }
 
 .questionnaire-input-range ul {
@@ -125,7 +125,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 .questionnaire-input-range li {
-  width: 14%;
+  width: 6%;
   display: table-cell;
   text-align: center;
   font-size: small;

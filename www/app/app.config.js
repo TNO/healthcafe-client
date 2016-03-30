@@ -26,17 +26,18 @@
     // As the dependencies are injected there, we have to specify the dependencies
     // specifically there.
     datatypes: [
-      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk' },
-      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
-      { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
-      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose' },
-      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
+      // { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk' },
+      // { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
+      // { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
+      // { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose' },
+      // { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol' },
     ],
 
     //
     // Questionnaires determine the menu items.
     questionnaires: [
-      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
+      { name: 'darmklachten', controllerPrefix: 'Darmklachten', label: 'Darmklachten vragenlijst' }
+      // { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
     ],
 
     // Development configuration

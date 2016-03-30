@@ -1,0 +1,225 @@
+<ion-view view-title="Darmklachten vragenlijst">
+  <ion-content>
+    <form ng-submit="darmklachten.save()">
+      <ion-list>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          Geslacht
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          <select ng-model="darmklachten.data.body.variables.geslacht">
+            <option>Man</option>
+            <option>Vrouw</option>
+            <option>Anders</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedureden de afgelopen 24 uur tarweproducten geconsumeerd?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q01" min="1" max="4" step="1">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, bij 1 maaltijd</li>
+              <li>Ja, bij 2 maaltijden</li>
+              <li>Ja, bij 3 maaltijden of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedureden de afgelopen 24 uur zuivelproducten geconsumeerd?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q02" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, bij 1 maaltijd</li>
+              <li>Ja, bij 2 maaltijden</li>
+              <li>Ja, bij 3 maaltijden of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedureden de afgelopen 24 uur vet voedsel geconsumeerd?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q03" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, bij 1 maaltijd</li>
+              <li>Ja, bij 2 maaltijden</li>
+              <li>Ja, bij 3 maaltijden of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedureden de afgelopen 24 uur knoflook, ui en/of kool geconsumeerd?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q04" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, bij 1 maaltijd</li>
+              <li>Ja, bij 2 maaltijden</li>
+              <li>Ja, bij 3 maaltijden of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          Wilt u een extra voedingsgroep toevoegen?
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          <input type="text" ng-model="darmklachten.data.body.variables.voedingsgroep1">
+        </ion-item>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.voedingsgroep1">
+          Heeft u gedureden de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep1}} geconsumeerd
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep1">
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q05" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, weinig</li>
+              <li>Ja, gemiddeld</li>
+              <li>Ja, veel</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          Wilt u nog een extra voedingsgroep toevoegen?
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.questionnaireCount == 1">
+          <input type="text" ng-model="darmklachten.data.body.variables.voedingsgroep2">
+        </ion-item>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.voedingsgroep2">
+          Heeft u gedureden de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep2}} geconsumeerd
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep2">
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q06" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, weinig</li>
+              <li>Ja, gemiddeld</li>
+              <li>Ja, veel</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u gedureden de afgelopen 24 uur koffie gedronken?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q07" min="1" max="4">
+            <ul>
+              <li>Nee</li>
+              <li>Ja, 1-2 kopjes</li>
+              <li>Ja, 3-4 kopjes</li>
+              <li>Ja, 5 kopjes of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe pittig heeft u de afgelopen 24 uur gegeten?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input style="width: 92%" type="range" ng-model="darmklachten.data.body.answers.q08" min="0" max="10">
+            <ul>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>10</li>
+            </ul>
+            <div style="width: 100%; padding-bottom: 20px">
+              <div style="float: left">Zeer mild</div>
+              <div style="float: right">Zeer pittig</div>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe vaak heeft u ontlasting gehad tijdens de afgelopen 24 uur?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="darmklachten.data.body.answers.q09" min="1" max="4" step="1">
+            <ul>
+              <li>Ik heb geen ontlasting gehad</li>
+              <li>1 keer</li>
+              <li>2 keer</li>
+              <li>3 keer of meer</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Aan de hand van de Bristol Stool Chart kunt u uw ontlasting classificeren. Wanneer u meer dan één keer ontlasting had, vult u dan de gemiddelde vorm van uw ontlasting in
+        </ion-item>
+        <ion-item>
+          <img src="/assets/img/bristol_stool_chart_nl.jpg"/>
+          <select ng-model="darmklachten.data.body.answers.q10">
+            <option value="1">Type 1</option>
+            <option value="2">Type 2</option>
+            <option value="3">Type 3</option>
+            <option value="4">Type 4</option>
+            <option value="5">Type 5</option>
+            <option value="6">Type 6</option>
+            <option value="7">Type 7</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe gestresst was u de afgelopen 24 uur?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input style="width: 92%" type="range" ng-model="darmklachten.data.body.answers.q11" min="0" max="10">
+            <ul>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>10</li>
+            </ul>
+            <div style="width: 100%; padding-bottom: 20px">
+              <div style="float: left">Zeer ontspannen</div>
+              <div style="float: right">Zeer gestresst</div>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.geslacht!='Man'">
+          Bent u momenteel ongesteld?
+        </ion-item>
+        <ion-item ng-if="darmklachten.data.body.variables.geslacht!='Man'">
+          <div class="questionnaire-input-range">
+            <input style="width: 70%" type="range" ng-model="darmklachten.data.body.answers.q12" min="1" max="3">
+            <ul>
+              <li>Ja</li>
+              <li>Nee</li>
+              <li>Niet van toepassing op mij</li>
+            </ul>
+          </div>
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>
