@@ -1,0 +1,8 @@
+<ion-view view-title="Slaapkwaliteit vragenlijst">
+  <ion-content class="padding sleep-container">
+    <p>
+      <a ng-show="sleep.sleep.length==0" href="#/app/sleep/answer" nav-clear class="button button-block">Klik hier om deze vragenlijst voor de eerste keer te beantwoorden!</a>
+      <a ng-show="sleep.sleep.length!=0" href="#/app/sleep/answer" nav-clear class="button button-block">Je hebt deze vragenlijst al <b>{{sleep.sleep.length}}</b> keer beantwoord. Klik hier om hem nogmaals te beantwoorden.</a>
+    </p>
+  </ion-content>
+</ion-view>

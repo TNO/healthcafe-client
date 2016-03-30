@@ -38,7 +38,8 @@
     //
     // Questionnaires determine the menu items.
     questionnaires: [
-      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
+      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
     ],
 
     // Development configuration

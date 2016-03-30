@@ -1,14 +1,8 @@
-<ion-view view-title="Vita16 questionnaire">
-  <ion-nav-buttons side="secondary">
-    <!--<a href="#/app/bmi/info" class="button">
-      <i class="ion ion-information-circled"></i>
-    </a>-->
-    <a href="#/app/vita16/answer" class="button">
-      <i class="ion ion-plus"></i>
-    </a>
-  </ion-nav-buttons>
+<ion-view view-title="Vita16 vragenlijst">
   <ion-content class="padding vita16-container">
-    Answered Vita16 {{vita16.vita16.length}} time(s)<br/>
-    Total number of questionnaires answerd: {{vita16.all.length}}
+    <p>
+      <a ng-show="vita16.vita16.length==0" href="#/app/vita16/answer" nav-clear class="button button-block">Klik hier om deze vragenlijst voor de eerste keer te beantwoorden!</a>
+      <a ng-show="vita16.vita16.length!=0" href="#/app/vita16/answer" nav-clear class="button button-block">Je hebt deze vragenlijst al <b>{{vita16.vita16.length}}</b> keer beantwoord. Klik hier om hem nogmaals te beantwoorden.</a>
+    </p>
   </ion-content>
 </ion-view>

@@ -15,6 +15,7 @@
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',
       'healthcafe.vita16',
+      'healthcafe.sleep',
 	    'healthcafe.timeline',
 	    'healthcafe.remarks',
 	    'healthcafe.sharing',

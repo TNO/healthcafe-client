@@ -1,0 +1,345 @@
+<ion-view view-title="Slaapkwaliteit vragenlijst">
+  <ion-content>
+    <form ng-submit="sleep.save()">
+      <ion-list>
+        <ion-item class="item-divider">
+          Hoe laat bent u gaan slapen? (UUMM, bv 2209)
+        </ion-item>
+        <ion-item>
+          <input type="number" ng-model="sleep.data.body.answers.q01">
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe lang heeft het geduurd totdat u in slaap bent gevallen? (in minuten)
+        </ion-item>
+        <ion-item>
+          <input type="number" ng-model="sleep.data.body.answers.q02">
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe laat bent u wakker geworden? (UUMM, bv 0615)
+        </ion-item>
+        <ion-item>
+          <input type="number" ng-model="sleep.data.body.answers.q03">
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe lang heeft u geslapen? (in uren)
+        </ion-item>
+        <ion-item>
+          <input type="number" ng-model="sleep.data.body.answers.q04">
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u niet binnen 30 minuten in slaap kon komen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q05" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u midden in de nacht of vroege ochtend wakker werd
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q06" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u wakker werd en naar het toilet moest
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q07" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u niet goed kon ademen
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q08" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u moest hoesten of luid snurkte
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q09" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u het koud had
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q10" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u het warm had
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q11" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat nare dromen had
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q12" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen omdat u pijn had
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q13" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          In de afgelopen maand, hoe vaak heeft u problemen gehad met slapen om een andere reden
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q14" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider" ng-show="sleep.data.body.answers.q14!=0">
+          Wat was die andere reden?
+        </ion-item>
+        <ion-item ng-show="sleep.data.body.answers.q14!=0">
+          <input type="text" ng-model="sleep.data.body.answers.q15">
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe zou u uw slaap kwaliteit beoordelen over de afgelopen maand?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q16" min="0" max="3" value="1">
+            <ul>
+              <li>heel goed</li>
+              <li>goed</li>
+              <li>slecht</li>
+              <li>heel slecht</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe zou u uw slaap kwaliteit beoordelen over de afgelopen maand?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q16" min="0" max="3" value="1">
+            <ul>
+              <li>heel goed</li>
+              <li>goed</li>
+              <li>slecht</li>
+              <li>heel slecht</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe vaak in de afgelopen maand heeft u medicatie gebruikt om in slaap te komen?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q17" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe vaak in de afgelopen maand heeft u problemen gehad met wakker blijven tijdens het rijden, eten of sociale evenementen?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q18" min="0" max="3" value="1">
+            <ul>
+              <li>nooit</li>
+              <li>minder dan 1 keer per week</li>
+              <li>1 of 2 keer per week</li>
+              <li>3 of meer keer per week</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Hoe vaak in de afgelopen maand heeft u problemen gehad met het enthousiast blijven om dingen gedaan te krijgen?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q19" min="0" max="3" value="1">
+            <ul>
+              <li>geen probleem</li>
+              <li>klein probleem</li>
+              <li>redelijk probleem</li>
+              <li>groot probleem</li>
+            </ul>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider">
+          Heeft u dit moment een bed partner of kamergenoot?
+        </ion-item>
+        <ion-item>
+          <div class="questionnaire-input-range">
+            <input type="range" ng-model="sleep.data.body.answers.q20" min="0" max="3" value="1">
+            <ul>
+              <li>nee</li>
+              <li>ja, maar in een andere kamer</li>
+              <li>ja, op dezelfde kamer maar in een ander bed</li>
+              <li>ja, in hetzelfde bed</li>
+            </ul>
+          </div>
+        </ion-item>
+        <div ng-show="sleep.data.body.answers.q20!=0">
+          <ion-item class="item-divider">
+            Als u een huisgenoot of partner heeft, vraag hem/haar hoe vaak je in de afgelopen maand je luid snurkte
+          </ion-item>
+          <ion-item>
+            <div class="questionnaire-input-range">
+              <input type="range" ng-model="sleep.data.body.answers.q21" min="0" max="3" value="1">
+              <ul>
+                <li>nooit</li>
+                <li>minder dan 1 keer per week</li>
+                <li>1 of 2 keer per week</li>
+                <li>3 of meer keer per week</li>
+              </ul>
+            </div>
+          </ion-item>
+          <ion-item class="item-divider">
+            Als u een huisgenoot of partner heeft, vraag hem/haar hoe vaak je in de afgelopen maand je lange adempauzes had tijdens het slapen
+          </ion-item>
+          <ion-item>
+            <div class="questionnaire-input-range">
+              <input type="range" ng-model="sleep.data.body.answers.q22" min="0" max="3" value="1">
+              <ul>
+                <li>nooit</li>
+                <li>minder dan 1 keer per week</li>
+                <li>1 of 2 keer per week</li>
+                <li>3 of meer keer per week</li>
+              </ul>
+            </div>
+          </ion-item>
+          <ion-item class="item-divider">
+            Als u een huisgenoot of partner heeft, vraag hem/haar hoe vaak je in de afgelopen maand je last van abrupte bewegingen met uw benen
+          </ion-item>
+          <ion-item>
+            <div class="questionnaire-input-range">
+              <input type="range" ng-model="sleep.data.body.answers.q23" min="0" max="3" value="1">
+              <ul>
+                <li>nooit</li>
+                <li>minder dan 1 keer per week</li>
+                <li>1 of 2 keer per week</li>
+                <li>3 of meer keer per week</li>
+              </ul>
+            </div>
+          </ion-item>
+          <ion-item class="item-divider">
+            Als u een huisgenoot of partner heeft, vraag hem/haar hoe vaak je in de afgelopen maand je gedesorienteerd of verward tijdens het slapen
+          </ion-item>
+          <ion-item>
+            <div class="questionnaire-input-range">
+              <input type="range" ng-model="sleep.data.body.answers.q24" min="0" max="3" value="1">
+              <ul>
+                <li>nooit</li>
+                <li>minder dan 1 keer per week</li>
+                <li>1 of 2 keer per week</li>
+                <li>3 of meer keer per week</li>
+              </ul>
+            </div>
+          </ion-item>
+          <ion-item class="item-divider">
+            Als u een huisgenoot of partner heeft, vraag hem/haar hoe vaak je in de afgelopen maand je op andere manieren rusteloos was tijdens het slapen
+          </ion-item>
+          <ion-item>
+            <div class="questionnaire-input-range">
+              <input type="range" ng-model="sleep.data.body.answers.q25" min="0" max="3" value="1">
+              <ul>
+                <li>nooit</li>
+                <li>minder dan 1 keer per week</li>
+                <li>1 of 2 keer per week</li>
+                <li>3 of meer keer per week</li>
+              </ul>
+            </div>
+          </ion-item>
+          <ion-item class="item-divider" ng-show="sleep.data.body.answers.q25!=0">
+            Wat was die andere reden?
+          </ion-item>
+          <ion-item ng-show="sleep.data.body.answers.q25!=0">
+            <input type="text" ng-model="sleep.data.body.answers.q26">
+          </ion-item>
+        </div>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh">
+          Save
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

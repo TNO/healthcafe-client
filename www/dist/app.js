@@ -15,6 +15,7 @@
 	    'healthcafe.bloodglucose',
 	    'healthcafe.cholesterol',
       'healthcafe.vita16',
+      'healthcafe.sleep',
 	    'healthcafe.timeline',
 	    'healthcafe.remarks',
 	    'healthcafe.sharing',
@@ -82,7 +83,8 @@
     //
     // Questionnaires determine the menu items.
     questionnaires: [
-      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteitsvragenlijst' }
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
+      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
     ],
 
     // Development configuration
@@ -2431,6 +2433,74 @@
 
 
 (function() {
+	angular.module('healthcafe.sleep')
+    .controller('SleepController', SleepController );
+
+		SleepController.$inject = [ '$scope', '$controller', 'Answers' ];
+
+		function SleepController( $scope, $controller, Answers ) {
+		  var vm = this;
+
+      vm.sleep = []
+      Answers.listByQuestionnaire('sleep').then(function(data) {
+        vm.sleep = data;
+      });
+
+      $scope.selector = "sleep-container";
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.sleep')
+		.controller('SleepAnswerController', SleepAnswerController );
+
+  SleepAnswerController.$inject = [ '$scope', '$controller' ];
+
+		function SleepAnswerController( $scope, $controller ) {
+		  var vm = this;
+
+      var defaultValues = {
+        q01: null,
+        q02: null,
+        q03: null,
+        q04: null,
+        q05: '0',
+        q06: '0',
+        q07: '0',
+        q08: '0',
+        q09: '0',
+        q10: '0',
+        q11: '0',
+        q12: '0',
+        q13: '0',
+        q14: '0',
+        q15: null,
+        q16: '0',
+        q17: '0',
+        q18: '0',
+        q19: '0',
+        q20: '0',
+        q21: '0',
+        q22: '0',
+        q23: '0',
+        q24: '0',
+        q25: '0',
+        q26: null
+      };
+
+      $scope.questionnaire = 'sleep';
+      $scope.defaultValues = defaultValues;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericAnswerController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.timeline')
 		.controller('TimelineController', TimelineController );
 
@@ -2578,12 +2648,7 @@
 		function Vita16Controller( $scope, $controller, Answers ) {
 		  var vm = this;
 
-      vm.data = []
-      Answers.list().then(function(data) {
-        vm.all = data;
-      });
-
-      vm.test = []
+      vm.vita16 = []
       Answers.listByQuestionnaire('vita16').then(function(data) {
         vm.vita16 = data;
       });
@@ -2604,23 +2669,22 @@
 		  var vm = this;
 
       var defaultValues = {
-        q01: 4,
-        q02: 4,
-        q03: 4,
-        q04: 4,
-        q05: 4,
-        q06: 4,
-        q07: 4,
-        q08: 4,
-        q09: 4,
-        q10: 4,
-        q11: 4,
-        q12: 4,
-        q13: 4,
-        q14: 4,
-        q15: 4,
-        q16: 4,
-        q17: 4
+        q01: '4',
+        q02: '4',
+        q03: '4',
+        q04: '4',
+        q05: '4',
+        q06: '4',
+        q07: '4',
+        q08: '4',
+        q09: '4',
+        q10: '4',
+        q11: '4',
+        q12: '4',
+        q13: '4',
+        q14: '4',
+        q15: '4',
+        q16: '4'
       };
 
       $scope.questionnaire = 'vita16';
