@@ -5,16 +5,20 @@
 	    'healthcafe.generic',
 	    'healthcafe.intro',
 	    'healthcafe.login',
+	    // 'healthcafe.personal',
+	    // 'healthcafe.bodymeasurements',
 	    // 'healthcafe.bloodpressure',
 	    // 'healthcafe.bodyweight',
+	    // 'healthcafe.bodyfat',
+	    // 'healthcafe.waistcircumference',
 	    // 'healthcafe.bmi',
 	    // 'healthcafe.bloodglucose',
 	    // 'healthcafe.cholesterol',
-      // 'healthcafe.vita16',
+        // 'healthcafe.vita16',
 	    // 'healthcafe.timeline',
 	    // 'healthcafe.remarks',
 	    // 'healthcafe.sharing',
-      'healthcafe.darmklachten',
+        'healthcafe.darmklachten'
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
