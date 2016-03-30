@@ -2,9 +2,9 @@
 	angular.module('healthcafe.intro')
 		.controller('IntroController', IntroController );
 
-	IntroController.$inject = [ '$scope', '$ionicHistory', 'BodyHeight', 'Gender', 'DateOfBirth' ];
+	IntroController.$inject = [ '$scope', '$ionicHistory', 'Answers' ];
 
-	function IntroController($scope, $ionicHistory, BodyHeight, Gender, DateOfBirth) {
+	function IntroController($scope, $ionicHistory, Answers) {
 	  var vm = this;
 
     // Method to reset navigation and disable back on the next page
@@ -14,14 +14,22 @@
       });
     }
 
-    // Check whether personal data has been entered before. If not, ask the
-    // user to do so
-    vm.personal_data_required = true;
+    // Retrieve previous entered questionnaires
+    vm.darmklachten = [];
+    vm.answeredToday = false;
+    Answers.listByQuestionnaire('darmklachten').then(function(data) {
 
-    // If any of the personal data items have been entered, the screen can be skipped
-    BodyHeight.get().then(function() { vm.personal_data_required = false; })
-    Gender.get().then(function() { vm.personal_data_required = false; })
-    DateOfBirth.get().then(function() { vm.personal_data_required = false; })
+      for (var i = 0; i < data.length; i++) {
+        var date = data[i]['date_time'];
+        var currentDate = new Date();
+
+        if (date.getUTCDate() == currentDate.getUTCDate() && date.getUTCMonth() == currentDate.getUTCMonth() && date.getUTCFullYear() == currentDate.getUTCFullYear() ) {
+          vm.answeredToday = true;
+        }
+      }
+
+      vm.darmklachten = data;
+    });
 
 		return this;
 	}

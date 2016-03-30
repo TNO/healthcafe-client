@@ -1,5 +1,12 @@
-<ion-view view-title="Healthcafe">
+<ion-view cache-view="false" view-title="Meten is weten">
   <ion-content class="padding initial">
     <!--<div class="app-logo"><img src="assets/img/foto_health_cafe_app" /></div>-->
+    <p ng-show="intro.answeredToday">
+      Bedankt voor het invullen van de darmklachten vragenlijst!<br/>
+      U heeft de vragenlijst nu <b>{{intro.darmklachten.length}}</b> keer ingevuld, tot morgen!
+    </p>
+
+    <a ng-show="intro.darmklachten.length==0" href="#/app/darmklachten/answer" nav-clear class="button button-block">Beantwoord de darmklachten vragenlijst voor de eerste keer!</a>
+    <a ng-show="intro.darmklachten.length!=0&&!intro.answeredToday" href="#/app/darmklachten/answer" nav-clear class="button button-block">Beantwoord de darmklachten vragenlijst voor vandaag!</a>
   </ion-content>
 </ion-view>
