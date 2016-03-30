@@ -794,125 +794,6 @@
 })();
 
 (function() {
-	angular.module('healthcafe.darmklachten')
-    .controller('DarmklachtenController', DarmklachtenController );
-
-		DarmklachtenController.$inject = [ '$scope', '$controller', 'Answers' ];
-
-		function DarmklachtenController( $scope, $controller, Answers ) {
-		  var vm = this;
-
-      vm.darmklachten = []
-      Answers.listByQuestionnaire('darmklachten').then(function(data) {
-        vm.darmklachten = data;
-      });
-
-      $scope.selector = ".darmklachten-container";
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.darmklachten')
-		.controller('DarmklachtenAnswerController', DarmklachtenAnswerController );
-
-  DarmklachtenAnswerController.$inject = [ '$scope', '$controller', 'Answers', '$ionicPopup' ];
-
-		function DarmklachtenAnswerController( $scope, $controller, Answers, $ionicPopup ) {
-		  var vm = this;
-
-      var defaultValues = {
-        q01: '1',
-        q02: '1',
-        q03: '1',
-        q04: '1',
-        q05: '1',
-        q06: 1,
-        q07: 1,
-        q08: '0',
-        q09: '1',
-        q10: '1',
-        q11: '0',
-        q12: 1,
-        q13: '0',
-        q14: '0',
-        q15: '0',
-        q16: '0',
-        q17: '0'
-      };
-
-      var variables = {};
-
-      Answers.listByQuestionnaire('darmklachten').then(function(data) {
-        if(data.length > 0) {
-          variables['geslacht'] = data[0]['variables']['geslacht'];
-          variables['voedingsgroep1'] = data[0]['variables']['voedingsgroep1'];
-          variables['voedingsgroep2'] = data[0]['variables']['voedingsgroep2'];
-          variables['questionnaireCount'] = data.length+1;
-        }
-        else {
-          variables['geslacht'] = 'Man';
-          variables['questionnaireCount'] = 1;
-        }
-      });
-
-      $scope.questionnaire = 'darmklachten';
-      $scope.defaultValues = defaultValues;
-      $scope.variables = variables;
-
-      // An alert dialog
-      $scope.showVetInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Vet voedsel',
-          template: 'Onder vet voedsel wordt verstaan voedsel met een groot tot zeer groot vetgehalte, zoals bijvoorbeeld gefrituurd voedsel, pizza, room(boter) en melk- en witte chocola.'
-        });
-      };
-
-      // An alert dialog
-      $scope.showKnoflookInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Knoflook, ui en/of kool consumptie',
-          template: 'Met ‘weinig’, ‘gemiddeld’ en ‘veel’ bedoelen we <u>voor uw doen</u> weinig, gemiddeld of veel.'
-        });
-      };
-
-      $scope.showKoffieInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Koffie',
-          template: 'Decafé wordt niet gerekend onder koffie.'
-        });
-      };
-
-      $scope.showBuikpijnInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Buikpijn',
-          template: 'Met buikpijn bedoelen we alle vormen van pijn of ongemak in de buik of darmen. Dit kunnen bijvoorbeeld steken, krampen of een voortdurend gevoel van pijn of ongemak zijn.'
-        });
-      };
-
-      $scope.showOpgeblazenInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Opgeblazen gevoel',
-          template: 'Een opgeblazen gevoel betreft het gevoel dat er druk op uw darmen of buik staat, ook wel omschreven als een vol gevoel. Hierbij is de buik niet zichtbaar opgezwollen.'
-        });
-      };
-
-      $scope.showOpgezwollenInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Opgezwollen buik',
-          template: 'Met een opgezwollen buik bedoelen we een zichtbaar opgezwollen buik. Dit kan gepaard gaan met een opgeblazen gevoel.'
-        });
-      };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericAnswerController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
 	angular.module('healthcafe.cholesterol')
 		.controller('CholesterolController', CholesterolController );
 
@@ -1059,6 +940,162 @@
 
 		  return vm;
 		}
+})();
+
+(function() {
+	angular.module('healthcafe.darmklachten')
+    .controller('DarmklachtenController', DarmklachtenController );
+
+		DarmklachtenController.$inject = [ '$scope', '$controller', 'Answers' ];
+
+		function DarmklachtenController( $scope, $controller, Answers ) {
+		  var vm = this;
+
+      vm.darmklachten = []
+      Answers.listByQuestionnaire('darmklachten').then(function(data) {
+        vm.darmklachten = data;
+      });
+
+      $scope.selector = ".darmklachten-container";
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.darmklachten')
+		.controller('DarmklachtenAnswerController', DarmklachtenAnswerController );
+
+  DarmklachtenAnswerController.$inject = [ '$scope', '$controller', 'Answers', '$ionicPopup' ];
+
+		function DarmklachtenAnswerController( $scope, $controller, Answers, $ionicPopup ) {
+		  var vm = this;
+
+      var defaultValues = {
+        q01: '1',
+        q02: '1',
+        q03: '1',
+        q04: '1',
+        q05: '1',
+        q06: 1,
+        q07: 1,
+        q08: '0',
+        q09: '1',
+        q10: '1',
+        q11: '0',
+        q12: 1,
+        q13: '0',
+        q14: '0',
+        q15: '0',
+        q16: '0',
+        q17: '0'
+      };
+
+      var variables = {};
+
+      Answers.listByQuestionnaire('darmklachten').then(function(data) {
+        if(data.length > 0) {
+          variables['geslacht'] = data[0]['variables']['geslacht'];
+          variables['voedingsgroep1'] = data[0]['variables']['voedingsgroep1'];
+          variables['voedingsgroep2'] = data[0]['variables']['voedingsgroep2'];
+          variables['questionnaireCount'] = data.length+1;
+        }
+        else {
+          variables['geslacht'] = 'Man';
+          variables['questionnaireCount'] = 1;
+        }
+      });
+
+      $scope.questionnaire = 'darmklachten';
+      $scope.defaultValues = defaultValues;
+      $scope.variables = variables;
+
+      // An alert dialog
+      $scope.showVetInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Vet voedsel',
+          template: 'Onder vet voedsel wordt verstaan voedsel met een groot tot zeer groot vetgehalte, zoals bijvoorbeeld gefrituurd voedsel, pizza, room(boter) en melk- en witte chocola.'
+        });
+      };
+
+      // An alert dialog
+      $scope.showKnoflookInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Knoflook, ui en/of kool consumptie',
+          template: 'Met ‘weinig’, ‘gemiddeld’ en ‘veel’ bedoelen we <u>voor uw doen</u> weinig, gemiddeld of veel.'
+        });
+      };
+
+      $scope.showKoffieInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Koffie',
+          template: 'Decafé wordt niet gerekend onder koffie.'
+        });
+      };
+
+      $scope.showBuikpijnInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Buikpijn',
+          template: 'Met buikpijn bedoelen we alle vormen van pijn of ongemak in de buik of darmen. Dit kunnen bijvoorbeeld steken, krampen of een voortdurend gevoel van pijn of ongemak zijn.'
+        });
+      };
+
+      $scope.showOpgeblazenInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Opgeblazen gevoel',
+          template: 'Een opgeblazen gevoel betreft het gevoel dat er druk op uw darmen of buik staat, ook wel omschreven als een vol gevoel. Hierbij is de buik niet zichtbaar opgezwollen.'
+        });
+      };
+
+      $scope.showOpgezwollenInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Opgezwollen buik',
+          template: 'Met een opgezwollen buik bedoelen we een zichtbaar opgezwollen buik. Dit kan gepaard gaan met een opgeblazen gevoel.'
+        });
+      };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericAnswerController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.intro')
+		.controller('IntroController', IntroController );
+
+	IntroController.$inject = [ '$scope', '$ionicHistory', 'Answers' ];
+
+	function IntroController($scope, $ionicHistory, Answers) {
+	  var vm = this;
+
+    // Method to reset navigation and disable back on the next page
+    vm.resetNav = function() {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+      });
+    }
+
+    // Retrieve previous entered questionnaires
+    vm.darmklachten = [];
+    vm.answeredToday = false;
+    Answers.listByQuestionnaire('darmklachten').then(function(data) {
+
+      for (var i = 0; i < data.length; i++) {
+        var date = data[i]['date_time'];
+        var currentDate = new Date();
+
+        if (date.getUTCDate() == currentDate.getUTCDate() && date.getUTCMonth() == currentDate.getUTCMonth() && date.getUTCFullYear() == currentDate.getUTCFullYear() ) {
+          vm.answeredToday = true;
+        }
+      }
+
+      vm.darmklachten = data;
+    });
+
+		return this;
+	}
 })();
 
 (function() {
@@ -1939,43 +1976,6 @@
   }
 })();
 
-
-(function() {
-	angular.module('healthcafe.intro')
-		.controller('IntroController', IntroController );
-
-	IntroController.$inject = [ '$scope', '$ionicHistory', 'Answers' ];
-
-	function IntroController($scope, $ionicHistory, Answers) {
-	  var vm = this;
-
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
-    // Retrieve previous entered questionnaires
-    vm.darmklachten = [];
-    vm.answeredToday = false;
-    Answers.listByQuestionnaire('darmklachten').then(function(data) {
-
-      for (var i = 0; i < data.length; i++) {
-        var date = data[i]['date_time'];
-        var currentDate = new Date();
-
-        if (date.getUTCDate() == currentDate.getUTCDate() && date.getUTCMonth() == currentDate.getUTCMonth() && date.getUTCFullYear() == currentDate.getUTCFullYear() ) {
-          vm.answeredToday = true;
-        }
-      }
-
-      vm.darmklachten = data;
-    });
-
-		return this;
-	}
-})();
 
 (function() {
 	angular.module('healthcafe.personal')
