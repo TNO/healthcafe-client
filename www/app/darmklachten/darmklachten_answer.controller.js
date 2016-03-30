@@ -54,6 +54,14 @@
         });
       };
 
+      // An alert dialog
+      $scope.showKnoflookInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Knoflook, ui en/of kool consumptie',
+          template: 'Met ‘weinig’, ‘gemiddeld’ en ‘veel’ bedoelen we <u>voor uw doen</u> weinig, gemiddeld of veel.'
+        });
+      };
+
       $scope.showKoffieInformation = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Koffie',

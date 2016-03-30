@@ -12,6 +12,10 @@
             <option>Anders</option>
           </select>
         </ion-item>
+        <ion-item class="item-divider item-energized">
+          Eerst ziet u een aantal vragen over uw voedingsinname.<br/>
+          Beantwoord de vragen alstublieft voor de afgelopen 24 uur, dus tussen het huidige tijdstip en het tijdstip precies een dag geleden.
+        </ion-item>
         <ion-item class="item-divider">
           Heeft u gedurende de afgelopen 24 uur tarweproducten geconsumeerd?
         </ion-item>
@@ -55,21 +59,21 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Heeft u gedurende de afgelopen 24 uur knoflook, ui en/of kool geconsumeerd?
+          Heeft u gedurende de afgelopen 24 uur knoflook, ui en/of kool geconsumeerd? <i class="ion-information-circled" ng-click="showKnoflookInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
             <input type="range" ng-model="darmklachten.data.body.answers.q04" min="1" max="4">
             <ul>
               <li>Nee</li>
-              <li>Ja, bij 1 maaltijd</li>
-              <li>Ja, bij 2 maaltijden</li>
-              <li>Ja, bij 3 maaltijden of meer</li>
+              <li>Ja, weinig</li>
+              <li>Ja, gemiddeld</li>
+              <li>Ja, veel</li>
             </ul>
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Heeft u gedurende de afgelopen 24 uur koffie gedronken?  <i class="ion-information-circled" ng-click="showKoffieInformation()"></i>
+          Heeft u gedurende de afgelopen 24 uur koffie gedronken? <i class="ion-information-circled" ng-click="showKoffieInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -89,7 +93,7 @@
           <input type="text" ng-model="darmklachten.data.body.variables.voedingsgroep1">
         </ion-item>
         <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.voedingsgroep1">
-          Heeft u gedurende de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep1}} geconsumeerd
+          Heeft u gedurende de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep1}} geconsumeerd?
         </ion-item>
         <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep1">
           <div class="questionnaire-input-range">
@@ -109,7 +113,7 @@
           <input type="text" ng-model="darmklachten.data.body.variables.voedingsgroep2">
         </ion-item>
         <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.voedingsgroep2">
-          Heeft u gedurende de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep2}} geconsumeerd
+          Heeft u gedurende de afgelopen 24 uur {{darmklachten.data.body.variables.voedingsgroep2}} geconsumeerd?
         </ion-item>
         <ion-item ng-if="darmklachten.data.body.variables.voedingsgroep2">
           <div class="questionnaire-input-range">
@@ -150,6 +154,10 @@
         <ion-item class="item-divider">
           Hoe vaak heeft u ontlasting gehad tijdens de afgelopen 24 uur?
         </ion-item>
+        <ion-item class="item-divider item-energized">
+          Aan de hand van de Bristol Stool Chart kunt u uw ontlasting classificeren.<br/>
+          Wanneer u meer dan één keer ontlasting had, vult u dan de gemiddelde vorm van uw ontlasting in.
+        </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
             <input type="range" ng-model="darmklachten.data.body.answers.q09" min="1" max="4" step="1">
@@ -162,7 +170,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Aan de hand van de Bristol Stool Chart kunt u uw ontlasting classificeren. Wanneer u meer dan één keer ontlasting had, vult u dan de gemiddelde vorm van uw ontlasting in
+          Wat was de vorm van uw ontlasting gedurende de afgelopen 24 uur? (gebruik hierbij de afbeelding)
         </ion-item>
         <ion-item>
           <img src="http://msb2.hex.tno.nl/app-darmklachten/assets/img/bristol_stool_chart_nl.png"/>
@@ -214,6 +222,10 @@
               <li>Niet van toepassing op mij</li>
             </ul>
           </div>
+        </ion-item>
+        <ion-item class="item-divider item-energized">
+          Tenslotte volgt een aantal vragen waarmee uw klachten tijdens de afgelopen 24 uur in kaart gebracht worden.<br/>
+          Geeft u alstublieft per klacht aan in welke mate u er last van heeft gehad.
         </ion-item>
         <ion-item class="item-divider">
           In welke mate heeft u de afgelopen 24 uur last gehad van buikpijn?  <i class="ion-information-circled" ng-click="showBuikpijnInformation()"></i>
