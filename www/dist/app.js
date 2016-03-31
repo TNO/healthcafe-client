@@ -5,20 +5,20 @@
 	    'healthcafe.generic',
 	    'healthcafe.intro',
 	    'healthcafe.login',
-	    // 'healthcafe.personal',
-	    // 'healthcafe.bodymeasurements',
-	    // 'healthcafe.bloodpressure',
-	    // 'healthcafe.bodyweight',
-	    // 'healthcafe.bodyfat',
-	    // 'healthcafe.waistcircumference',
-	    // 'healthcafe.bmi',
-	    // 'healthcafe.bloodglucose',
-	    // 'healthcafe.cholesterol',
-      // 'healthcafe.vita16',
-	    // 'healthcafe.timeline',
-	    // 'healthcafe.remarks',
-	    // 'healthcafe.sharing',
-        'healthcafe.darmklachten'
+	    'healthcafe.personal',
+	    'healthcafe.bodymeasurements',
+	    'healthcafe.bloodpressure',
+	    'healthcafe.bodyweight',
+	    'healthcafe.bodyfat',
+	    'healthcafe.waistcircumference',
+	    'healthcafe.bmi',
+	    'healthcafe.bloodglucose',
+	    'healthcafe.cholesterol',
+      'healthcafe.vita16',
+	    'healthcafe.timeline',
+	    'healthcafe.remarks',
+	    'healthcafe.sharing',
+      'healthcafe.darmklachten'
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
@@ -441,6 +441,76 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMIController', BMIController );
+
+		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMIController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".bmi-container";
+      $scope.chartableProperties = 'body-mass-index';
+      $scope.chartOptions = {
+              'measures': {
+                'body-mass-index' : {
+                  'valueKeyPath': 'body.body_mass_index.value',
+                  'range': undefined,
+                  'units': 'kg/m2',
+                  'thresholds': { 'min': 18, 'max': 25  },
+                },
+              }
+            };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.factory('BMI', BMI );
+
+  BMI.$inject = [ 'Datapoints' ];
+
+  function BMI(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
+      function(data) {
+        if( !data.weight || !data.height ) {
+          return null;
+        }
+        return {
+          'body_mass_index': { value: data.weight / ( data.height * data.height ), unit: 'kg/m2' },
+        };
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMICreateController', BMICreateController );
+
+		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMICreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.bloodpressure')
 		.controller('BloodPressureController', BloodPressureController );
 
@@ -502,76 +572,6 @@
 		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
 
 		function BloodPressureCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMIController', BMIController );
-
-		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMIController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = ".bmi-container";
-      $scope.chartableProperties = 'body-mass-index';
-      $scope.chartOptions = {
-              'measures': {
-                'body-mass-index' : {
-                  'valueKeyPath': 'body.body_mass_index.value',
-                  'range': undefined,
-                  'units': 'kg/m2',
-                  'thresholds': { 'min': 18, 'max': 25  },
-                },
-              }
-            };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.factory('BMI', BMI );
-
-  BMI.$inject = [ 'Datapoints' ];
-
-  function BMI(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
-      function(data) {
-        if( !data.weight || !data.height ) {
-          return null;
-        }
-        return {
-          'body_mass_index': { value: data.weight / ( data.height * data.height ), unit: 'kg/m2' },
-        };
-      }
-    );
-  }
-
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMICreateController', BMICreateController );
-
-		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMICreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
