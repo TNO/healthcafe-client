@@ -13,6 +13,9 @@
           </select>
         </ion-item>
         <ion-item class="item-divider item-energized">
+          Voeding
+        </ion-item>
+        <ion-item style="font-style: italic">
           Eerst ziet u een aantal vragen over uw voedingsinname.<br/>
           Beantwoord de vragen alstublieft voor de afgelopen 24 uur, dus tussen het huidige tijdstip en het tijdstip precies een dag geleden.
         </ion-item>
@@ -152,7 +155,9 @@
           </div>
         </ion-item>
         <ion-item class="item-divider item-energized">
-          Aan de hand van de Bristol Stool Chart kunt u uw ontlasting classificeren.<br/>
+          Ontlasting
+        </ion-item>
+        <ion-item style="font-style: italic">Aan de hand van de Bristol Stool Chart kunt u uw ontlasting classificeren.<br/>
           Wanneer u meer dan één keer ontlasting had, vult u dan de gemiddelde vorm van uw ontlasting in.
         </ion-item>
         <ion-item class="item-divider">
@@ -185,6 +190,9 @@
             <option value="8">Ik heb de afgelopen 24 uur geen ontlasting gehad.</option>
           </select>
         </ion-item>
+        <ion-item class="item-divider item-energized">
+          Stress
+        </ion-item>
         <ion-item class="item-divider">
           Hoe gestresst was u de afgelopen 24 uur?
         </ion-item>
@@ -210,6 +218,9 @@
             </div>
           </div>
         </ion-item>
+        <ion-item class="item-divider item-energized" ng-if="darmklachten.data.body.variables.geslacht!='Man'">
+          Menstruatie
+        </ion-item>
         <ion-item class="item-divider" ng-if="darmklachten.data.body.variables.geslacht!='Man'">
           Bent u momenteel ongesteld?
         </ion-item>
@@ -224,6 +235,9 @@
           </div>
         </ion-item>
         <ion-item class="item-divider item-energized">
+          Klachten
+        </ion-item>
+        <ion-item style="font-style: italic">
           Tenslotte volgt een aantal vragen waarmee uw klachten tijdens de afgelopen 24 uur in kaart gebracht worden.<br/>
           Geeft u alstublieft per klacht aan in welke mate u er last van heeft gehad.
         </ion-item>
