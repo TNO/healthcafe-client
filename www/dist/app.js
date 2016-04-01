@@ -1018,7 +1018,21 @@
         });
       };
 
-      // An alert dialog
+      $scope.showTarweInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Tarweproducten',
+          template: 'Onder tarweproducten vallen alle tarwebroodproducten, deegwaren zoals pasta of vermicelli, couscous, gebak, muffins, donuts, koek, pannenkoeken, crackers, ontbijtgranen, muesli, witbier en kiemen (zoals voor op brood of door een salade).<br/>Let op: producten op basis van bijvoorbeeld spelt of maïs vallen <u>niet</u> onder de tarweproducten.'
+        });
+      };
+
+      $scope.showZuivelInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Zuivelproducten',
+          template: 'Onder zuivelproducten vallen melk, chocolademelk, karnemelk, koffiemelk, vla, yoghurt, kwark, pudding, ontbijtyoghurt, alle soorten kaas, crème fraîche, kookroom, zure room, (slag)room, boter (margarine, halvarine en dergelijke zijn geen zuivelproducten) en ijs.<br/>Let op: het gaat hier om zuivelproducten op basis van koemelk. Producten op basis van schapen- of geitenmelk vallen in dit geval niet onder zuivelproducten.'
+        });
+      };
+
+
       $scope.showKnoflookInformation = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Knoflook, ui en/of kool consumptie',
@@ -1978,129 +1992,6 @@
 
 
 (function() {
-	angular.module('healthcafe.personal')
-		.factory('BodyHeight', BodyHeight );
-
-  BodyHeight.$inject = [ 'StaticDatapoint' ];
-
-  function BodyHeight(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'omh', name: 'body-height', version: '1.0' },
-      function(data) {
-        if( !data.height ) {
-          return null;
-        }
-        return { 'body_height': { value: data.height, unit: 'kg' } };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('DateOfBirth', DateOfBirth );
-
-  DateOfBirth.$inject = [ 'StaticDatapoint' ];
-
-  function DateOfBirth(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
-      function(data) {
-        if( !data.dob ) {
-          return null;
-        }
-        return { 'date_of_birth': data.dob };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('Gender', Gender );
-
-  Gender.$inject = [ 'StaticDatapoint' ];
-
-  function Gender(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'gender', version: '0.1' },
-      function(data) {
-        if( !data.gender ) {
-          return null;
-        }
-        return { 'gender': data.gender };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.controller('PersonalController', PersonalController );
-
-		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
-
-  /**
-   * Controller to add/view static personal data (DOB, gender, height)
-   **/
-  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
-    var vm = this;
-
-    vm.data = {
-      body: {
-        dob: null,
-        gender: null,
-        height: null
-      },
-      date: new Date()
-    };
-
-    // Load existing data
-    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
-    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
-    // Save new data
-    vm.save = function() {
-      var saves = [
-        DateOfBirth.set(vm.data.body),
-        Gender.set(vm.data.body),
-        BodyHeight.set(vm.data.body),
-      ]
-
-      function reload() {
-        DateOfBirth.load();
-        Gender.load();
-        BodyHeight.load();
-      }
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
-      }
-
-      $q.all(saves).then(function() {
-        reload();
-        go();
-      }).catch(function(e) {
-        reload();
-        go();
-      });
-    };
-
-    return vm;
-  }
-
-})();
-
-(function() {
 	angular.module('healthcafe.remarks')
 		.controller('RemarksController', RemarksController );
 
@@ -2241,6 +2132,129 @@
 
 		  return vm;
 		}
+})();
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('BodyHeight', BodyHeight );
+
+  BodyHeight.$inject = [ 'StaticDatapoint' ];
+
+  function BodyHeight(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'omh', name: 'body-height', version: '1.0' },
+      function(data) {
+        if( !data.height ) {
+          return null;
+        }
+        return { 'body_height': { value: data.height, unit: 'kg' } };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('DateOfBirth', DateOfBirth );
+
+  DateOfBirth.$inject = [ 'StaticDatapoint' ];
+
+  function DateOfBirth(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
+      function(data) {
+        if( !data.dob ) {
+          return null;
+        }
+        return { 'date_of_birth': data.dob };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('Gender', Gender );
+
+  Gender.$inject = [ 'StaticDatapoint' ];
+
+  function Gender(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'gender', version: '0.1' },
+      function(data) {
+        if( !data.gender ) {
+          return null;
+        }
+        return { 'gender': data.gender };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.controller('PersonalController', PersonalController );
+
+		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
+
+  /**
+   * Controller to add/view static personal data (DOB, gender, height)
+   **/
+  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
+    var vm = this;
+
+    vm.data = {
+      body: {
+        dob: null,
+        gender: null,
+        height: null
+      },
+      date: new Date()
+    };
+
+    // Load existing data
+    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
+    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data
+    vm.save = function() {
+      var saves = [
+        DateOfBirth.set(vm.data.body),
+        Gender.set(vm.data.body),
+        BodyHeight.set(vm.data.body),
+      ]
+
+      function reload() {
+        DateOfBirth.load();
+        Gender.load();
+        BodyHeight.load();
+      }
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
+      }
+
+      $q.all(saves).then(function() {
+        reload();
+        go();
+      }).catch(function(e) {
+        reload();
+        go();
+      });
+    };
+
+    return vm;
+  }
+
 })();
 
 (function() {
