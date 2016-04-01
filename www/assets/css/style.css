@@ -93,11 +93,11 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: none;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
   background: #387ef5;
-  margin-top: -8px;
+  margin-top: -10px;
 }
 
 input[type=range]:focus {
@@ -115,7 +115,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 .questionnaire-input-range input[type=range] {
-  width: 75%;
+  width: 90%;
 }
 
 .questionnaire-input-range ul {
@@ -125,7 +125,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 .questionnaire-input-range li {
-  width: 6%;
+  width: 8%;
   display: table-cell;
   text-align: center;
   font-size: small;
@@ -134,4 +134,3 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 .questionnaire-input-range .option {
   width: 40px;
 }
-

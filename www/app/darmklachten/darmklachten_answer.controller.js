@@ -54,7 +54,21 @@
         });
       };
 
-      // An alert dialog
+      $scope.showTarweInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Tarweproducten',
+          template: 'Onder tarweproducten vallen alle tarwebroodproducten, deegwaren zoals pasta of vermicelli, couscous, gebak, muffins, donuts, koek, pannenkoeken, crackers, ontbijtgranen, muesli, witbier en kiemen (zoals voor op brood of door een salade).<br/>Let op: producten op basis van bijvoorbeeld spelt of maïs vallen <u>niet</u> onder de tarweproducten.'
+        });
+      };
+
+      $scope.showZuivelInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Zuivelproducten',
+          template: 'Onder zuivelproducten vallen melk, chocolademelk, karnemelk, koffiemelk, vla, yoghurt, kwark, pudding, ontbijtyoghurt, alle soorten kaas, crème fraîche, kookroom, zure room, (slag)room, boter (margarine, halvarine en dergelijke zijn geen zuivelproducten) en ijs.<br/>Let op: het gaat hier om zuivelproducten op basis van koemelk. Producten op basis van schapen- of geitenmelk vallen in dit geval niet onder zuivelproducten.'
+        });
+      };
+
+
       $scope.showKnoflookInformation = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Knoflook, ui en/of kool consumptie',
