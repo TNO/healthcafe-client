@@ -511,76 +511,74 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureController', BloodPressureController );
+	angular.module('healthcafe.bodymeasurements')
+		.controller('BodyMeasurementsController', BodyMeasurementsController );
 
-		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BodyHeight', 'BMI', 'BodyFat', 'WaistCircumference']
 
-		function BloodPressureController( $scope, $controller, Model ) {
-		  var vm = this;
+  /**
+   * Controller to add new body measurements (Weight, BMI, body fat, waist circumference)
+   **/
+  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BodyHeight, BMI, BodyFat, WaistCircumference) {
+    var vm = this;
 
-      $scope.model = Model;
-      $scope.selector = ".bloodpressure-container"
-      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
-      $scope.chartOptions = {
-        'userInterface': {
-          'tooltips': {
-            'contentFormatter': function(d) {
-              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
-              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
-              return systolic + '/' + diastolic;
-            }
-          }
-        }
+    vm.data = {
+      body: {
+        weight: null,
+        height: null,
+        waist: null,
+        bodyfat: null
+      },
+      date: new Date()
+    };
+
+    // Load existing height, as it is a static measurement
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data, if the user clicks save
+    vm.save = function() {
+      var saves = [
+        BodyHeight.set(vm.data.body)
+      ];
+
+      var models = [];
+      models.push(BodyWeight);
+      models.push(BMI);
+      models.push(BodyFat);
+      models.push(WaistCircumference);
+
+      for( i in models ) {
+        saves.push(
+          models[i].create(vm.data.body, vm.data.date)
+            .then(function(data) {
+              return models[i].load();
+            })
+            .catch(function(e) {
+              console.log( "Error saving data", models[i].schema, e );
+              return e;
+            })
+        );
       }
 
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bloodpressure')
-		.factory('BloodPressure', BloodPressure );
-
-  BloodPressure.$inject = [ 'Datapoints' ];
-
-  function BloodPressure(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
-      function(data) {
-        if( !data.systolic || !data.diastolic ) {
-          return null;
-        }
-
-        return {
-          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
-          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
-        };
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
       }
-    );
+      console.log( "Waiting for saves");
+
+      // If any of the saves failes, raise an error with the user
+      $q.all(saves).then(function() {
+        go();
+      }).catch(function(e) {
+        go();
+      });
+    };
+
+    return vm;
   }
 
-})();
-
-(function() {
-	angular.module('healthcafe.bloodpressure')
-		.controller('BloodPressureCreateController', BloodPressureCreateController );
-
-		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
-
-		function BloodPressureCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
 })();
 
 (function() {
@@ -656,74 +654,76 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bodymeasurements')
-		.controller('BodyMeasurementsController', BodyMeasurementsController );
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureController', BloodPressureController );
 
-		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BodyHeight', 'BMI', 'BodyFat', 'WaistCircumference']
+		BloodPressureController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
 
-  /**
-   * Controller to add new body measurements (Weight, BMI, body fat, waist circumference)
-   **/
-  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BodyHeight, BMI, BodyFat, WaistCircumference) {
-    var vm = this;
+		function BloodPressureController( $scope, $controller, Model ) {
+		  var vm = this;
 
-    vm.data = {
-      body: {
-        weight: null,
-        height: null,
-        waist: null,
-        bodyfat: null
-      },
-      date: new Date()
-    };
-
-    // Load existing height, as it is a static measurement
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
-    // Save new data, if the user clicks save
-    vm.save = function() {
-      var saves = [
-        BodyHeight.set(vm.data.body)
-      ];
-
-      var models = [];
-      models.push(BodyWeight);
-      models.push(BMI);
-      models.push(BodyFat);
-      models.push(WaistCircumference);
-
-      for( i in models ) {
-        saves.push(
-          models[i].create(vm.data.body, vm.data.date)
-            .then(function(data) {
-              return models[i].load();
-            })
-            .catch(function(e) {
-              console.log( "Error saving data", models[i].schema, e );
-              return e;
-            })
-        );
+      $scope.model = Model;
+      $scope.selector = ".bloodpressure-container"
+      $scope.chartableProperties = 'systolic_blood_pressure, diastolic_blood_pressure';
+      $scope.chartOptions = {
+        'userInterface': {
+          'tooltips': {
+            'contentFormatter': function(d) {
+              var systolic = d.omhDatum.body.systolic_blood_pressure.value.toFixed( 0 );
+              var diastolic = d.omhDatum.body.diastolic_blood_pressure.value.toFixed( 0 );
+              return systolic + '/' + diastolic;
+            }
+          }
+        }
       }
 
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.factory('BloodPressure', BloodPressure );
+
+  BloodPressure.$inject = [ 'Datapoints' ];
+
+  function BloodPressure(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'blood-pressure', version: '1.0' },
+      function(data) {
+        if( !data.systolic || !data.diastolic ) {
+          return null;
+        }
+
+        return {
+          'systolic_blood_pressure': { value: data.systolic, unit: 'mmHg' },
+          'diastolic_blood_pressure': { value: data.diastolic, unit: 'mmHg' },
+        };
       }
-      console.log( "Waiting for saves");
-
-      // If any of the saves failes, raise an error with the user
-      $q.all(saves).then(function() {
-        go();
-      }).catch(function(e) {
-        go();
-      });
-    };
-
-    return vm;
+    );
   }
 
+})();
+
+(function() {
+	angular.module('healthcafe.bloodpressure')
+		.controller('BloodPressureCreateController', BloodPressureCreateController );
+
+		BloodPressureCreateController.$inject = [ '$scope', '$controller', 'BloodPressure' ];
+
+		function BloodPressureCreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
 })();
 
 (function() {
@@ -1084,13 +1084,6 @@
 	function IntroController($scope, $ionicHistory, Answers) {
 	  var vm = this;
 
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
     // Retrieve previous entered questionnaires
     vm.darmklachten = [];
     vm.answeredToday = false;
@@ -1116,12 +1109,12 @@
 	angular.module('healthcafe.generic')
 		.controller('GenericAnswerController', GenericAnswerController );
 
-		GenericAnswerController.$inject = ['$scope', '$ionicHistory', 'Answers']
+		GenericAnswerController.$inject = ['$scope', '$ionicHistory', 'Answers', '$location']
 
   /**
    * Generic list controller to add a new datapoint
    **/
-  function GenericAnswerController($scope, $ionicHistory, Answers) {
+  function GenericAnswerController($scope, $ionicHistory, Answers, $location) {
     var vm = this;
 
     vm.data = {
@@ -1135,7 +1128,11 @@
     vm.save = function() {
       Answers.create(vm.data.body)
         .then(function(data) {
-          $ionicHistory.goBack();
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+
+          $location.path('/intro');
         })
         .catch(function(e) {
           console.log( "Error saving data: ", e );
@@ -1992,6 +1989,129 @@
 
 
 (function() {
+	angular.module('healthcafe.personal')
+		.factory('BodyHeight', BodyHeight );
+
+  BodyHeight.$inject = [ 'StaticDatapoint' ];
+
+  function BodyHeight(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'omh', name: 'body-height', version: '1.0' },
+      function(data) {
+        if( !data.height ) {
+          return null;
+        }
+        return { 'body_height': { value: data.height, unit: 'kg' } };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('DateOfBirth', DateOfBirth );
+
+  DateOfBirth.$inject = [ 'StaticDatapoint' ];
+
+  function DateOfBirth(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
+      function(data) {
+        if( !data.dob ) {
+          return null;
+        }
+        return { 'date_of_birth': data.dob };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('Gender', Gender );
+
+  Gender.$inject = [ 'StaticDatapoint' ];
+
+  function Gender(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'gender', version: '0.1' },
+      function(data) {
+        if( !data.gender ) {
+          return null;
+        }
+        return { 'gender': data.gender };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.controller('PersonalController', PersonalController );
+
+		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
+
+  /**
+   * Controller to add/view static personal data (DOB, gender, height)
+   **/
+  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
+    var vm = this;
+
+    vm.data = {
+      body: {
+        dob: null,
+        gender: null,
+        height: null
+      },
+      date: new Date()
+    };
+
+    // Load existing data
+    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
+    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data
+    vm.save = function() {
+      var saves = [
+        DateOfBirth.set(vm.data.body),
+        Gender.set(vm.data.body),
+        BodyHeight.set(vm.data.body),
+      ]
+
+      function reload() {
+        DateOfBirth.load();
+        Gender.load();
+        BodyHeight.load();
+      }
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
+      }
+
+      $q.all(saves).then(function() {
+        reload();
+        go();
+      }).catch(function(e) {
+        reload();
+        go();
+      });
+    };
+
+    return vm;
+  }
+
+})();
+
+(function() {
 	angular.module('healthcafe.remarks')
 		.controller('RemarksController', RemarksController );
 
@@ -2132,129 +2252,6 @@
 
 		  return vm;
 		}
-})();
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('BodyHeight', BodyHeight );
-
-  BodyHeight.$inject = [ 'StaticDatapoint' ];
-
-  function BodyHeight(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'omh', name: 'body-height', version: '1.0' },
-      function(data) {
-        if( !data.height ) {
-          return null;
-        }
-        return { 'body_height': { value: data.height, unit: 'kg' } };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('DateOfBirth', DateOfBirth );
-
-  DateOfBirth.$inject = [ 'StaticDatapoint' ];
-
-  function DateOfBirth(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
-      function(data) {
-        if( !data.dob ) {
-          return null;
-        }
-        return { 'date_of_birth': data.dob };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('Gender', Gender );
-
-  Gender.$inject = [ 'StaticDatapoint' ];
-
-  function Gender(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'gender', version: '0.1' },
-      function(data) {
-        if( !data.gender ) {
-          return null;
-        }
-        return { 'gender': data.gender };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.controller('PersonalController', PersonalController );
-
-		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
-
-  /**
-   * Controller to add/view static personal data (DOB, gender, height)
-   **/
-  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
-    var vm = this;
-
-    vm.data = {
-      body: {
-        dob: null,
-        gender: null,
-        height: null
-      },
-      date: new Date()
-    };
-
-    // Load existing data
-    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
-    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
-    // Save new data
-    vm.save = function() {
-      var saves = [
-        DateOfBirth.set(vm.data.body),
-        Gender.set(vm.data.body),
-        BodyHeight.set(vm.data.body),
-      ]
-
-      function reload() {
-        DateOfBirth.load();
-        Gender.load();
-        BodyHeight.load();
-      }
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
-      }
-
-      $q.all(saves).then(function() {
-        reload();
-        go();
-      }).catch(function(e) {
-        reload();
-        go();
-      });
-    };
-
-    return vm;
-  }
-
 })();
 
 (function() {
