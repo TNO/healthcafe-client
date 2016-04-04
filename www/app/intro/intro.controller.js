@@ -7,13 +7,6 @@
 	function IntroController($scope, $ionicHistory, Answers) {
 	  var vm = this;
 
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
     // Retrieve previous entered questionnaires
     vm.darmklachten = [];
     vm.answeredToday = false;

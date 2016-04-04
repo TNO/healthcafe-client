@@ -2,12 +2,12 @@
 	angular.module('healthcafe.generic')
 		.controller('GenericAnswerController', GenericAnswerController );
 
-		GenericAnswerController.$inject = ['$scope', '$ionicHistory', 'Answers']
+		GenericAnswerController.$inject = ['$scope', '$ionicHistory', 'Answers', '$location']
 
   /**
    * Generic list controller to add a new datapoint
    **/
-  function GenericAnswerController($scope, $ionicHistory, Answers) {
+  function GenericAnswerController($scope, $ionicHistory, Answers, $location) {
     var vm = this;
 
     vm.data = {
@@ -21,7 +21,11 @@
     vm.save = function() {
       Answers.create(vm.data.body)
         .then(function(data) {
-          $ionicHistory.goBack();
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+
+          $location.path('/intro');
         })
         .catch(function(e) {
           console.log( "Error saving data: ", e );
