@@ -31,8 +31,6 @@
 
       Answers.listByQuestionnaire('darmklachten').then(function(data) {
 
-        window.alert( data.length );
-
         // $http({
         //   method: 'POST',
         //   url: 'https://humanstudies.tno.nl/healthcafe-server/api/putData/',
