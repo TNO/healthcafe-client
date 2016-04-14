@@ -43,7 +43,7 @@
 
         $http({
           method: 'POST',
-          url: 'http://localhost:8080/healthcafe-server/api/putData/',
+          url: 'https://humanstudies.tno.nl/healthcafe-server/api/putData/',
           data: { 'secret': '88bc6a3e-73c1-46f0-b40a-cf855880e9aa', 'questionnaires': data },
           // headers: {'Content-Type': 'application/json;charset=utf-8'}
           headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
