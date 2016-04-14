@@ -31,9 +31,9 @@
 
       Answers.listByQuestionnaire('darmklachten').then(function(data) {
 
-        window.alert(data);
+        window.alert( data.length )
 
-        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData', { bla1: 'bla1' }.toJSON, { bla2: 'bla2'}.toJSON );
+        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData/', { 'secret': 'testtesttest' } );
       });
 
     };
