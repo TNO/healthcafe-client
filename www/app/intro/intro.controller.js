@@ -33,7 +33,7 @@
 
         window.alert(data);
 
-        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData', data );
+        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData', { bla1: 'bla1' }, { bla2: 'bla2'} );
       });
 
     };
