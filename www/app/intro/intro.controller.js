@@ -2,9 +2,9 @@
 	angular.module('healthcafe.intro')
 		.controller('IntroController', IntroController );
 
-	IntroController.$inject = [ '$scope', '$ionicHistory', 'Answers' ];
+	IntroController.$inject = [ '$scope', '$http', '$ionicHistory', 'Answers' ];
 
-	function IntroController($scope, $ionicHistory, Answers) {
+	function IntroController($scope, $http, $ionicHistory, Answers) {
 	  var vm = this;
 
     // Retrieve previous entered questionnaires
@@ -23,6 +23,17 @@
 
       vm.darmklachten = data;
     });
+
+    // Save new data
+    vm.share = function() {
+
+      vm.shared = true;
+
+      Answers.listByQuestionnaire('darmklachten').then(function(data) {
+        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData', { 'secret': '88bc6a3e-73c1-46f0-b40a-cf855880e9aa', 'questionnaires': data } );
+      });
+
+    };
 
 		return this;
 	}
