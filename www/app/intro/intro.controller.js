@@ -37,8 +37,8 @@
           method: 'POST',
           url: 'https://humanstudies.tno.nl/healthcafe-server/api/putData/',
           data: { 'secret': 'testtesttest' },
-          //headers: {'Content-Type': 'application/json;charset=utf-8'}
-          headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+          headers: {'Content-Type': 'application/json;charset=utf-8'}
+          // headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
         })
       });
 
