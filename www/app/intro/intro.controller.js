@@ -33,7 +33,12 @@
 
         window.alert( data.length )
 
-        $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData/', { 'secret': 'testtesttest' } );
+        $http({
+          method: 'POST',
+          url: 'https://humanstudies.tno.nl/healthcafe-server/api/putData/',
+          data: { 'secret': 'testtesttest' },
+          headers: {'Content-Type': 'application/json'}
+        })
       });
 
     };
