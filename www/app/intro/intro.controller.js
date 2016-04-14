@@ -30,6 +30,9 @@
       vm.shared = true;
 
       Answers.listByQuestionnaire('darmklachten').then(function(data) {
+
+        window.alert(data);
+
         $http.post( 'https://humanstudies.tno.nl/healthcafe-server/api/putData', data );
       });
 
