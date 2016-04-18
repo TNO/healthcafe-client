@@ -24,18 +24,21 @@
     </p>
 
     <a ng-show="intro.darmklachten.length==0" href="#/app/darmklachten/answer" nav-clear class="button button-block">Beantwoord de darmklachten vragenlijst voor de eerste keer!</a>
-    <a ng-show="intro.darmklachten.length!=0&&!intro.answeredToday" href="#/app/darmklachten/answer" nav-clear class="button button-block">Beantwoord de darmklachten vragenlijst voor vandaag; je {{intro.darmklachten.length}}e keer!</a>
+    <a ng-show="intro.darmklachten.length!=0&&!intro.answeredToday" href="#/app/darmklachten/answer" nav-clear class="button button-block">Beantwoord de darmklachten vragenlijst voor vandaag; je {{intro.darmklachten.length+1}}e keer!</a>
 
-    <!--<form ng-show="intro.darmklachten.length!=0&&intro.shared!=true" ng-submit="intro.share()">-->
-      <!--<p class="padding">-->
-        <!--<button type="submit" class="button button-block">-->
-          <!--Verstuur je data anoniem naar de onderzoekers-->
-        <!--</button>-->
-      <!--</p>-->
-    <!--</form>-->
-    <!--<p ng-show="intro.shared==true">-->
-      <!--Je data is verstuurd, bedankt!-->
-    <!--</p>-->
+    <form ng-show="intro.darmklachten.length!=0&&intro.shared!=true" ng-submit="intro.share()">
+      <p class="padding">
+        <button type="submit" class="button button-block">
+          Verstuur je data anoniem naar de onderzoekers
+        </button>
+        <div style="font-size: smaller">
+          (Bij het klikken op de deelknop gaat u ermee akkoord dat de data op anonieme basis gekopieerd wordt van uw apparaat naar onze database en door de onderzoekers kan worden ingezien en geanalyseerd.)
+        </div>
+      </p>
+    </form>
+    <p ng-show="intro.shared==true">
+      Je data is verstuurd, bedankt!
+    </p>
 
   </ion-content>
 </ion-view>
