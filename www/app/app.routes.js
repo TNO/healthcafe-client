@@ -7,6 +7,7 @@
 	  // Set up the various states which the app can be in.
 	  // Each state's controller can be found in controllers.js
 	  $stateProvider
+
       // Main App layout with left menu
       .state('app', {
         url: '/app',
@@ -60,7 +61,54 @@
             controller: 'BodyMeasurementsController as measurements'
           }
         }
-		  });
+		  })
+
+      // Add remarks measurement. Remarks are only shown in the timeline for now.
+      .state('app.remarks_add', {
+        url: '/remarks/add',
+        views: {
+          'mainContent': {
+            templateUrl: 'app/remarks/create.html',
+            controller: 'RemarksCreateController as remarks'
+          }
+        }
+      })
+
+      // Sharing
+      .state('app.share', {
+        url: '/share/:service',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/share/share.html',
+            controller: 'ShareController as sharing'
+          }
+        }
+      })
+
+      // Connect
+      .state('app.connect', {
+        url: '/share/connect/:service',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/share/connect.html',
+            controller: 'ConnectController as connect'
+          }
+        }
+      })
+
+      // Feedback
+      .state('app.feedback', {
+        url: '/feedback',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/feedback/feedback.html',
+            controller: 'FeedbackController as feedback'
+          }
+        }
+      });
 
       for( i in config.datatypes ) {
         var datatype = config.datatypes[i];
@@ -135,42 +183,8 @@
                 controller: questionnaire.controllerPrefix + 'AnswerController as ' + questionnaire.name
               }
             }
-          })
+          });
       }
-
-		  // Add remarks measurement. Remarks are only shown in the timeline for now.
-		  $stateProvider.state('app.remarks_add', {
-		    url: '/remarks/add',
-        views: {
-          'mainContent': {
-            templateUrl: 'app/remarks/create.html',
-    		    controller: 'RemarksCreateController as remarks'
-          }
-        }
-		  });
-
-      // Sharing
-		  $stateProvider.state('app.share', {
-		    url: '/share/:service',
-        cache: false,
-        views: {
-          'mainContent': {
-            templateUrl: 'app/share/share.html',
-    		    controller: 'ShareController as sharing'
-          }
-        }
-		  });
-
-		  $stateProvider.state('app.connect', {
-		    url: '/share/connect/:service',
-        cache: false,
-        views: {
-          'mainContent': {
-            templateUrl: 'app/share/connect.html',
-    		    controller: 'ConnectController as connect'
-          }
-        }
-		  });
 
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');

@@ -2,12 +2,12 @@
 	angular.module('healthcafe.generic')
 		.controller('GenericCreateController', GenericCreateController );
 
-		GenericCreateController.$inject = ['$scope', '$ionicHistory']
+		GenericCreateController.$inject = ['$scope', '$state', '$ionicHistory'];
 
   /**
    * Generic list controller to add a new datapoint
    **/
-  function GenericCreateController($scope, $ionicHistory) {
+  function GenericCreateController($scope, $state, $ionicHistory) {
     var vm = this;
 
     vm.data = {
@@ -19,7 +19,15 @@
       $scope.model.create(vm.data.body, vm.data.date)
         .then(function(data) {
           $scope.model.load().then(function() {
-            $ionicHistory.goBack();
+            if ($ionicHistory.backView()) {
+              $ionicHistory.goBack();
+            }
+            else {
+              $ionicHistory.nextViewOptions({
+                disableBack: true
+              });
+              $state.go('app.timeline');
+            }
            });
         })
         .catch(function(e) {

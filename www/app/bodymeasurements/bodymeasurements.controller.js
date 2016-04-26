@@ -2,12 +2,12 @@
 	angular.module('healthcafe.bodymeasurements')
 		.controller('BodyMeasurementsController', BodyMeasurementsController );
 
-		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BodyHeight', 'BMI', 'BodyFat', 'WaistCircumference']
+		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BMI', 'BodyFat', 'WaistCircumference'];
 
   /**
    * Controller to add new body measurements (Weight, BMI, body fat, waist circumference)
    **/
-  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BodyHeight, BMI, BodyFat, WaistCircumference) {
+  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BMI, BodyFat, WaistCircumference) {
     var vm = this;
 
     vm.data = {
@@ -20,13 +20,10 @@
       date: new Date()
     };
 
-    // Load existing height, as it is a static measurement
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
     // Save new data, if the user clicks save
     vm.save = function() {
       var saves = [
-        BodyHeight.set(vm.data.body)
+
       ];
 
       var models = [];
@@ -35,7 +32,7 @@
       models.push(BodyFat);
       models.push(WaistCircumference);
 
-      for( i in models ) {
+      for( var i in models ) {
         saves.push(
           models[i].create(vm.data.body, vm.data.date)
             .then(function(data) {

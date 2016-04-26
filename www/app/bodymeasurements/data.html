@@ -2,35 +2,29 @@
   <ion-content>
     <form ng-submit="measurements.save()">
       <ion-list>
-        <ion-item class="item-input">
+        <ion-item class="item-input item-divider">
           <div class="input-label">
-            Date
+            Datum meting
           </div>
           <input type="date" ng-model="measurements.data.date" placeholder="Date of measurement" />
         </ion-item>
         <ion-item class="item-input">
           <div class="input-label">
-            Body weight
+            Gewicht
           </div>
-          <input type="number" ng-model="measurements.data.body.weight" step="any" placeholder="body weight in kg" />
+          <input type="number" ng-model="measurements.data.body.weight" step="any" placeholder="gewicht in kg" />
         </ion-item>
         <ion-item class="item-input">
           <div class="input-label">
-            Body height
+            Tailleomtrek
           </div>
-          <input type="number" ng-model="measurements.data.body.height" step="any" placeholder="body height in m" />
+          <input type="number" ng-model="measurements.data.body.waist" step="any" placeholder="tailleomtrek in m" />
         </ion-item>
         <ion-item class="item-input">
           <div class="input-label">
-            Waist circumference
+            Vet percentage
           </div>
-          <input type="number" ng-model="measurements.data.body.waist" step="any" placeholder="waist circumference in m" />
-        </ion-item>
-        <ion-item class="item-input">
-          <div class="input-label">
-            Body fat percentage
-          </div>
-          <input type="number" ng-model="measurements.data.body.bodyfat" step="any" placeholder="body fat percentage" />
+          <input type="number" ng-model="measurements.data.body.bodyfat" step="any" placeholder="vet percentage" />
         </ion-item>
       </ion-list>
       <p class="padding">

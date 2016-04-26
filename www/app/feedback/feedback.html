@@ -1,0 +1,13 @@
+<ion-view view-title="Feedback">
+  <ion-content class="padding feedback-container">
+    <ion-item ng-show="feedback.pdas.length == 0">
+      Er kan helaas geen advies gegeven worden op basis van uw huidige data.<br/>
+      De volgende parameters zijn minimaal nodig: BMI, tailleomtrek, bloeddruk, bloed glucose, cholesterol & geslacht.
+    </ion-item>
+    <ion-item collection-repeat="item in feedback.pdas">
+         {{item.text}}
+    </ion-item>
+  </ion-content>
+</ion-view>
+
+
