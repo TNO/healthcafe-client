@@ -7,7 +7,8 @@
 		function FeedbackController( $http, $q, $indexedDB, BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol, Gender ) {
       var vm = this;
 
-      var baseUri = 'https://humanstudies.tno.nl/pdas';
+      // Use service locally
+      var baseUri = 'http://msb2.hex.tno.nl/pdas/en/advices.json';
       var staticParams = '?snp.FTO=TT&generic.Age=45&physical.Physical+activity=120';
 
       var url = baseUri+staticParams;
