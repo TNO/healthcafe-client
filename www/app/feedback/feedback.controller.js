@@ -7,11 +7,10 @@
 		function FeedbackController( $http, $q, $indexedDB, BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol, Gender ) {
       var vm = this;
 
-      var baseUrl = 'http://msb1.hex.tno.nl/pdas/en/advices.json';
-      // var baseUrl = 'http://localhost:8080/pdas/en/advices.json';
+      var baseUri = 'https://humanstudies.tno.nl/pdas';
       var staticParams = '?snp.FTO=TT&generic.Age=45&physical.Physical+activity=120';
 
-      var url = baseUrl+staticParams;
+      var url = baseUri+staticParams;
 
       Gender.get().then(function(data) {
         url += '&generic.Gender='+data.body.gender;
