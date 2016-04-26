@@ -12,7 +12,7 @@
           <div class="input-label">
             Blood Glucose level
           </div>
-          <input type="number" step="any" ng-model="bloodglucose.data.body.level" placeholder="Blood glucose level in mmol/L" />
+          <input type="number" step="any" ng-model="bloodglucose.data.body.level" placeholder="Blood glucose level in mmol/L" required="required"/>
         </ion-item>
 
         <label class="item-input item-select">
@@ -20,7 +20,6 @@
             Relationship to meal
           </div>
           <select ng-model="bloodglucose.data.body.relationship_to_meal" ng-options="relationship.name for relationship in bloodglucose.relationships_to_meal">
-
           </select>
         </label>
 

@@ -17,6 +17,8 @@
         { name: 'not fasting' }
       ];
 
+      vm.data.body.relationship_to_meal = vm.relationships_to_meal[0];
+
 		  return vm;
 		}
 })();
