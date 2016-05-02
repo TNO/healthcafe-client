@@ -28,16 +28,25 @@
 
     <form ng-show="intro.darmklachten.length!=0&&intro.shared!=true" ng-submit="intro.share()">
       <p class="padding">
-        <button type="submit" class="button button-block">
-          Verstuur je data anoniem naar de onderzoekers
-        </button>
-        <div style="font-size: smaller">
-          (Bij het klikken op de deelknop gaat u ermee akkoord dat de data op anonieme basis gekopieerd wordt van uw apparaat naar onze database en door de onderzoekers kan worden ingezien en geanalyseerd.)
+        <h3>Deel uw data</h3>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Uw deelnemerscode
+          </div>
+          <input type="number" step="1" ng-model="intro.shareId"/>
+        </ion-item>
+        <div ng-show="[1394, 1553, 1585, 3784, 3892, 4629, 4770, 5162, 5476, 6181, 6776, 7109, 7131, 7140, 7182, 8009, 8345, 8626, 9204, 9419, 9424].indexOf(intro.shareId)!=-1">
+          <button type="submit" class="button button-block">
+            Verstuur je data anoniem naar de onderzoekers
+          </button>
+          <div style="font-size: smaller">
+            (Bij het klikken op de deelknop gaat u ermee akkoord dat de data op anonieme basis gekopieerd wordt van uw apparaat naar onze database en door de onderzoekers kan worden ingezien en geanalyseerd op persoonlijk en groepsniveau, waarbij data op persoonlijk niveau wordt gebruikt om u van persoonlijke feedback te voorzien en data op groepsniveau wordt gebruikt om uw persoonlijke data mee te vergelijken.)
+          </div>
+          </p>
         </div>
-      </p>
     </form>
     <p ng-show="intro.shared==true">
-      Je data is verstuurd, bedankt!
+      <h3>Je data is verstuurd, bedankt!</h3>
     </p>
 
   </ion-content>
