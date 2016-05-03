@@ -464,6 +464,8 @@
         { name: 'not fasting' }
       ];
 
+      vm.data.body.relationship_to_meal = vm.relationships_to_meal[0];
+
 		  return vm;
 		}
 })();
@@ -684,74 +686,6 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bodymeasurements')
-		.controller('BodyMeasurementsController', BodyMeasurementsController );
-
-		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BMI', 'BodyFat', 'WaistCircumference'];
-
-  /**
-   * Controller to add new body measurements (Weight, BMI, body fat, waist circumference)
-   **/
-  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BMI, BodyFat, WaistCircumference) {
-    var vm = this;
-
-    vm.data = {
-      body: {
-        weight: null,
-        height: null,
-        waist: null,
-        bodyfat: null
-      },
-      date: new Date()
-    };
-
-    // Save new data, if the user clicks save
-    vm.save = function() {
-      var saves = [
-
-      ];
-
-      var models = [];
-      models.push(BodyWeight);
-      models.push(BMI);
-      models.push(BodyFat);
-      models.push(WaistCircumference);
-
-      for( var i in models ) {
-        saves.push(
-          models[i].create(vm.data.body, vm.data.date)
-            .then(function(data) {
-              return models[i].load();
-            })
-            .catch(function(e) {
-              console.log( "Error saving data", models[i].schema, e );
-              return e;
-            })
-        );
-      }
-
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
-      }
-      console.log( "Waiting for saves");
-
-      // If any of the saves failes, raise an error with the user
-      $q.all(saves).then(function() {
-        go();
-      }).catch(function(e) {
-        go();
-      });
-    };
-
-    return vm;
-  }
-
-})();
-
-(function() {
 	angular.module('healthcafe.cholesterol')
 		.controller('CholesterolController', CholesterolController );
 
@@ -901,6 +835,76 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bodymeasurements')
+		.controller('BodyMeasurementsController', BodyMeasurementsController );
+
+		BodyMeasurementsController.$inject = ['$q', '$state', '$ionicHistory', '$ionicPopup', 'BodyWeight', 'BodyHeight', 'BMI', 'BodyFat', 'WaistCircumference']
+
+  /**
+   * Controller to add new body measurements (Weight, BMI, body fat, waist circumference)
+   **/
+  function BodyMeasurementsController($q, $state, $ionicHistory, $ionicPopup, BodyWeight, BodyHeight, BMI, BodyFat, WaistCircumference) {
+    var vm = this;
+
+    vm.data = {
+      body: {
+        weight: null,
+        height: null,
+        waist: null,
+        bodyfat: null
+      },
+      date: new Date()
+    };
+
+    // Load existing height, as it is a static measurement and needed to calculate BMI
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data, if the user clicks save
+    vm.save = function() {
+      var saves = [
+      ];
+
+      var models = [];
+      models.push(BodyWeight);
+      models.push(BMI);
+      models.push(BodyFat);
+      models.push(WaistCircumference);
+
+      for( var i in models ) {
+        saves.push(
+          models[i].create(vm.data.body, vm.data.date)
+            .then(function(data) {
+              return models[i].load();
+            })
+            .catch(function(e) {
+              console.log( "Error saving data", models[i].schema, e );
+              return e;
+            })
+        );
+      }
+
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
+      }
+      console.log( "Waiting for saves");
+
+      // If any of the saves failes, raise an error with the user
+      $q.all(saves).then(function() {
+        go();
+      }).catch(function(e) {
+        go();
+      });
+    };
+
+    return vm;
+  }
+
+})();
+
+(function() {
 	angular.module('healthcafe.bodyweight')
 		.controller('BodyWeightController', BodyWeightController );
 
@@ -976,11 +980,11 @@
 		function FeedbackController( $http, $q, $indexedDB, BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol, Gender ) {
       var vm = this;
 
-      var baseUrl = 'http://msb1.hex.tno.nl/pdas/en/advices.json';
-      // var baseUrl = 'http://localhost:8080/pdas/en/advices.json';
+      // Use service locally
+      var baseUri = 'http://msb2.hex.tno.nl/pdas/en/advices.json';
       var staticParams = '?snp.FTO=TT&generic.Age=45&physical.Physical+activity=120';
 
-      var url = baseUrl+staticParams;
+      var url = baseUri+staticParams;
 
       Gender.get().then(function(data) {
         url += '&generic.Gender='+data.body.gender;
@@ -1044,7 +1048,7 @@
         }).then(function successCallback(response) {
           vm.pdas = response.data;
         }, function errorCallback(response) {
-          window.alert(response.status);
+          window.alert("Could not reach PDAS, status: "+response.status);
         });
 
       });
@@ -2007,129 +2011,6 @@
 
 
 (function() {
-	angular.module('healthcafe.personal')
-		.factory('BodyHeight', BodyHeight );
-
-  BodyHeight.$inject = [ 'StaticDatapoint' ];
-
-  function BodyHeight(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'omh', name: 'body-height', version: '1.0' },
-      function(data) {
-        if( !data.height ) {
-          return null;
-        }
-        return { 'body_height': { value: data.height, unit: 'kg' } };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('DateOfBirth', DateOfBirth );
-
-  DateOfBirth.$inject = [ 'StaticDatapoint' ];
-
-  function DateOfBirth(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
-      function(data) {
-        if( !data.dob ) {
-          return null;
-        }
-        return { 'date_of_birth': data.dob };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('Gender', Gender );
-
-  Gender.$inject = [ 'StaticDatapoint' ];
-
-  function Gender(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'gender', version: '0.1' },
-      function(data) {
-        if( !data.gender ) {
-          return null;
-        }
-        return { 'gender': data.gender };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.controller('PersonalController', PersonalController );
-
-		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
-
-  /**
-   * Controller to add/view static personal data (DOB, gender, height)
-   **/
-  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
-    var vm = this;
-
-    vm.data = {
-      body: {
-        dob: null,
-        gender: null,
-        height: null
-      },
-      date: new Date()
-    };
-
-    // Load existing data
-    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
-    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
-    // Save new data
-    vm.save = function() {
-      var saves = [
-        DateOfBirth.set(vm.data.body),
-        Gender.set(vm.data.body),
-        BodyHeight.set(vm.data.body),
-      ]
-
-      function reload() {
-        DateOfBirth.load();
-        Gender.load();
-        BodyHeight.load();
-      }
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
-      }
-
-      $q.all(saves).then(function() {
-        reload();
-        go();
-      }).catch(function(e) {
-        reload();
-        go();
-      });
-    };
-
-    return vm;
-  }
-
-})();
-
-(function() {
 	angular.module('healthcafe.remarks')
 		.controller('RemarksController', RemarksController );
 
@@ -2270,6 +2151,129 @@
 
 		  return vm;
 		}
+})();
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('BodyHeight', BodyHeight );
+
+  BodyHeight.$inject = [ 'StaticDatapoint' ];
+
+  function BodyHeight(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'omh', name: 'body-height', version: '1.0' },
+      function(data) {
+        if( !data.height ) {
+          return null;
+        }
+        return { 'body_height': { value: data.height, unit: 'kg' } };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('DateOfBirth', DateOfBirth );
+
+  DateOfBirth.$inject = [ 'StaticDatapoint' ];
+
+  function DateOfBirth(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
+      function(data) {
+        if( !data.dob ) {
+          return null;
+        }
+        return { 'date_of_birth': data.dob };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('Gender', Gender );
+
+  Gender.$inject = [ 'StaticDatapoint' ];
+
+  function Gender(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'gender', version: '0.1' },
+      function(data) {
+        if( !data.gender ) {
+          return null;
+        }
+        return { 'gender': data.gender };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.controller('PersonalController', PersonalController );
+
+		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
+
+  /**
+   * Controller to add/view static personal data (DOB, gender, height)
+   **/
+  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
+    var vm = this;
+
+    vm.data = {
+      body: {
+        dob: null,
+        gender: null,
+        height: null
+      },
+      date: new Date()
+    };
+
+    // Load existing data
+    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
+    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data
+    vm.save = function() {
+      var saves = [
+        DateOfBirth.set(vm.data.body),
+        Gender.set(vm.data.body),
+        BodyHeight.set(vm.data.body),
+      ]
+
+      function reload() {
+        DateOfBirth.load();
+        Gender.load();
+        BodyHeight.load();
+      }
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+        $state.go('app.timeline');
+      }
+
+      $q.all(saves).then(function() {
+        reload();
+        go();
+      }).catch(function(e) {
+        reload();
+        go();
+      });
+    };
+
+    return vm;
+  }
+
 })();
 
 (function() {

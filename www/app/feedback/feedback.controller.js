@@ -75,7 +75,7 @@
         }).then(function successCallback(response) {
           vm.pdas = response.data;
         }, function errorCallback(response) {
-          window.alert(response.status);
+          window.alert("Could not reach PDAS, status: "+response.status);
         });
 
       });
