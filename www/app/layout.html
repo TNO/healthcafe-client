@@ -21,7 +21,7 @@
           Intro
         </ion-item>
         <ion-item menu-close href="#/app/timeline">
-          Tijdlijn
+          Timeline
         </ion-item>
         <ion-item menu-close href="#/app/feedback">
           Feedback
@@ -30,19 +30,19 @@
           class="item-divider item-energized"
           ng-click="app.toggleGroup('measurements')"
           ng-class="{active: app.isGroupShown('measurements')}" >
-          Metingen
+          Measurements
         </ion-item>
         <ion-item
             menu-close href="#/app/personal_data"
             class="item-accordion"
             ng-show="app.isGroupShown('measurements')">
-          Algemene metingen
+          Personal data
         </ion-item>
         <ion-item
             menu-close href="#/app/body_measurements"
             class="item-accordion"
             ng-show="app.isGroupShown('measurements')">
-          Lichaamsmetingen
+          Body measurements
         </ion-item>
         <ion-item
           menu-close ng-href="#/app/{{datatype.name}}/add"
@@ -55,7 +55,7 @@
           class="item-divider item-energized"
           ng-click="app.toggleGroup('questionnaires')"
           ng-class="{active: app.isGroupShown('questionnaires')}" >
-          Vragenlijsten
+          Questionnaires
         </ion-item>
         <ion-item
           menu-close ng-href="#/app/{{datatype.name}}"
@@ -68,7 +68,7 @@
           class="item-divider item-energized"
           ng-click="app.toggleGroup('charts')"
           ng-class="{active: app.isGroupShown('charts')}" >
-          Grafieken
+          Graphs
         </ion-item>
         <ion-item
           menu-close ng-href="#/app/{{datatype.name}}"

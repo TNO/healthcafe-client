@@ -72,12 +72,12 @@
     // As the dependencies are injected there, we have to specify the dependencies
     // specifically there.
     datatypes: [
-      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Bloeddruk', creationInMenu: true },
-      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Gewicht' },
-      { name: 'bodyfat', controllerPrefix: 'BodyFat', label: 'Lichaamsvet' },
-      { name: 'waistcircumference', controllerPrefix: 'WaistCircumference', label: 'Taille omtrek' },
+      { name: 'bloodpressure', controllerPrefix: 'BloodPressure', label: 'Blood pressure', creationInMenu: true },
+      { name: 'bodyweight', controllerPrefix: 'BodyWeight', label: 'Weight' },
+      { name: 'bodyfat', controllerPrefix: 'BodyFat', label: 'Body fat' },
+      { name: 'waistcircumference', controllerPrefix: 'WaistCircumference', label: 'Waist circumference' },
       { name: 'bmi', controllerPrefix: 'BMI', label: 'BMI' },
-      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Bloedglucose', creationInMenu: true },
+      { name: 'bloodglucose', controllerPrefix: 'BloodGlucose', label: 'Blood glucose', creationInMenu: true },
       { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol', creationInMenu: true },
     ],
 
@@ -471,76 +471,6 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMIController', BMIController );
-
-		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMIController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = ".bmi-container";
-      $scope.chartableProperties = 'body-mass-index';
-      $scope.chartOptions = {
-              'measures': {
-                'body-mass-index' : {
-                  'valueKeyPath': 'body.body_mass_index.value',
-                  'range': undefined,
-                  'units': 'kg/m2',
-                  'thresholds': { 'min': 18, 'max': 25  },
-                },
-              }
-            };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.factory('BMI', BMI );
-
-  BMI.$inject = [ 'Datapoints' ];
-
-  function BMI(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
-      function(data) {
-        if( !data.weight || !data.height ) {
-          return null;
-        }
-        return {
-          'body_mass_index': { value: data.weight / ( data.height * data.height ), unit: 'kg/m2' },
-        };
-      }
-    );
-  }
-
-})();
-
-(function() {
-	angular.module('healthcafe.bmi')
-		.controller('BMICreateController', BMICreateController );
-
-		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
-
-		function BMICreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
 	angular.module('healthcafe.bloodpressure')
 		.controller('BloodPressureController', BloodPressureController );
 
@@ -614,6 +544,76 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMIController', BMIController );
+
+		BMIController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMIController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".bmi-container";
+      $scope.chartableProperties = 'body-mass-index';
+      $scope.chartOptions = {
+              'measures': {
+                'body-mass-index' : {
+                  'valueKeyPath': 'body.body_mass_index.value',
+                  'range': undefined,
+                  'units': 'kg/m2',
+                  'thresholds': { 'min': 18, 'max': 25  },
+                },
+              }
+            };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.factory('BMI', BMI );
+
+  BMI.$inject = [ 'Datapoints' ];
+
+  function BMI(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'body-mass-index', version: '1.0' },
+      function(data) {
+        if( !data.weight || !data.height ) {
+          return null;
+        }
+        return {
+          'body_mass_index': { value: data.weight / ( data.height * data.height ), unit: 'kg/m2' },
+        };
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.bmi')
+		.controller('BMICreateController', BMICreateController );
+
+		BMICreateController.$inject = [ '$scope', '$controller', 'BMI' ];
+
+		function BMICreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.bodyfat')
 		.controller('BodyFatController', BodyFatController );
 
@@ -674,155 +674,6 @@
 		BodyFatCreateController.$inject = [ '$scope', '$controller', 'BodyFat' ];
 
 		function BodyFatCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.cholesterol')
-		.controller('CholesterolController', CholesterolController );
-
-		CholesterolController.$inject = [ '$scope', '$controller', 'Cholesterol' ];
-
-		function CholesterolController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = ".cholesterol-container"
-      $scope.chartableProperties = 'total-cholesterol,ldl-cholesterol,hdl-cholesterol,triglycerides';
-      $scope.chartOptions = {
-              'userInterface': {
-                'legend': true,
-                'thresholds': { 'show': false },
-                'tooltips': {
-                  'grouped': false,
-                  'contentFormatter': function(d) {
-                    return d.y.toFixed(1);
-                  }
-                }
-              },
-              'measures': {
-                'total-cholesterol' : {
-                  'valueKeyPath': 'body.blood_total_cholesterol.value',
-                  'range':undefined,
-                  'seriesName': 'Total Cholesterol',
-                  'units': 'mmol/L',
-                  'chart': {
-                    'pointFillColor' : '#4a90e2',
-                    'pointStrokeColor' : '#0066d6',
-                   },
-                   'thresholds': [
-                      { name: 'Desirable', max: 5 },
-                      { name: 'Borderline high', min: 5, max: 6.5 },
-                      { name: 'High', min: 6.5 },
-                    ]
-                },
-                'ldl-cholesterol' : {
-                  'valueKeyPath': 'body.blood_ldl_cholesterol.value',
-                  'range': { min: 0, max: 20 },
-                  'seriesName': 'LDL Cholesterol',
-                  'units': 'mmol/L',
-                  'chart': {
-                    'pointFillColor' : '#E24A4A',
-                    'pointStrokeColor' : '#D60000',
-                   },
-                   'thresholds': [
-                      { name: 'Desirable', max: 2.5 },
-                      { name: 'Borderline high', min: 2.5, max: 3.5 },
-                      { name: 'High', min: 3.5 },
-                    ]
-                },
-                'hdl-cholesterol' : {
-                  'valueKeyPath': 'body.blood_hdl_cholesterol.value',
-                  'range': { min: 0, max: 20 },
-                  'units': 'mmol/L',
-                  'seriesName': 'HDL Cholesterol',
-                  'chart': {
-                    'pointFillColor' : '#4AE250',
-                    'pointStrokeColor' : '#00D605',
-                   },
-                   'thresholds': [
-                      { name: 'Desirable', min: 1.5 },
-                      { name: 'Borderline high', min: 1.5, max: 1.3 },
-                      { name: 'High', max: 1.3 },
-                    ]                   
-                },
-                'triglycerides' : {
-                  'valueKeyPath': 'body.blood_triglycerides.value',
-                  'range': undefined,
-                  'units': 'mmol/L',
-                  'seriesName': 'Triglycerides',
-                  'chart': {
-                    'pointFillColor' : '#DA4AE2',
-                    'pointStrokeColor' : '#CB00D6',
-                   },
-                   'thresholds': [
-                      { name: 'Desirable', max: 1.7 },
-                      { name: 'Borderline high', min: 1.7, max: 6.0 },
-                      { name: 'High', min: 6.0 },
-                    ]
-                },
-              }
-            };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.cholesterol')
-		.factory('Cholesterol', Cholesterol );
-
-  Cholesterol.$inject = [ 'Datapoints' ];
-
-  function Cholesterol(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'nrc', name: 'cholesterol', version: '0.1' },
-      function(data) {
-        if( !data.total ) {
-          return null;
-        }
-
-        var output = {
-          'blood_total_cholesterol': { value: data.total, unit: 'mmol/L' },
-        };
-
-        if( data.ldl ) {
-          output['blood_ldl_cholesterol'] = { value: data.ldl, unit: 'mmol/L' };
-        }
-
-        if( data.hdl ) {
-          output['blood_hdl_cholesterol'] = { value: data.hdl, unit: 'mmol/L' };
-        }
-
-        if( data.triglycerides ) {
-          output['blood_triglycerides'] = { value: data.triglycerides, unit: 'mmol/L' };
-        }
-
-        return output;
-      }
-    );
-  }
-
-})();
-
-(function() {
-	angular.module('healthcafe.cholesterol')
-		.controller('CholesterolCreateController', CholesterolCreateController );
-
-		CholesterolCreateController.$inject = [ '$scope', '$controller', 'Cholesterol' ];
-
-		function CholesterolCreateController( $scope, $controller, Model ) {
 		  var vm = this;
 
       $scope.model = Model;
@@ -1093,6 +944,155 @@
       }
 
       return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.cholesterol')
+		.controller('CholesterolController', CholesterolController );
+
+		CholesterolController.$inject = [ '$scope', '$controller', 'Cholesterol' ];
+
+		function CholesterolController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = ".cholesterol-container"
+      $scope.chartableProperties = 'total-cholesterol,ldl-cholesterol,hdl-cholesterol,triglycerides';
+      $scope.chartOptions = {
+              'userInterface': {
+                'legend': true,
+                'thresholds': { 'show': false },
+                'tooltips': {
+                  'grouped': false,
+                  'contentFormatter': function(d) {
+                    return d.y.toFixed(1);
+                  }
+                }
+              },
+              'measures': {
+                'total-cholesterol' : {
+                  'valueKeyPath': 'body.blood_total_cholesterol.value',
+                  'range':undefined,
+                  'seriesName': 'Total Cholesterol',
+                  'units': 'mmol/L',
+                  'chart': {
+                    'pointFillColor' : '#4a90e2',
+                    'pointStrokeColor' : '#0066d6',
+                   },
+                   'thresholds': [
+                      { name: 'Desirable', max: 5 },
+                      { name: 'Borderline high', min: 5, max: 6.5 },
+                      { name: 'High', min: 6.5 },
+                    ]
+                },
+                'ldl-cholesterol' : {
+                  'valueKeyPath': 'body.blood_ldl_cholesterol.value',
+                  'range': { min: 0, max: 20 },
+                  'seriesName': 'LDL Cholesterol',
+                  'units': 'mmol/L',
+                  'chart': {
+                    'pointFillColor' : '#E24A4A',
+                    'pointStrokeColor' : '#D60000',
+                   },
+                   'thresholds': [
+                      { name: 'Desirable', max: 2.5 },
+                      { name: 'Borderline high', min: 2.5, max: 3.5 },
+                      { name: 'High', min: 3.5 },
+                    ]
+                },
+                'hdl-cholesterol' : {
+                  'valueKeyPath': 'body.blood_hdl_cholesterol.value',
+                  'range': { min: 0, max: 20 },
+                  'units': 'mmol/L',
+                  'seriesName': 'HDL Cholesterol',
+                  'chart': {
+                    'pointFillColor' : '#4AE250',
+                    'pointStrokeColor' : '#00D605',
+                   },
+                   'thresholds': [
+                      { name: 'Desirable', min: 1.5 },
+                      { name: 'Borderline high', min: 1.5, max: 1.3 },
+                      { name: 'High', max: 1.3 },
+                    ]                   
+                },
+                'triglycerides' : {
+                  'valueKeyPath': 'body.blood_triglycerides.value',
+                  'range': undefined,
+                  'units': 'mmol/L',
+                  'seriesName': 'Triglycerides',
+                  'chart': {
+                    'pointFillColor' : '#DA4AE2',
+                    'pointStrokeColor' : '#CB00D6',
+                   },
+                   'thresholds': [
+                      { name: 'Desirable', max: 1.7 },
+                      { name: 'Borderline high', min: 1.7, max: 6.0 },
+                      { name: 'High', min: 6.0 },
+                    ]
+                },
+              }
+            };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.cholesterol')
+		.factory('Cholesterol', Cholesterol );
+
+  Cholesterol.$inject = [ 'Datapoints' ];
+
+  function Cholesterol(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'nrc', name: 'cholesterol', version: '0.1' },
+      function(data) {
+        if( !data.total ) {
+          return null;
+        }
+
+        var output = {
+          'blood_total_cholesterol': { value: data.total, unit: 'mmol/L' },
+        };
+
+        if( data.ldl ) {
+          output['blood_ldl_cholesterol'] = { value: data.ldl, unit: 'mmol/L' };
+        }
+
+        if( data.hdl ) {
+          output['blood_hdl_cholesterol'] = { value: data.hdl, unit: 'mmol/L' };
+        }
+
+        if( data.triglycerides ) {
+          output['blood_triglycerides'] = { value: data.triglycerides, unit: 'mmol/L' };
+        }
+
+        return output;
+      }
+    );
+  }
+
+})();
+
+(function() {
+	angular.module('healthcafe.cholesterol')
+		.controller('CholesterolCreateController', CholesterolCreateController );
+
+		CholesterolCreateController.$inject = [ '$scope', '$controller', 'Cholesterol' ];
+
+		function CholesterolCreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
 		}
 })();
 
