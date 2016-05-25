@@ -2,9 +2,9 @@
 	angular.module('healthcafe.sharing')
 		.factory('Share', Share );
 
-  Share.$inject = [ '$indexedDB', '$q', '$http', 'config', 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol' ];
+  Share.$inject = [ '$indexedDB', '$q', '$http', 'config', 'BloodPressure', 'BodyWeight', 'BMI', 'BloodGlucose', 'Cholesterol', 'BodyFat', 'WaistCircumference' ];
 
-  function Share($indexedDB, $q, $http, config, BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol) {
+  function Share($indexedDB, $q, $http, config, BloodPressure, BodyWeight, BMI, BloodGlucose, Cholesterol, BodyFat, WaistCircumference) {
     var cache = null;
 
     function pull(serviceKey, selectedDatatypes) {
@@ -56,6 +56,8 @@
             case 'bodyweight':    return BodyWeight;
             case 'cholesterol':   return Cholesterol;
             case 'bmi':           return BMI;
+            case 'bodyfat':           return BodyFat;
+            case 'waistcircumference':           return WaistCircumference;
             default: console.error( "Invalid datatype selected", datatype.name ); return null;
           }
         });
