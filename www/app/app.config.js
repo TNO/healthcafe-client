@@ -13,8 +13,8 @@
     //
     sharing: {
       healthcafe: {
-        label: "NRC healthcafe",
-        description: "Healthcafe is een concept, een werk-in-uitvoering, waar u binnnen de werkomgeving zelf bepaalde aspecten van uw gezondheid kan meten en daarop zelf kan acteren.",
+        label: "NRC-Healthcafe",
+        description: "Healthcafe is a concept, a work-in-progress, where within  the work environment you can measure certain actionable aspects of your health",
         type: "openmhealth"
       }
     },
@@ -38,8 +38,8 @@
     //
     // Questionnaires determine the menu items.
     questionnaires: [
-      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
-      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
+      { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitality questionnaire' },
+      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Sleep questionnaire' }
     ],
 
     // Development configuration

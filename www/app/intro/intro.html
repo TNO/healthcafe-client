@@ -3,32 +3,31 @@
     <div class="app-logo"><img src="assets/img/apple-measure.jpg" /></div>
 
     <p>
-<b>Welkom bij de TNO HealthCafé App. </b> </p>
+<b>Welcome to the TNO HealthCafé App. </b> </p>
     <p>
-Deze App kunt u gebruiken om een aantal aspecten van uw gezondheid te registreren. Deze App wordt aangeboden als service, het is dus aan u of en hoe lang u de App wilt gebruiken.
-De App kunt u gebruiken om uw persoonlijke gezondheidsdata te bewaren, trends en grafieken van uw data te bekijken, en om tips en adviezen te krijgen.
+This App can be used to measure several aspects of your health. This app is provided as a service with the Health Café; it is up to you to decide how long you want to use this App.
+The App can store your personal health data, show graphs of your data and provide you with feedback and lifestyle advice to improve your health. 
 
-Alle data die u invoert worden op uw eigen telefoon bewaard en worden niet met derden gedeeld. De data wordt verwijderd zodra u uw cache van uw telefoon leegmaakt. In de toekomst wordt het wellicht mogelijk om uw data met andere services te delen, of met vrienden te delen. Ook wordt er mogelijk een optie toegevoegd waarmee u uw data op een beveiligde server, anoniem kunt opslaan, zodat u deze niet kwijt bent als u uw cache per ongeluk leeg maakt, of als u overstapt naar een nieuwe telefoon.
+All the data that you enter into the App will be stored locally on your smartphone and will not be shared with third parties. The data will be removed from your smartphone once you empty your cache. In the future, it might be possible to share your data with other services, friends or communities. Also, an option will be added that allows you to store your data anonymously on an encrypted, secure server. This way, you will not lose your data once you empty your cache or switch to a new smartphone.  
  </p>
-  <p>
-<b>Hoe werkt de App? </b></p>
+ <p>
+<b>How does it work?</b></p>
     <p>
-Op dit moment kunt u gezondheidsdata toevoegen over uw bloeddruk, cholesterol, glucose, gewicht, en BMI.
-Ook kunt u opmerkingen toevoegen, bijvoorbeeld als u bent gestart met een interventie om uw gezondheid te verbeteren kunt u dat vastleggen in de App. Deze opmerkingen ziet u dan ook terug in uw tijdlijn. Op die manier kunt u eenvoudig terugzien of uw interventie succesvol is geweest.
+You can add several types of health data, including blood pressure, cholesterol, glucose, body weight, circumferences and BMI. This list will be expanded in the future.
+It is also possible to add remarks, for instance at the moment you started with an intervention ot improve your health. These remarks will also appear on your timeline. This way, you can easily look back to see if your intervention was successful. 
 
-Via het menu kunt u er ook voor kiezen om alleen de data van één specifieke meting te zien, bijvoorbeeld bloeddruk. Wanneer u daarop klikt, ziet u alle door u ingevoerde bloeddrukwaarden terug in een grafiek. Rechtsboven in het scherm kunt u klikken op de ‘+’ om meer data toe te voegen, of op de ‘i’ om meer informatie te lezen over bloeddruk.
+Via the menu, you can also choose to look into the data of one specific measurement, like blood pressure. If you click on the measurement you are interested in, all the blood pressure data that you added will be shown in a graph. By clicking on the ‘+’ in the upper right corner of the screen you can add more data; by clicking on the ‘i’ you can get more information on blood pressure. 
+
 </p>
+
 <p>
-Wilt u op de hoogte gehouden worden van veranderingen en verbeteringen van de HealthCafe App? Meldt u zich dan aan via <A HREF="mailto:info@tnostudie.nl">info@tnostudie.nl</A>
-</p>
-<p>
-Wilt u starten met het toevoegen van uw gezondheidsdata? Klik dan op ‘naar de data’ hieronder.
+Do you want to start adding your health data? Then click on 'add general info' or ‘to the data’ below. 
 </p>
 
     <div class="row">
       <div class="col">
-        <a ng-click="intro.resetNav()" href="#/app/timeline" nav-clear class="button button-block" ng-if="!intro.personal_data_required">Naar de data</a>
-        <a ng-click="intro.resetNav()" href="#/app/personal_data" nav-clear class="button button-block" ng-if="intro.personal_data_required">Vul uw algemene gegevens in</a>
+        <a ng-click="intro.resetNav()" href="#/app/timeline" nav-clear class="button button-block" ng-if="!intro.personal_data_required">To the data</a>
+        <a ng-click="intro.resetNav()" href="#/app/personal_data" nav-clear class="button button-block" ng-if="intro.personal_data_required">Add general info</a>
       </div>
     </div>
 </ion-view>
