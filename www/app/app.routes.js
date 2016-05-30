@@ -108,6 +108,18 @@
             controller: 'FeedbackController as feedback'
           }
         }
+      })
+
+      // Feedback
+      .state('app.cholesterol_feedback', {
+        url: '/cholesterol/feedback',
+        cache: false,
+        views: {
+          'mainContent': {
+            templateUrl: 'app/cholesterol/feedback.html',
+            controller: 'CholesterolFeedbackController as cholesterol'
+          }
+        }
       });
 
       for( i in config.datatypes ) {

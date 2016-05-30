@@ -1,0 +1,110 @@
+<ion-view view-title="Cholesterol feedback">
+  <ion-content>
+    <form ng-submit="cholesterol.submit()">
+      <ion-item class="item-input item-select energized" ng-show="cholesterol.error">
+        {{cholesterol.error}}
+      </ion-item>
+      <ion-item class="item-input item-select energized" ng-show="cholesterol.feedback">
+        {{cholesterol.feedback}}
+      </ion-item>
+      <ion-list ng-show="!cholesterol.feedback">
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Gender
+          </div>
+          <select ng-model="cholesterol.data.gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Do you have diabetes type II?
+          </div>
+          <select ng-model="cholesterol.data.t2d">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Cardiovascular disease in family before the age of 60?
+          </div>
+          <select ng-model="cholesterol.data.cvd">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Do you smoke?
+          </div>
+          <select ng-model="cholesterol.data.smoke">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            BMI
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.bmi" required="required" placeholder="BMI in kg/m2" ng-required="required"/>
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Waist circumference
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.waist" required="required" placeholder="Waist circumference in cm" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Total cholesterol
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.cholesterol" required="required" placeholder="Total cholesterol in mmol/L" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Systolic blood pressure
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.sysbloodpressure" required="required" placeholder="Systolic blood pressurre in mmHg" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Diastolic blood pressure
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.diabloodpressure" required="required" placeholder="Diastolic blood pressurre in mmHg" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Daily vegetable consumption
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.vegetable" required="required" placeholder="Vegetable consumption in grams" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Daily fruit consumption
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.fruit" required="required" placeholder="Fruit consumption in grams" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Daily saturated fat intake
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.fat" required="required" placeholder="Saturated fat intake in grams" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Daily physical activity
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.physical" required="required" placeholder="Physical activity in minutes" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <button type="submit" class="button button-block button-ssh" ng-show="!cholesterol.feedback">
+          Submit
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

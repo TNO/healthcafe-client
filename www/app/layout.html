@@ -23,8 +23,17 @@
         <ion-item menu-close href="#/app/timeline">
           Timeline
         </ion-item>
-        <ion-item menu-close href="#/app/feedback">
+        <ion-item
+          class="item-divider item-energized"
+          ng-click="app.toggleGroup('feedback')"
+          ng-class="{active: app.isGroupShown('feedback')}" >
           Feedback
+        </ion-item>
+        <ion-item menu-close href="#/app/feedback" ng-show="app.isGroupShown('feedback')">
+          Food4Me feedback
+        </ion-item>
+        <ion-item menu-close href="#/app/cholesterol/feedback" ng-show="app.isGroupShown('feedback')">
+          Cholesterol feedback
         </ion-item>
         <ion-item
           class="item-divider item-energized"
