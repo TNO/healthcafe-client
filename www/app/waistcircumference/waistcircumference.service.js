@@ -11,7 +11,7 @@
         if( !data.waist ) {
           return null;
         }
-        return { 'waist_circumference': { value: data.waist, unit: 'm' } };
+        return { 'waist_circumference': { value: data.waist, unit: 'cm' } };
       }
     );
   }

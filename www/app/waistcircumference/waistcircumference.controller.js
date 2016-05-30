@@ -15,7 +15,7 @@
           'waist_circumference': {
             'valueKeyPath': 'body.waist_circumference.value',
             'range': undefined,
-            'units': 'm',
+            'units': 'cm',
             'chart': {
               'pointFillColor' : '#4a90e2',
               'pointStrokeColor' : '#0066d6',
