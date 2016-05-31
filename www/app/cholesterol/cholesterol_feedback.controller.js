@@ -56,22 +56,25 @@
                 }
                 break;
               case 'vegetable':
-                if (vm.data[item] > 25) {
+                if (vm.data[item] < 250) {
                   badCount += 1;
                 }
                 break;
               case 'fruit':
-                if (vm.data[item] > 25) {
+                if (vm.data[item] < 200) {
                   badCount += 1;
                 }
                 break;
               case 'fat':
-                if (vm.data[item] > 25) {
+                if (gender == 'male' && vm.data[item] > 28) {
+                  badCount += 1;
+                }
+                if (gender == 'female' && vm.data[item] > 22) {
                   badCount += 1;
                 }
                 break;
               case 'physical':
-                if (vm.data[item] > 25) {
+                if (vm.data[item] < 30) {
                   badCount += 1;
                 }
                 break;
@@ -85,10 +88,10 @@
           vm.error = null;
 
           if (badCount >= 4) {
-            vm.feedback = 'foei'
+            vm.feedback = 'Higher than average risk on cardiovascular disease.'
           }
           else {
-            vm.feedback = 'schouderklopje'
+            vm.feedback = 'Lower than average risk on cardiovascular disease.'
           }
         }
         else {
