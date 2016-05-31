@@ -88,10 +88,10 @@
           vm.error = null;
 
           if (badCount >= 4) {
-            vm.feedback = 'Higher than average risk on cardiovascular disease.'
+            vm.feedback = 'Higher than average risk on cardiovascular diseases.'
           }
           else {
-            vm.feedback = 'Lower than average risk on cardiovascular disease.'
+            vm.feedback = 'Lower than average risk on cardiovascular diseases.'
           }
         }
         else {
