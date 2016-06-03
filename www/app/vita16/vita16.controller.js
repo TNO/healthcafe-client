@@ -7,7 +7,7 @@
 		function Vita16Controller( $scope, $controller, Answers ) {
 		  var vm = this;
 
-      vm.vita16 = []
+      vm.vita16 = [];
       Answers.listByQuestionnaire('vita16').then(function(data) {
         vm.vita16 = data;
       });

@@ -19,7 +19,7 @@
 	    'healthcafe.timeline',
 	    'healthcafe.remarks',
 	    'healthcafe.sharing',
-      'healthcafe.feedback'
+      'healthcafe.pdas'
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )

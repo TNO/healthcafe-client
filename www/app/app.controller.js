@@ -9,6 +9,7 @@
 
     vm.datatypes = config.datatypes;
     vm.questionnaires = config.questionnaires;
+    vm.feedbacktypes = config.feedbacktypes;
     vm.sharing = config.sharing;
 
     // Handle dropdown menus
