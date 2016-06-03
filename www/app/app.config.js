@@ -42,6 +42,11 @@
       { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
     ],
 
+    feedbacktypes: [
+      { name: 'pdas', controllerPrefix: 'Pdas', label: 'Food4me' },
+      { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol feedback' }
+    ],
+
     // Development configuration
     "dev": {
       "api": {

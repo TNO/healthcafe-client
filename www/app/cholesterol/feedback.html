@@ -1,0 +1,123 @@
+<ion-view view-title="Cholesterol feedback">
+  <ion-content class="padding feedback-container">
+    <ion-item class="item-energized margin-bottom" ng-show="cholesterol.error">
+      {{cholesterol.error}}
+    </ion-item>
+    <ion-item class="item-divider" ng-show="cholesterol.feedback">
+      Uw feedback
+    </ion-item>
+    <ion-item class="margin-bottom" ng-show="cholesterol.feedback">
+      {{cholesterol.feedback}}
+    </ion-item>
+    <form  ng-show="!cholesterol.feedback" ng-submit="cholesterol.getFeedback()">
+      <ion-list>
+        <ion-item class="item-divider">
+          Vragen
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Gender
+          </div>
+          <select ng-model="cholesterol.data.gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Heeft u diabetes type II?
+          </div>
+          <select ng-model="cholesterol.data.t2d">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Heeft uw vader, moeder, broer of zus voor het 60e jaar een hart- of vaatziekte gehad?
+          </div>
+          <select ng-model="cholesterol.data.cvd">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <div class="input-label">
+            Rook je?
+          </div>
+          <select ng-model="cholesterol.data.smoke">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Dagelijkse groente consumptie
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.vegetable" ng-required="required" placeholder="Groente consumptie in gram" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Dagelijkse fruit consumptie
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.fruit" ng-required="required" placeholder="Fruit consumptie in gram" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Dagelijkse verzadigd vet consumptie
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.fat" ng-required="required" placeholder="Verzadigd vet consumptie in gram" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Dagelijkse lichamelijke activiteit
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.physical" ng-required="required" placeholder="Lichamelijke activiteit in minuten" />
+        </ion-item>
+        <ion-item class="item-divider">
+          Metingen
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            BMI
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.bmi" ng-required="required" placeholder="BMI in kg/m2"/>
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Taille omtrek
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.waistcircumference" ng-required="required" placeholder="Taille omtrek in m" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Totaal cholesterol
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.cholesterol.total" ng-required="required" placeholder="Totaal cholesterol in mmol/L" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Systolische bloeddruk
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.bloodpressure.systolic" ng-required="required" placeholder="Systolische bloeddruk in mmHg" />
+        </ion-item>
+        <ion-item class="item-input">
+          <div class="input-label">
+            Diastolische bloeddruk
+          </div>
+          <input type="number" step="any" ng-model="cholesterol.data.bloodpressure.diastolic" ng-required="required" placeholder="Diastolische bloeddruk in mmHg" />
+        </ion-item>
+      </ion-list>
+      <p class="padding">
+        <a class="button button-block" ng-click="cholesterol.useLastStoredDatapoints()">
+          Laad je meest recente opgeslagen metingen in
+          <ion-spinner ng-show="cholesterol.loadingData"></ion-spinner>
+        </a>
+        <button type="submit" class="button button-block">
+          Advies
+        </button>
+      </p>
+    </form>
+  </ion-content>
+</ion-view>

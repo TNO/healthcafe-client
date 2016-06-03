@@ -23,9 +23,6 @@
         <ion-item menu-close href="#/app/timeline">
           Tijdlijn
         </ion-item>
-        <ion-item menu-close href="#/app/feedback">
-          Feedback
-        </ion-item>
         <ion-item
           class="item-divider item-energized"
           ng-click="app.toggleGroup('measurements')"
@@ -58,11 +55,11 @@
           Vragenlijsten
         </ion-item>
         <ion-item
-          menu-close ng-href="#/app/{{datatype.name}}"
+          menu-close ng-href="#/app/{{questionnaire.name}}"
           class="item-accordion"
-          ng-repeat="datatype in app.questionnaires"
+          ng-repeat="questionnaire in app.questionnaires"
           ng-show="app.isGroupShown('questionnaires')">
-          {{datatype.label}}
+          {{questionnaire.label}}
         </ion-item>
         <ion-item
           class="item-divider item-energized"
@@ -76,6 +73,18 @@
           ng-repeat="datatype in app.datatypes"
           ng-show="app.isGroupShown('charts')">
           {{datatype.label}}
+        </ion-item>
+        <ion-item
+          class="item-divider item-energized"
+          ng-click="app.toggleGroup('feedback')"
+          ng-class="{active: app.isGroupShown('feedback')}" >
+          Feedback
+        </ion-item>
+        <ion-item
+          menu-close ng-href="#/app/{{feedbacktype.name}}/feedback"
+          ng-repeat="feedbacktype in app.feedbacktypes"
+          ng-show="app.isGroupShown('feedback')">
+          {{feedbacktype.label}}
         </ion-item>
         <!--<ion-item
           class="item-divider item-energized"

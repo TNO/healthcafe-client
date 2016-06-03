@@ -1,0 +1,22 @@
+<ion-view view-title="Food4me Feedback">
+  <ion-content class="padding feedback-container">
+    <ion-item class="item-energized margin-bottom" ng-show="pdas.error">
+      {{pdas.error}}
+    </ion-item>
+    <ion-item class="item-energized margin-bottom" ng-show="!pdas.error && pdas.missing.length==0 && pdas.feedback.length==0">
+      Er kan op basis van uw ingevoerde waardes geen advies worden gegenereerd.
+    </ion-item>
+    <ion-item class="item-divider" ng-show="pdas.missing.length!=0">
+      We hebben de volgende metingen nog van u nodig om u van feedback te kunnen voorzien
+    </ion-item>
+    <ion-item collection-repeat="item in pdas.missing">
+      Voer <a href="#/app/{{item.url}}">hier</a> uw {{item.name}} in
+    </ion-item>
+    <ion-item class="item-divider" ng-show="pdas.feedback.length!=0">
+      Uw feedback
+    </ion-item>
+    <ion-item collection-repeat="item in pdas.feedback">
+         {{item.text}}
+    </ion-item>
+  </ion-content>
+</ion-view>

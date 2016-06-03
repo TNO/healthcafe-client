@@ -98,18 +98,6 @@
         }
       })
 
-      // Feedback
-      .state('app.feedback', {
-        url: '/feedback',
-        cache: false,
-        views: {
-          'mainContent': {
-            templateUrl: 'app/feedback/feedback.html',
-            controller: 'FeedbackController as feedback'
-          }
-        }
-      });
-
       for( i in config.datatypes ) {
         var datatype = config.datatypes[i];
         $stateProvider
@@ -186,8 +174,22 @@
           });
       }
 
+      for( i in config.feedbacktypes ) {
+        var feedbacktype = config.feedbacktypes[i];
+        $stateProvider
+          .state('app.' + feedbacktype.name + '_feedback', {
+            url: '/' + feedbacktype.name + '/feedback',
+            cache: false,
+            views: {
+              'mainContent': {
+                templateUrl: 'app/' + feedbacktype.name + '/feedback.html',
+                controller: feedbacktype.controllerPrefix + 'FeedbackController as ' + feedbacktype.name
+              }
+            }
+          })
+      }
+
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/intro');
-
 	}]);
 })();
