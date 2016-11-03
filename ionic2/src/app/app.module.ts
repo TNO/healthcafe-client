@@ -6,15 +6,19 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import {IntroPage} from "../pages/intro/intro";
+import {TimelinePage} from "../pages/timeline/timeline";
+import {AddMenu} from "../pages/timeline/addmenu";
 
 @NgModule({
   declarations: [
     HealthcafeApp,
+    IntroPage,
+    TimelinePage,
     AboutPage,
     ContactPage,
     HomePage,
     TabsPage,
-    IntroPage
+    AddMenu
   ],
   imports: [
     IonicModule.forRoot(HealthcafeApp)
@@ -23,10 +27,13 @@ import {IntroPage} from "../pages/intro/intro";
   entryComponents: [
     HealthcafeApp,
     IntroPage,
+    TimelinePage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddMenu
   ],
   providers: []
 })
+
 export class AppModule {}

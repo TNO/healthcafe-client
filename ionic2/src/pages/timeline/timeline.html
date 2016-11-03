@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>All measurements</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="loading">
+    <ion-spinner></ion-spinner> Loading...
+  </div>
+  <p *ngIf="!loading && events.length == 0">
+    Voeg nieuwe metingen toe (top right <i class="ion ion-plus"></i> button) or <a href="#/app/share/healthcafe">import from healthcafe.</a>
+  </p>
+
+</ion-content>
