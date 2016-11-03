@@ -36,7 +36,7 @@ export class GenericDatapointsService {
    * @param schema map with namespace, name and version, identifying the schema for this datatype
    * @param converter method to convert the data from a newly created dataobject (see GenericCreateController) into a OMH datapoint body
    */
-  constructor(protected schema: Schema, protected converter: any, protected storageService: StorageService) {
+  constructor(public schema: Schema, protected converter: any, protected storageService: StorageService) {
     this.db = storageService.db
     this.storageReady = storageService.isReady();
   }
@@ -44,9 +44,8 @@ export class GenericDatapointsService {
   load(): Promise<Datapoint[]> {
       let self = this;
       return this.storageReady.then(() => {
-        console.log("Loading data for ", this.schema.name );
         return self.db
-          .getAllByIndex('datapoints', 'schema', [this.schema.namespace, this.schema.name, this.schema.version]);
+          .getAllByIndex('datapoints', 'schema', [self.schema.namespace, self.schema.name, self.schema.version]);
       });
   }
 
@@ -93,6 +92,7 @@ export class GenericDatapointsService {
         return that.convertDates(datapoint, that.parseDate);
       });
 
+      // TODO: Add support for upsert statements
       return Promise.all(data.map((datapoint) => {
         return this.db.update('datapoints', datapoint, undefined);
       }));

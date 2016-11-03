@@ -22,7 +22,6 @@ export class AngularIndexedDB {
                 this.dbWrapper.dbVersion = version;
                 let request = this.utils.indexedDB.open(this.dbWrapper.dbName, version);
                 request.onsuccess = function (e) {
-                    console.log("IndexedDB create store success", e);
                     self.dbWrapper.db = request.result;
                     resolve();
                 };
@@ -274,8 +273,8 @@ export class AngularIndexedDB {
           objectStore = transaction.objectStore(storeName),
           result = [],
           index = objectStore.index(indexName),
-          keyRange = IDBKeyRange.only(key),
-          request = objectStore.openCursor(keyRange);
+          keyRange = this.utils.keyRange.only(key),
+          request = index.openCursor(keyRange, "next");
 
         request.onerror = function (e) {
           reject(e);
@@ -297,10 +296,13 @@ export class AngularIndexedDB {
 class Utils {
     dbMode: DbMode;
     indexedDB;
+    keyRange;
 
     constructor() {
         this.indexedDB = window.indexedDB || (<any>window).mozIndexedDB || (<any>window).webkitIndexedDB || (<any>window).msIndexedDB;
-        this.dbMode = {
+        this.keyRange = (<any>window).IDBKeyRange || (<any>window).mozIDBKeyRange || (<any>window).webkitIDBKeyRange || (<any>window).msIDBKeyRange;
+
+      this.dbMode = {
             readOnly: "readonly",
             readWrite: "readwrite"
         };

@@ -8,6 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import {IntroPage} from "../pages/intro/intro";
 import {TimelinePage} from "../pages/timeline/timeline";
 import {AddMenu} from "../pages/timeline/addmenu";
+import {Timeline, TimelineEvent, TimelineBadge, TimelineHeading, TimelinePanel} from "../providers/angular-timeline";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,12 @@ import {AddMenu} from "../pages/timeline/addmenu";
     ContactPage,
     HomePage,
     TabsPage,
-    AddMenu
+    AddMenu,
+    Timeline,
+    TimelineEvent,
+    TimelineBadge,
+    TimelineHeading,
+    TimelinePanel
   ],
   imports: [
     IonicModule.forRoot(HealthcafeApp)

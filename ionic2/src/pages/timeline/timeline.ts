@@ -4,11 +4,17 @@ import {AddMenu} from "./addmenu";
 import {BloodGlucoseService} from "../../services/bloodglucose";
 import {GenericDatapointsService} from "../../services/generic_datapoints";
 import {StorageService} from "../../services/storage";
+import {WaistCircumferenceService} from "../../services/waistcircumference";
+import {BloodPressureService} from "../../services/bloodpressure";
+import {BmiService} from "../../services/bmi";
+import {BodyFatService} from "../../services/bodyfat";
+import {BodyWeightService} from "../../services/bodyweight";
+import {CholesterolService} from "../../services/cholesterol";
 
 @Component({
   selector: 'page-timeline',
   templateUrl: 'timeline.html',
-  providers: [BloodGlucoseService, StorageService]
+  providers: [BloodGlucoseService, BloodPressureService, BmiService, BodyFatService, BodyWeightService, CholesterolService, WaistCircumferenceService, StorageService]
 })
 export class TimelinePage {
   public loading: boolean = false
@@ -17,33 +23,42 @@ export class TimelinePage {
 
   private definitions: Object = {};
 
-  constructor(public popoverCtrl: PopoverController, bloodGlucose: BloodGlucoseService) {
-    this.addModel('blood-glucose', bloodGlucose, 'ion-fork')
+  constructor(public popoverCtrl: PopoverController,
+              bloodGlucose: BloodGlucoseService,
+              bloodPressure: BloodPressureService,
+              bodyMassIndex: BmiService,
+              bodyFat: BodyFatService,
+              bodyWeight: BodyWeightService,
+              cholesterol: CholesterolService,
+              waistCircumference: WaistCircumferenceService
+  ) {
+    this.addModel(bloodGlucose, 'fork')
+    this.addModel(bloodPressure, 'heart')
+    this.addModel(bodyMassIndex, 'ios-flame')
+    this.addModel(bodyFat, 'pie-graph')
+    this.addModel(bodyWeight, 'speedometer')
+    this.addModel(cholesterol, 'waterdrop')
+    this.addModel(waistCircumference, 'ios-circle-outline')
     this.load();
-
-    // {
-    //   'blood-glucose': { icon: 'ion-fork', model: bloodGlucose},
-    //   'blood-pressure': { icon: 'ion-heart', model: BloodPressure },
-    //   'body-mass-index': { icon: 'ion-ios-flame', model: BMI},
-    //   'body-fat-percentage': { icon: 'ion-pie-graph', model: BodyFat},
-    //   'body-weight': { icon: 'ion-speedometer', model: BodyWeight},
-    //   'cholesterol': { icon: 'ion-waterdrop', model: Cholesterol},
-    //   'waist-circumference': { icon: 'ion-ios-circle-outline', model: WaistCircumference},
-    // };
   }
 
-  private addModel(id: string, service: GenericDatapointsService, icon: string) {
+  private addModel(service: GenericDatapointsService, icon: string, id?: string) {
+    if(!id) {
+      id = service.schema.name;
+    }
+
     this.models.push(service);
     this.definitions[id] = { icon: icon, model: service}
   }
-
 
   load() {
     this.loading = true;
     this.events = []
     let that = this;
     Promise.all( that.models.map(function(model) { return model.list() } ) ).then(function(data) {
+      console.log("Data loaded", that.models, data);
       that.events = that.combine(data);
+      console.log("Events", that.events);
     }).then(function() {
       that.loading = false;
     }).catch(function(e) {
