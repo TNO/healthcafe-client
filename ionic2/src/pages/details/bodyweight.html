@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Gewicht details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <h2>Datum</h2>
+      <p>{{date | date}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>Gewicht</h2>
+      <p>{{datapoint.body.body_weight.value}} {{datapoint.body.body_weight.unit}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

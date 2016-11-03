@@ -1,5 +1,5 @@
-import {Component, Inject} from "@angular/core";
-import {PopoverController} from "ionic-angular";
+import {Component} from "@angular/core";
+import {PopoverController, NavController} from "ionic-angular";
 import {AddMenu} from "./addmenu";
 import {BloodGlucoseService} from "../../services/bloodglucose";
 import {GenericDatapointsService} from "../../services/generic_datapoints";
@@ -10,6 +10,10 @@ import {BmiService} from "../../services/bmi";
 import {BodyFatService} from "../../services/bodyfat";
 import {BodyWeightService} from "../../services/bodyweight";
 import {CholesterolService} from "../../services/cholesterol";
+import {
+  DetailBloodGlucosePage, DetailBloodPressurePage, DetailBmiPage, DetailBodyFatPage,
+  DetailBodyWeightPage, DetailCholesterolPage, DetailWaistCircumferencePage
+} from "../details/detail";
 
 @Component({
   selector: 'page-timeline',
@@ -24,6 +28,7 @@ export class TimelinePage {
   private definitions: Object = {};
 
   constructor(public popoverCtrl: PopoverController,
+              public navCtrl: NavController,
               bloodGlucose: BloodGlucoseService,
               bloodPressure: BloodPressureService,
               bodyMassIndex: BmiService,
@@ -32,23 +37,23 @@ export class TimelinePage {
               cholesterol: CholesterolService,
               waistCircumference: WaistCircumferenceService
   ) {
-    this.addModel(bloodGlucose, 'fork')
-    this.addModel(bloodPressure, 'heart')
-    this.addModel(bodyMassIndex, 'ios-flame')
-    this.addModel(bodyFat, 'pie-graph')
-    this.addModel(bodyWeight, 'speedometer')
-    this.addModel(cholesterol, 'waterdrop')
-    this.addModel(waistCircumference, 'ios-circle-outline')
+    this.addModel(bloodGlucose, DetailBloodGlucosePage, 'fork')
+    this.addModel(bloodPressure, DetailBloodPressurePage, 'heart')
+    this.addModel(bodyMassIndex, DetailBmiPage, 'ios-flame')
+    this.addModel(bodyFat, DetailBodyFatPage, 'pie-graph')
+    this.addModel(bodyWeight, DetailBodyWeightPage, 'speedometer')
+    this.addModel(cholesterol, DetailCholesterolPage, 'waterdrop')
+    this.addModel(waistCircumference, DetailWaistCircumferencePage, 'ios-circle-outline')
     this.load();
   }
 
-  private addModel(service: GenericDatapointsService, icon: string, id?: string) {
+  private addModel(service: GenericDatapointsService, detailPage: any, icon: string, id?: string) {
     if(!id) {
       id = service.schema.name;
     }
 
     this.models.push(service);
-    this.definitions[id] = { icon: icon, model: service}
+    this.definitions[id] = { icon: icon, model: service, detailPage: detailPage}
   }
 
   load() {
@@ -102,6 +107,7 @@ export class TimelinePage {
    * Converts a blood pressure datapoint into an event on the timeline
    */
   private convertDatapoint(dataPoint: any) {
+    var self = this;
     let date = null;
     if( dataPoint.body.effective_time_frame && dataPoint.body.effective_time_frame.date_time ) {
       date = dataPoint.body.effective_time_frame.date_time;
@@ -109,27 +115,22 @@ export class TimelinePage {
       date = dataPoint.header.creation_date_time;
     }
 
-    var schemaName = dataPoint.header.schema_id.name;
+    let schemaName = dataPoint.header.schema_id.name;
+    let definition = this.definitions[schemaName];
 
     return {
       id: dataPoint.header.id,
       datapoint: dataPoint,
       date: date,
-      badgeIconClass: this.definitions[schemaName].icon,
+      badgeIconClass: definition.icon,
       badgeClass: dataPoint.header.schema_id.name,
       type: 'measurement',
       measurementType: schemaName,
-      model: this.definitions[schemaName].model,
-      showDetail: function() {
-        var typeName;
-        switch(schemaName) {
-          case 'body-mass-index':     typeName = 'bmi'; break;
-          case 'body-fat-percentage': typeName = 'bodyfat'; break;
-          default:                    typeName = schemaName.replace( /-/g, '' ); break;
-        }
-
-        // TODO: Go to detail page for this measurement
-        // $state.go( 'app.' +  typeName + '_measurement', { measurementId: dataPoint.header.id } );
+      model: definition.model,
+      showDetail: () => {
+        self.navCtrl.push(definition.detailPage, {
+          datapoint: dataPoint
+        });
       }
     };
   }

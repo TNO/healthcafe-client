@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularIndexedDB} from "../providers/angular2-indexeddb";
+import {AngularIndexedDB} from "../lib/angular2-indexeddb";
 
 @Injectable()
 export class StorageService {

@@ -8,18 +8,39 @@ import { TabsPage } from '../pages/tabs/tabs';
 import {IntroPage} from "../pages/intro/intro";
 import {TimelinePage} from "../pages/timeline/timeline";
 import {AddMenu} from "../pages/timeline/addmenu";
-import {Timeline, TimelineEvent, TimelineBadge, TimelineHeading, TimelinePanel} from "../providers/angular-timeline";
+import {Timeline, TimelineEvent, TimelineBadge, TimelineHeading, TimelinePanel} from "../lib/angular-timeline";
+import {
+  DetailBloodGlucosePage, DetailWaistCircumferencePage, DetailCholesterolPage,
+  DetailBodyWeightPage, DetailBodyFatPage, DetailBmiPage, DetailBloodPressurePage
+} from "../pages/details/detail";
+import {
+  InfoBloodGlucosePage, InfoBloodPressurePage, InfoBmiPage, InfoBodyFatPage,
+  InfoBodyWeightPage, InfoCholesterolPage, InfoWaistCircumferencePage
+} from "../pages/datatype_info/info";
 
 @NgModule({
   declarations: [
     HealthcafeApp,
     IntroPage,
     TimelinePage,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
     AddMenu,
+
+    DetailBloodGlucosePage,
+    DetailBloodPressurePage,
+    DetailBmiPage,
+    DetailBodyFatPage,
+    DetailBodyWeightPage,
+    DetailCholesterolPage,
+    DetailWaistCircumferencePage,
+
+    InfoBloodGlucosePage,
+    InfoBloodPressurePage,
+    InfoBmiPage,
+    InfoBodyFatPage,
+    InfoBodyWeightPage,
+    InfoCholesterolPage,
+    InfoWaistCircumferencePage,
+
     Timeline,
     TimelineEvent,
     TimelineBadge,
@@ -34,10 +55,23 @@ import {Timeline, TimelineEvent, TimelineBadge, TimelineHeading, TimelinePanel} 
     HealthcafeApp,
     IntroPage,
     TimelinePage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    AddMenu
+    AddMenu,
+
+    DetailBloodGlucosePage,
+    DetailBloodPressurePage,
+    DetailBmiPage,
+    DetailBodyFatPage,
+    DetailBodyWeightPage,
+    DetailCholesterolPage,
+    DetailWaistCircumferencePage,
+
+    InfoBloodGlucosePage,
+    InfoBloodPressurePage,
+    InfoBmiPage,
+    InfoBodyFatPage,
+    InfoBodyWeightPage,
+    InfoCholesterolPage,
+    InfoWaistCircumferencePage
   ],
   providers: []
 })

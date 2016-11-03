@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>BMI details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showInfo($event)">
+        <ion-icon name="information"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <h2>Datum</h2>
+      <p>{{date | date}}</p>
+    </ion-item>
+    <ion-item ng-class="{'value-desirable': datapoint.body.body_mass_index.value < 25, 'value-high': datapoint.body.body_mass_index.value >= 30,
+      'value-borderlinehigh': datapoint.body.body_mass_index.value >= 25 && datapoint.body.body_mass_index.value < 30  }">
+      <h2>BMI</h2>
+      <p>{{datapoint.body.body_mass_index.value}} {{datapoint.body.body_mass_index.unit}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

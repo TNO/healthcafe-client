@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Bloedglucose details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showInfo($event)">
+        <ion-icon name="information"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <h2>Datum</h2>
+      <p>{{date | date}}</p>
+    </ion-item>
+    <ion-item ng-class="{'value-desirable': datapoint.body.blood_glucose.value < 6.1, 'value-high': datapoint.body.blood_glucose.value >= 7.8,
+      'value-borderlinehigh': datapoint.body.blood_glucose.value >= 6.1 && datapoint.body.blood_glucose.value < 7.8  }">
+      <h2>Bloedglucose</h2>
+      <p>{{datapoint.body.blood_glucose.value}} {{datapoint.body.blood_glucose.unit}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

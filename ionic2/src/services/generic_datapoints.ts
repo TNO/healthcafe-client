@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {StorageService} from "./storage";
 import {UUID} from "angular2-uuid";
-import {AngularIndexedDB} from "../providers/angular2-indexeddb";
+import {AngularIndexedDB} from "../lib/angular2-indexeddb";
 
 export interface Schema {
   namespace: string,

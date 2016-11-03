@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class IntroPage {
 
   constructor() {
+    // TODO: Implement
     // Reset navigation and disable back on the next page?
 
     // // Check whether personal data has been entered before. If not, ask the

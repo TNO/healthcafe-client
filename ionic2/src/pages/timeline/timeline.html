@@ -25,7 +25,7 @@
       <timeline-badge class="{{event.badgeClass}}">
         <ion-icon name="{{event.badgeIconClass}}"></ion-icon>
       </timeline-badge>
-      <timeline-panel class="{{event.badgeClass}} item-icon-right" ng-click="event.showDetail();">
+      <timeline-panel class="{{event.badgeClass}} item-icon-right" (click)="event.showDetail();">
         <timeline-heading>
           <h4 *ngIf="event.type == 'intervention'">{{event.message}}</h4>
           <h4 *ngIf="event.measurementType == 'blood-glucose'">Bloedglucose: {{event.datapoint.body.blood_glucose.value}} {{event.datapoint.body.blood_glucose.unit}}
