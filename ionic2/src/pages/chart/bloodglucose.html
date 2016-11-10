@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Bloedglucose grafiek</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showInfo($event)">
+        <ion-icon name="information"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <omh-chart [datapoints]="datapoints" *ngIf="datapoints.length > 0"></omh-chart>
+  <div *ngIf="loading">
+    <ion-spinner></ion-spinner> Loading...
+  </div>
+  <p *ngIf="!loading && datapoints.length == 0">
+    Start <a href="#/app/bloodglucose/add">adding</a> measurements or <a href="#/app/share/healthcafe">import from healthcafe.</a>
+  </p>
+</ion-content>

@@ -1,22 +1,30 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { HealthcafeApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import {NgModule} from "@angular/core";
+import {IonicApp, IonicModule} from "ionic-angular";
+import {HealthcafeApp} from "./app.component";
 import {IntroPage} from "../pages/intro/intro";
 import {TimelinePage} from "../pages/timeline/timeline";
 import {AddMenu} from "../pages/timeline/addmenu";
 import {Timeline, TimelineEvent, TimelineBadge, TimelineHeading, TimelinePanel} from "../lib/angular-timeline";
 import {
-  DetailBloodGlucosePage, DetailWaistCircumferencePage, DetailCholesterolPage,
-  DetailBodyWeightPage, DetailBodyFatPage, DetailBmiPage, DetailBloodPressurePage
+  DetailBloodGlucosePage,
+  DetailWaistCircumferencePage,
+  DetailCholesterolPage,
+  DetailBodyWeightPage,
+  DetailBodyFatPage,
+  DetailBmiPage,
+  DetailBloodPressurePage
 } from "../pages/details/detail";
 import {
-  InfoBloodGlucosePage, InfoBloodPressurePage, InfoBmiPage, InfoBodyFatPage,
-  InfoBodyWeightPage, InfoCholesterolPage, InfoWaistCircumferencePage
+  InfoBloodGlucosePage,
+  InfoBloodPressurePage,
+  InfoBmiPage,
+  InfoBodyFatPage,
+  InfoBodyWeightPage,
+  InfoCholesterolPage,
+  InfoWaistCircumferencePage
 } from "../pages/datatype_info/info";
+import {ChartBloodGlucosePage} from "../pages/chart/chart";
+import {OmhChart} from "../components/chart";
 
 @NgModule({
   declarations: [
@@ -24,6 +32,8 @@ import {
     IntroPage,
     TimelinePage,
     AddMenu,
+
+    ChartBloodGlucosePage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -45,7 +55,9 @@ import {
     TimelineEvent,
     TimelineBadge,
     TimelineHeading,
-    TimelinePanel
+    TimelinePanel,
+
+    OmhChart
   ],
   imports: [
     IonicModule.forRoot(HealthcafeApp)
@@ -56,6 +68,8 @@ import {
     IntroPage,
     TimelinePage,
     AddMenu,
+
+    ChartBloodGlucosePage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,

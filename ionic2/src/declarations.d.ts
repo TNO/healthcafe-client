@@ -12,3 +12,13 @@
   https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html
 */
 declare module '*';
+
+declare namespace OMHWebVisualizations {
+  class Chart {
+    constructor(datapoints: any[], targetElement: any, properties: String, options: any);
+  }
+}
+
+declare var d3: any;
+
+

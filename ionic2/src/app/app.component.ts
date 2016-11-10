@@ -3,6 +3,7 @@ import {Platform, MenuController, Nav} from 'ionic-angular';
 
 import { IntroPage } from '../pages/intro/intro';
 import {TimelinePage} from "../pages/timeline/timeline";
+import {ChartBloodGlucosePage} from "../pages/chart/chart";
 
 export interface PageObj {
   title: string;
@@ -21,7 +22,8 @@ export class HealthcafeApp {
   rootPage = IntroPage;
   pages: PageObj[] = [
     { title: 'Intro', component: IntroPage },
-    { title: 'Tijdlijn', component: TimelinePage }
+    { title: 'Tijdlijn', component: TimelinePage },
+    { title: 'Bloedglucose', component: ChartBloodGlucosePage }
   ];
 
   constructor(platform: Platform, menu: MenuController) {

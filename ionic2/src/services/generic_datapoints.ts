@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {StorageService} from "./storage";
 import {UUID} from "angular2-uuid";
 import {AngularIndexedDB} from "../lib/angular2-indexeddb";
+import {DatapointUtil} from "./datapointutil";
 
 export interface Schema {
   namespace: string,
@@ -105,7 +106,7 @@ export class GenericDatapointsService {
     if(Array.isArray(data)) {
       var self = this;
       data = data.map((datapoint) => {
-        return self.convertDates(datapoint, self.parseDate);
+        return DatapointUtil.convertDates(datapoint, self.parseDate);
       });
 
       // TODO: Add support for upsert statements
@@ -118,7 +119,7 @@ export class GenericDatapointsService {
         });
       });
     } else if(typeof data === "object") {
-      data = this.convertDates(data, self.parseDate);
+      data = DatapointUtil.convertDates(data, self.parseDate);
       return this.storageReady.then(() => {
         return this.db.update('datapoints', data, undefined).then((d) => {
           self.invalidateCache();
@@ -127,44 +128,6 @@ export class GenericDatapointsService {
       });
     }
 
-  }
-
-  static sortByDate(datapoints) {
-    var length = datapoints.length;
-
-    for (var i = 0; i < length-1; i++) { //Number of passes
-      var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
-
-      for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
-        var datapoint1 = datapoints[j];
-        var date1;
-        if( datapoint1.body.effective_time_frame && datapoint1.body.effective_time_frame.date_time ) {
-          date1 = datapoint1.body.effective_time_frame.date_time;
-        } else {
-          date1 = datapoint1.header.creation_date_time;
-        }
-
-        var datapoint2 = datapoints[min];
-        var date2;
-        if( datapoint2.body.effective_time_frame && datapoint2.body.effective_time_frame.date_time ) {
-          date2 = datapoint2.body.effective_time_frame.date_time;
-        } else {
-          date2 = datapoint2.header.creation_date_time;
-        }
-
-        if(date1 > date2) { //Compare the numbers
-          min = j; //Change the current min number position if a smaller num is found
-        }
-      }
-      if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
-        //Swap the numbers
-        var tmp = datapoints[i];
-        datapoints[i] = datapoints[min];
-        datapoints[min] = tmp;
-      }
-    }
-
-    return datapoints;
   }
 
   private invalidateCache() {
@@ -202,16 +165,4 @@ export class GenericDatapointsService {
     }
   }
 
-  private convertDates(datapoint: Datapoint, conversionMethod: (date:any)=>(Date)) {
-    if(datapoint.header && datapoint.header.creation_date_time)
-      datapoint.header.creation_date_time = conversionMethod(datapoint.header.creation_date_time);
-
-    if(datapoint.header && datapoint.header.acquisition_provenance && datapoint.header.acquisition_provenance.source_creation_date_time)
-      datapoint.header.acquisition_provenance.source_creation_date_time = conversionMethod(datapoint.header.acquisition_provenance.source_creation_date_time);
-
-    if( datapoint.body && datapoint.body.effective_time_frame && datapoint.body.effective_time_frame.date_time)
-      datapoint.body.effective_time_frame.date_time = conversionMethod(datapoint.body.effective_time_frame.date_time);
-
-    return datapoint;
-  }
 }

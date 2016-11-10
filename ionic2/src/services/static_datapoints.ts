@@ -1,7 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import {StorageService} from "./storage";
-import {UUID} from "angular2-uuid";
-import {AngularIndexedDB} from "../lib/angular2-indexeddb";
 import {GenericDatapointsService, Datapoint, Schema} from "./generic_datapoints";
 
 @Injectable()
@@ -45,7 +43,6 @@ export class StaticDatapointsService extends GenericDatapointsService {
   }
 
   remove(): Promise<Datapoint> {
-    let self = this;
     return new Promise((resolve, reject) => {
       this.get()
         .then((datapoint: Datapoint) => {
