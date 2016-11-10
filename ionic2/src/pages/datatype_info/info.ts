@@ -1,6 +1,4 @@
-import {Component} from '@angular/core';
-import {NavParams} from "ionic-angular";
-import {Datapoint} from "../../services/generic_datapoints";
+import {Component} from "@angular/core";
 import {DatapointUtil} from "../../services/datapointutil";
 
 @Component({

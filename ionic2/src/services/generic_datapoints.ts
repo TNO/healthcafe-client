@@ -17,7 +17,7 @@ export interface Datapoint {
 @Injectable()
 export class GenericDatapointsService {
   private cache: any = null;
-  private db: AngularIndexedDB;
+  protected db: AngularIndexedDB;
   private storageReady: Promise<any>;
 
   /**
@@ -58,16 +58,27 @@ export class GenericDatapointsService {
   }
 
   get(id: string): Promise<Datapoint> {
-    return this.db
-      .getByKey('datapoints', id);
+    let self = this;
+    return this.storageReady.then(() => {
+      return self.db
+        .getByKey('datapoints', id);
+    });
   }
 
 
   remove(id:string): Promise<Datapoint> {
-    return this.db.delete('datapoints', id)
+    let self = this;
+    return this.storageReady.then(() => {
+      return self.db.delete('datapoints', id).then((d) => {
+        self.invalidateCache();
+        return d;
+      });
+    });
   }
 
   create(body: any, date: Date): Promise<Datapoint> {
+    let self = this;
+
     // Convert data if appropriate
     if(this.converter) {
       body = this.converter(body);
@@ -82,23 +93,38 @@ export class GenericDatapointsService {
     // Create the datapoint itself
     var datapoint = this.createDatapoint(body, date);
 
-    return this.db.add('datapoints', datapoint, undefined);
+    return this.storageReady.then(() => {
+      return this.db.add('datapoints', datapoint, undefined).then((d) => {
+        self.invalidateCache();
+        return d;
+      });
+    });
   }
 
   import(data): Promise<Object> {
     if(Array.isArray(data)) {
-      var that = this;
+      var self = this;
       data = data.map((datapoint) => {
-        return that.convertDates(datapoint, that.parseDate);
+        return self.convertDates(datapoint, self.parseDate);
       });
 
       // TODO: Add support for upsert statements
-      return Promise.all(data.map((datapoint) => {
-        return this.db.update('datapoints', datapoint, undefined);
-      }));
+      return this.storageReady.then(() => {
+        return Promise.all(data.map((datapoint) => {
+          return self.db.update('datapoints', datapoint, undefined);
+        })).then((d) => {
+          self.invalidateCache();
+          return d;
+        });
+      });
     } else if(typeof data === "object") {
-      data = this.convertDates(data, that.parseDate);
-      return this.db.update('datapoints', data, undefined);
+      data = this.convertDates(data, self.parseDate);
+      return this.storageReady.then(() => {
+        return this.db.update('datapoints', data, undefined).then((d) => {
+          self.invalidateCache();
+          return d;
+        });
+      });
     }
 
   }
@@ -141,6 +167,9 @@ export class GenericDatapointsService {
     return datapoints;
   }
 
+  private invalidateCache() {
+    this.cache = null;
+  }
 
   private createDatapoint(body: any, date: Date) {
     if( typeof(date) == 'undefined' )

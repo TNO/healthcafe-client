@@ -35,8 +35,8 @@
 
   <div class="row">
     <div class="col">
-      <a ng-click="intro.resetNav()" href="#/app/timeline" nav-clear class="button button-block" ng-if="!intro.personal_data_required">Naar de data</a>
-      <a ng-click="intro.resetNav()" href="#/app/personal_data" nav-clear class="button button-block" ng-if="intro.personal_data_required">Vul uw algemene gegevens in</a>
+      <button block ion-button outline (click)="goToTimeline()"  *ngIf="!personalDataRequired">Naar de data</button>
+      <button block ion-button outline (click)="goToPersonalData()"  *ngIf="personalDataRequired">Vul uw algemene gegevens in</button>
     </div>
   </div>
 </ion-content>
