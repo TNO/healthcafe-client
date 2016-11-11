@@ -1,18 +1,21 @@
-import {Component, ViewChild} from '@angular/core';
-import {Platform, MenuController, Nav} from 'ionic-angular';
-
-import { IntroPage } from '../pages/intro/intro';
+import {Component, ViewChild} from "@angular/core";
+import {Platform, MenuController, Nav} from "ionic-angular";
+import {IntroPage} from "../pages/intro/intro";
 import {TimelinePage} from "../pages/timeline/timeline";
-import {ChartBloodGlucosePage} from "../pages/chart/chart";
+import {BloodGlucose} from "../datatypes/bloodglucose";
+import {GenericChartPage} from "../pages/chart/chart";
+import {BloodGlucoseService} from "../services/bloodglucose";
+import {StorageService} from "../services/storage";
 
 export interface PageObj {
   title: string;
   component: any;
-  icon?: string;
+  params?: any;
 }
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [BloodGlucose, BloodGlucoseService, StorageService]
 })
 export class HealthcafeApp {
   // the root nav is a child of the root app component
@@ -20,23 +23,25 @@ export class HealthcafeApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage = IntroPage;
-  pages: PageObj[] = [
-    { title: 'Intro', component: IntroPage },
-    { title: 'Tijdlijn', component: TimelinePage },
-    { title: 'Bloedglucose', component: ChartBloodGlucosePage }
-  ];
+  pages: PageObj[] = [];
 
-  constructor(platform: Platform, menu: MenuController) {
+  constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
     });
+
+    this.pages = [
+      { title: 'Intro', component: IntroPage },
+      { title: 'Tijdlijn', component: TimelinePage },
+      { title: 'Bloedglucose', component: GenericChartPage, params: { dataType: bloodGlucose } }
+    ];
   }
 
   openPage(page: PageObj) {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component, page.params);
   }
 }

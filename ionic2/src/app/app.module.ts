@@ -23,7 +23,7 @@ import {
   InfoCholesterolPage,
   InfoWaistCircumferencePage
 } from "../pages/datatype_info/info";
-import {ChartBloodGlucosePage} from "../pages/chart/chart";
+import {GenericChartPage} from "../pages/chart/chart";
 import {OmhChart} from "../components/chart";
 
 @NgModule({
@@ -33,7 +33,7 @@ import {OmhChart} from "../components/chart";
     TimelinePage,
     AddMenu,
 
-    ChartBloodGlucosePage,
+    GenericChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -69,7 +69,7 @@ import {OmhChart} from "../components/chart";
     TimelinePage,
     AddMenu,
 
-    ChartBloodGlucosePage,
+    GenericChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,

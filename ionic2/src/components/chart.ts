@@ -1,6 +1,7 @@
 import {Component, Input, ElementRef} from "@angular/core";
 import {DatapointUtil} from "../services/datapointutil";
 import {Datapoint} from "../services/generic_datapoints";
+import {DataType} from "../datatypes/datatype";
 
 @Component({
   selector: 'omh-chart',
@@ -9,27 +10,10 @@ import {Datapoint} from "../services/generic_datapoints";
 })
 export class OmhChart {
   @Input() datapoints: Datapoint[] = [];
+  @Input() dataType: DataType;
+
   private chart: any;
   private chartElement: any;
-  private chartableProperties: string = 'blood-glucose';
-  private chartOptions: any = {
-    'measures': {
-      'blood-glucose' : {
-        'valueKeyPath': 'body.blood_glucose.value',
-        'range': undefined,
-        'units': 'mmol/L',
-        'chart': {
-          'pointFillColor' : '#4a90e2',
-          'pointStrokeColor' : '#0066d6',
-        },
-        'thresholds': [
-          { name: 'Desirable', max: 5.8 },
-          { name: 'Borderline high', min: 5.8, max: 7.8 },
-          { name: 'High', min: 7.8 },
-        ]
-      },
-    }
-  };
 
   constructor(public datapointUtil: DatapointUtil, public element: ElementRef) {
     this.chartElement = d3.select(element.nativeElement);
@@ -63,7 +47,7 @@ export class OmhChart {
     if (this.chart)
       this.chart.destroy();
 
-    this.chart = new OMHWebVisualizations.Chart(omhDataPoints, this.chartElement, this.chartableProperties, this.chartOptions);
+    this.chart = new OMHWebVisualizations.Chart(omhDataPoints, this.chartElement, this.dataType.chartableProperties, this.dataType.chartOptions);
   }
 
   // Show the chart

@@ -1,19 +1,24 @@
 import {Component} from "@angular/core";
 import {NavParams, NavController} from "ionic-angular";
-import {GenericDatapointsService} from "../../services/generic_datapoints";
 import {DatapointUtil} from "../../services/datapointutil";
-import {InfoBloodGlucosePage} from "../datatype_info/info";
-import {BloodGlucoseService} from "../../services/bloodglucose";
 import {StorageService} from "../../services/storage";
+import {DataType} from "../../datatypes/datatype";
+import {DetailBloodGlucosePage} from "../details/detail";
 
-abstract class GenericChartPage {
+@Component({
+  selector: 'chart-page',
+  templateUrl: 'chart.html',
+  providers: [DatapointUtil, StorageService]
+})
+export class GenericChartPage {
   public loading = true;
   public datapoints = [];
+  public dataType: DataType;
 
-  constructor(public infoPage: any, public model: GenericDatapointsService, public navCtrl: NavController, navParams: NavParams, datapointUtil: DatapointUtil) {
-    //this.datapoint = navParams.get('datapoint');
+  constructor(public navCtrl: NavController, navParams: NavParams, datapointUtil: DatapointUtil) {
+    this.dataType = navParams.get('dataType');
 
-    model.list().then((datapoints) => {
+    this.dataType.model.list().then((datapoints) => {
       console.log("loaded datapoints", datapoints);
       this.loading = false;
       this.datapoints = datapoints;
@@ -25,18 +30,6 @@ abstract class GenericChartPage {
 
   showInfo(event: any) {
     event.preventDefault();
-    this.navCtrl.push(this.infoPage);
-  }
-}
-
-
-@Component({
-  selector: 'detail-bloodglucose',
-  templateUrl: 'bloodglucose.html',
-  providers: [DatapointUtil, BloodGlucoseService, StorageService]
-})
-export class ChartBloodGlucosePage extends GenericChartPage {
-  constructor(public navCtrl: NavController, public model: BloodGlucoseService, public navParams: NavParams, datapointUtil: DatapointUtil) {
-    super(InfoBloodGlucosePage, model, navCtrl, navParams, datapointUtil);
+    this.navCtrl.push(DetailBloodGlucosePage);
   }
 }

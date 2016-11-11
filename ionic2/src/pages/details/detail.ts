@@ -7,7 +7,7 @@ import {
   InfoBodyWeightPage, InfoBodyFatPage, InfoBmiPage, InfoBloodPressurePage
 } from "../datatype_info/info";
 
-abstract class GenericDetailPage {
+export abstract class GenericDetailPage {
   public datapoint: Datapoint
   public date: Date;
 

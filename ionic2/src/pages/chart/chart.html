@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-  <omh-chart [datapoints]="datapoints" *ngIf="datapoints.length > 0"></omh-chart>
+  <omh-chart [datapoints]="datapoints" [dataType]="dataType" *ngIf="datapoints.length > 0"></omh-chart>
   <div *ngIf="loading">
     <ion-spinner></ion-spinner> Loading...
   </div>
