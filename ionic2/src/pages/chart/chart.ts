@@ -3,7 +3,7 @@ import {NavParams, NavController} from "ionic-angular";
 import {DatapointUtil} from "../../services/datapointutil";
 import {StorageService} from "../../services/storage";
 import {DataType} from "../../datatypes/datatype";
-import {InfoBloodGlucosePage} from "../datatype_info/info";
+import {InfoBloodGlucosePage} from "../info/info";
 
 @Component({
   selector: 'chart-page',

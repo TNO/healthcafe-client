@@ -5,7 +5,7 @@ import {DatapointUtil} from "../../services/datapointutil";
 import {
   InfoBloodGlucosePage, InfoWaistCircumferencePage, InfoCholesterolPage,
   InfoBodyWeightPage, InfoBodyFatPage, InfoBmiPage, InfoBloodPressurePage
-} from "../datatype_info/info";
+} from "../info/info";
 
 export abstract class GenericDetailPage {
   public datapoint: Datapoint
