@@ -6,6 +6,10 @@ import {BloodGlucose} from "../datatypes/bloodglucose";
 import {GenericChartPage} from "../pages/chart/chart";
 import {BloodGlucoseService} from "../services/bloodglucose";
 import {StorageService} from "../services/storage";
+import {BodyWeight} from "../datatypes/bodyweight";
+import {Cholesterol} from "../datatypes/cholesterol";
+import {BodyWeightService} from "../services/bodyweight";
+import {CholesterolService} from "../services/cholesterol";
 
 export interface PageObj {
   title: string;
@@ -13,9 +17,18 @@ export interface PageObj {
   params?: any;
 }
 
+export interface MenuStructure {
+  pages: PageObj[],
+  charts: PageObj[]
+}
+
 @Component({
   templateUrl: 'app.html',
-  providers: [BloodGlucose, BloodGlucoseService, StorageService]
+  providers: [
+    BloodGlucose, BloodGlucoseService,
+    BodyWeight, BodyWeightService,
+    Cholesterol, CholesterolService,
+    StorageService]
 })
 export class HealthcafeApp {
   // the root nav is a child of the root app component
@@ -23,19 +36,26 @@ export class HealthcafeApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage = IntroPage;
-  pages: PageObj[] = [];
+  menu: MenuStructure = { pages: [], charts: [] };
 
-  constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose) {
+  constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose, bodyWeight: BodyWeight, cholesterol: Cholesterol) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
     });
 
-    this.pages = [
-      { title: 'Intro', component: IntroPage },
-      { title: 'Tijdlijn', component: TimelinePage },
-      { title: 'Bloedglucose', component: GenericChartPage, params: { dataType: bloodGlucose } }
+
+    this.menu.pages = [
+      {title: 'Intro', component: IntroPage},
+      {title: 'Tijdlijn', component: TimelinePage},
     ];
+
+    this.menu.charts = [
+      {title: 'Bloedglucose', component: GenericChartPage, params: {dataType: bloodGlucose}},
+      {title: 'Cholesterol', component: GenericChartPage, params: {dataType: cholesterol}},
+      {title: 'Gewicht', component: GenericChartPage, params: {dataType: bodyWeight}}
+    ];
+
   }
 
   openPage(page: PageObj) {

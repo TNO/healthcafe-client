@@ -8,7 +8,11 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of menu.pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+      <ion-item-divider>Grafieken</ion-item-divider>
+      <button ion-item menuClose *ngFor="let p of menu.charts" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>

@@ -3,7 +3,7 @@ import {NavParams, NavController} from "ionic-angular";
 import {DatapointUtil} from "../../services/datapointutil";
 import {StorageService} from "../../services/storage";
 import {DataType} from "../../datatypes/datatype";
-import {DetailBloodGlucosePage} from "../details/detail";
+import {InfoBloodGlucosePage} from "../datatype_info/info";
 
 @Component({
   selector: 'chart-page',
@@ -30,6 +30,6 @@ export class GenericChartPage {
 
   showInfo(event: any) {
     event.preventDefault();
-    this.navCtrl.push(DetailBloodGlucosePage);
+    this.navCtrl.push(InfoBloodGlucosePage);
   }
 }
