@@ -23,12 +23,14 @@ import {
   InfoCholesterolPage,
   InfoWaistCircumferencePage
 } from "../pages/info/info";
-import {GenericChartPage} from "../pages/chart/chart";
+import {ChartPage} from "../pages/chart/chart";
 import {OmhChart} from "../components/chart";
 import {
   CreateWaistCircumferencePage, CreateCholesterolPage, CreateBodyWeightPage,
   CreateBodyFatPage, CreateBmiPage, CreateBloodPressurePage, CreateBloodGlucosePage
 } from "../pages/create/create";
+import {QuestionnaireOverviewPage} from "../pages/questionnaire/overview/questionnaire";
+import {QuestionnaireVita16FormPage} from "../pages/questionnaire/form/form";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import {
     TimelinePage,
     AddMenu,
 
-    GenericChartPage,
+    ChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -63,6 +65,9 @@ import {
     CreateCholesterolPage,
     CreateWaistCircumferencePage,
 
+    QuestionnaireOverviewPage,
+    QuestionnaireVita16FormPage,
+
     Timeline,
     TimelineEvent,
     TimelineBadge,
@@ -81,7 +86,7 @@ import {
     TimelinePage,
     AddMenu,
 
-    GenericChartPage,
+    ChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -105,7 +110,10 @@ import {
     CreateBodyFatPage,
     CreateBodyWeightPage,
     CreateCholesterolPage,
-    CreateWaistCircumferencePage
+    CreateWaistCircumferencePage,
+
+    QuestionnaireOverviewPage,
+    QuestionnaireVita16FormPage
   ],
   providers: []
 })

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{questionnaireType.overviewTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p *ngIf="answers.length == 0">
+    Je hebt de vragenlijst nog niet eerder ingevuld. Klik hieronder om deze vragenlijst voor de eerste keer te beantwoorden!
+  </p>
+  <p *ngIf="answers.length > 0">
+    Je hebt deze vragenlijst al <b>{{answers.length}}</b> keer beantwoord. Klik hier om hem nogmaals te beantwoorden.
+  </p>
+
+  <button block ion-button outline (click)="goToForm()">Start vragenlijst</button>
+
+</ion-content>
