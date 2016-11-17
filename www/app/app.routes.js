@@ -152,8 +152,8 @@
         $stateProvider
           // Retrieve feedback
           .state('app.' + questionnaire.name, {
-            url: '/' + questionnaire.name,
             cache: false,
+            url: '/' + questionnaire.name,
             views: {
               'mainContent': {
                 templateUrl: 'app/' + questionnaire.name + '/feedback.html',

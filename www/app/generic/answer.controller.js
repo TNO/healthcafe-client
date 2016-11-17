@@ -13,7 +13,8 @@
     vm.data = {
       body: {
         questionnaire: $scope.questionnaire,
-        answers: $scope.defaultValues
+        answers: $scope.defaultValues,
+        variables: $scope.variables
       }
     };
 

@@ -39,7 +39,8 @@
     // Questionnaires determine the menu items.
     questionnaires: [
       { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
-      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
+      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' },
+      { name: 'ema', controllerPrefix: 'Ema', label: 'EMA vragenlijst' }
     ],
 
     feedbacktypes: [

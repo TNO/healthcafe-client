@@ -7,18 +7,26 @@
 		function PdasFeedbackController( $http, $q, BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol, Gender, Datapoints ) {
       var vm = this;
 
+      var missingData = [];
+      var feedback = [];
+
       // Use service locally
       var baseUri = 'http://msb2.hex.tno.nl/pdas/en/advices.json';
       var staticParams = '?snp.FTO=TT&generic.Age=45&physical.Physical+activity=120';
 
       var url = baseUri+staticParams;
 
+      var gender = null;
       Gender.get().then(function(data) {
-        url += '&generic.Gender='+data.body.gender;
+        gender = data.body.gender;
       });
 
-      var missingData = [];
-      var feedback = [];
+      if ( gender != null ) {
+        url += '&generic.Gender='+gender;
+      }
+      else {
+        missingData.push({ 'name':'Geslacht', 'url':'personal_data' });
+      }
 
       // Load all measurements
       var models = [BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol];
@@ -56,14 +64,20 @@
                 break;
 
               case 'blood-glucose':
-                for (var j = 0; j < dataPoints.length; j++) {
+
+                var found = false;
+
+                var j = 0;
+                while ( !found && j < dataPoints.length ) {
                   lastDataPoint = dataPoints[j];
 
                   if (lastDataPoint.body.temporal_relationship_to_meal == 'fasting') {
                     url += '&biomarker.Fasting+glucose='+lastDataPoint.body.blood_glucose.value;
                     validDataPoint = true;
-                    return
+                    found = true;
                   }
+
+                  j++
                 }
                 break;
 
@@ -81,19 +95,19 @@
 
             switch(model) {
               case BMI:
-                missingData.push({ 'name':'BMI', 'url':'bmi/add'});
+                missingData.push({ 'name':'BMI', 'url':'bmi/add' });
                 break;
               case WaistCircumference:
-                missingData.push({ 'name':'Waist circumference', 'url':'waistcircumference/add'});
+                missingData.push({ 'name':'Waist circumference', 'url':'waistcircumference/add' });
                 break;
               case BloodPressure:
-                missingData.push({ 'name':'Blood pressure', 'url':'bloodpressure/add'});
+                missingData.push({ 'name':'Blood pressure', 'url':'bloodpressure/add' });
                 break;
               case BloodGlucose:
-                missingData.push({ 'name':'Fasting blood glucose', 'url':'bloodglucose/add'});
+                missingData.push({ 'name':'Fasting blood glucose', 'url':'bloodglucose/add' });
                 break;
               case Cholesterol:
-                missingData.push({ 'name':'Cholesterol', 'url':'cholesterol/add'});
+                missingData.push({ 'name':'Cholesterol', 'url':'cholesterol/add' });
                 break;
             }
           }

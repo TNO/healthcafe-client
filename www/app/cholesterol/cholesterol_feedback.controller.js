@@ -2,13 +2,13 @@
 	angular.module('healthcafe.cholesterol')
 		.controller('CholesterolFeedbackController', CholesterolFeedbackController );
 
-  CholesterolFeedbackController.$inject = [ '$q', 'BMI', 'WaistCircumference', 'Cholesterol', 'BloodPressure', 'Datapoints' ];
+  CholesterolFeedbackController.$inject = [ '$q', 'BMI', 'WaistCircumference', 'Cholesterol', 'BloodPressure', 'Gender', 'Datapoints' ];
 
-  function CholesterolFeedbackController( $q, BMI, WaistCircumference,  Cholesterol, BloodPressure, Datapoints ) {
+  function CholesterolFeedbackController( $q, BMI, WaistCircumference,  Cholesterol, BloodPressure, Gender, Datapoints ) {
     var vm = this;
 
     vm.loadingData = false;
-    vm.data = { bmi: null, waistcircumference: null, cholesterol: { total: null }, bloodpressure: { systolic: null, diastolic: null } };
+    vm.data = { gender: null, bmi: null, waistcircumference: null, cholesterol: { total: null }, bloodpressure: { systolic: null, diastolic: null } };
 
     vm.useLastStoredDatapoints = function useLastStoredDatapoints() {
 
@@ -44,6 +44,8 @@
         }
       });
 
+      Gender.get().then(function(datapoint) {  vm.data.gender = datapoint.body.gender; });
+
       vm.loadingData = false;
     }
 
@@ -51,6 +53,7 @@
 
       var totalCount = 0;
       var badCount = 0;
+      var badList = [];
       var gender = '';
 
       for(item in vm.data) {
@@ -70,19 +73,23 @@
             case 'cvd':
             case 'smoke':
               if (vm.data[item] == 'yes') {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'bmi':
               if (vm.data[item] > 25) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'waistcircumference':
               if (gender == 'male' && vm.data[item] > 92) {
+                badList.push(item);
                 badCount += 1;
               }
               if (gender == 'female' && vm.data[item] > 84) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
@@ -95,6 +102,7 @@
               }
 
               if (total > 6.2) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
@@ -107,30 +115,35 @@
               }
 
               if (sysbp >= 140 || diabp >= 90) {
+                badList.push(item);
                 badCount += 1;
               }
-
               break;
             case 'vegetable':
               if (vm.data[item] < 250) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'fruit':
               if (vm.data[item] < 200) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'fat':
               if (gender == 'male' && vm.data[item] > 28) {
+                badList.push(item);
                 badCount += 1;
               }
               if (gender == 'female' && vm.data[item] > 22) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'physical':
               if (vm.data[item] < 30) {
+                badList.push(item);
                 badCount += 1;
               }
               break;

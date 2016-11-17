@@ -38,7 +38,7 @@
 
     StaticDatapoint.prototype.load = function() {
       var deferred = $q.defer();
-      var schema = this.schema
+      var schema = this.schema;
 
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
         var query = datapointStore.query()

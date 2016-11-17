@@ -29,8 +29,8 @@
       var saves = [
         DateOfBirth.set(vm.data.body),
         Gender.set(vm.data.body),
-        BodyHeight.set(vm.data.body),
-      ]
+        BodyHeight.set(vm.data.body)
+      ];
 
       function reload() {
         DateOfBirth.load();
@@ -41,7 +41,15 @@
         $ionicHistory.nextViewOptions({
           disableBack: true,
         });
-        $state.go('app.timeline');
+
+        var goTo = 'app.timeline';
+
+        // Is not working, gender is read from cache when returning to ema. Only works after manual refresh (reload does not work)
+        // if ($ionicHistory.backView().stateId == 'app.ema') {
+        //   goTo = 'app.ema'
+        // }
+
+        $state.go(goTo);
       }
 
       $q.all(saves).then(function() {

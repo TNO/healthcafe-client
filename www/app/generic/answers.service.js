@@ -30,8 +30,9 @@
       var answer = {
         date_time: new Date(),
         questionnaire: body.questionnaire,
-        answers: body.answers
-      }
+        answers: body.answers,
+        variables: body.variables
+      };
 
       return answer;
     }
@@ -55,7 +56,7 @@
 
       $indexedDB.openStore( 'answers', function(answerStore) {
 
-        answerStore.query()
+        answerStore.query();
 
         var query = answerStore.query()
           .$index("questionnaire")
