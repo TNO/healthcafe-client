@@ -12,6 +12,7 @@ import {BodyWeightService} from "../services/bodyweight";
 import {CholesterolService} from "../services/cholesterol";
 import {QuestionnaireOverviewPage} from "../pages/questionnaire/overview/questionnaire";
 import {Vita16} from "../questionnairetypes/vita16";
+import {PdasFeedbackPage} from "../pages/pdas/pdas";
 
 export interface PageObj {
   title: string;
@@ -22,7 +23,8 @@ export interface PageObj {
 export interface MenuStructure {
   pages: PageObj[],
   charts: PageObj[],
-  questionnaires: PageObj[]
+  questionnaires: PageObj[],
+  feedback: PageObj[]
 }
 
 @Component({
@@ -40,7 +42,7 @@ export class HealthcafeApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage = IntroPage;
-  menu: MenuStructure = { pages: [], charts: [], questionnaires: [] };
+  menu: MenuStructure = { pages: [], charts: [], questionnaires: [], feedback: [] };
 
   constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose, bodyWeight: BodyWeight, cholesterol: Cholesterol, vita16: Vita16) {
     platform.ready().then(() => {
@@ -63,6 +65,10 @@ export class HealthcafeApp {
     this.menu.questionnaires = [
       {title: 'Vita16', component: QuestionnaireOverviewPage, params: {questionnaireType: vita16}},
     ];
+
+    this.menu.feedback = [
+      {title: 'Food4me', component: PdasFeedbackPage},
+    ]
 
   }
 

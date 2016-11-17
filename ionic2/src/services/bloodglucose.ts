@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {GenericDatapointsService} from "./generic_datapoints";
+import {GenericDatapointsService, Datapoint} from "./generic_datapoints";
 import {StorageService} from "./storage";
+import {DatapointUtil} from "./datapointutil";
 
 @Injectable()
 export class BloodGlucoseService extends GenericDatapointsService {
@@ -20,4 +21,27 @@ export class BloodGlucoseService extends GenericDatapointsService {
       storageService
     );
   }
+
+  public lastFasting() {
+    return new Promise<Datapoint>((resolve, reject) => {
+      this.list()
+        .then((datapoints) => {
+          if(datapoints.length > 0) {
+            let sorted = new DatapointUtil().sortByDate(datapoints);
+            for(let datapoint of sorted) {
+              if(datapoint.body.temporal_relationship_to_meal == 'fasting') {
+                resolve(datapoint);
+                return;
+              }
+            }
+          }
+
+          reject('No fasting glucose found');
+        })
+        .catch((e) => {
+          reject(e);
+        })
+    });
+  }
+
 }
