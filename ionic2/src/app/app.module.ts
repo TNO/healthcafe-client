@@ -22,9 +22,13 @@ import {
   InfoBodyWeightPage,
   InfoCholesterolPage,
   InfoWaistCircumferencePage
-} from "../pages/datatype_info/info";
+} from "../pages/info/info";
 import {GenericChartPage} from "../pages/chart/chart";
 import {OmhChart} from "../components/chart";
+import {
+  CreateWaistCircumferencePage, CreateCholesterolPage, CreateBodyWeightPage,
+  CreateBodyFatPage, CreateBmiPage, CreateBloodPressurePage, CreateBloodGlucosePage
+} from "../pages/create/create";
 
 @NgModule({
   declarations: [
@@ -50,6 +54,14 @@ import {OmhChart} from "../components/chart";
     InfoBodyWeightPage,
     InfoCholesterolPage,
     InfoWaistCircumferencePage,
+
+    CreateBloodGlucosePage,
+    CreateBloodPressurePage,
+    CreateBmiPage,
+    CreateBodyFatPage,
+    CreateBodyWeightPage,
+    CreateCholesterolPage,
+    CreateWaistCircumferencePage,
 
     Timeline,
     TimelineEvent,
@@ -85,7 +97,15 @@ import {OmhChart} from "../components/chart";
     InfoBodyFatPage,
     InfoBodyWeightPage,
     InfoCholesterolPage,
-    InfoWaistCircumferencePage
+    InfoWaistCircumferencePage,
+
+    CreateBloodGlucosePage,
+    CreateBloodPressurePage,
+    CreateBmiPage,
+    CreateBodyFatPage,
+    CreateBodyWeightPage,
+    CreateCholesterolPage,
+    CreateWaistCircumferencePage
   ],
   providers: []
 })
