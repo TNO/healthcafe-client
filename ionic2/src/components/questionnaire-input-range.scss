@@ -1,0 +1,32 @@
+.questionnaire-input-range {
+  list-style: none;
+  text-align:center;
+  margin:0px auto 0px auto;
+
+  input[type=range] {
+    width: 90%;
+  }
+
+  ul {
+    width: 100%;
+    display: table;
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  li {
+    width: 8%;
+    display: table-cell;
+    text-align: center;
+    font-size: small;
+  }
+
+  .option {
+    width: 40px;
+  }
+}
+
+
+
+

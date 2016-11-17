@@ -1,0 +1,17 @@
+<ion-item>
+  {{question}}
+</ion-item>
+<ion-item>
+  <div class="questionnaire-input-range">
+    <input type="range" [ngModel]="answer" (ngModelChange)="updateAnswer($event)" min="1" max="7" step="1" />
+    <ul>
+      <li>zelden</li>
+      <li>soms</li>
+      <li>af en toe</li>
+      <li>regelmatig</li>
+      <li>meestal</li>
+      <li>bijna altijd</li>
+      <li>altijd</li>
+    </ul>
+  </div>
+</ion-item>

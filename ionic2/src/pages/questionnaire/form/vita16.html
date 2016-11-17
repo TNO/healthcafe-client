@@ -8,5 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-  Vragen voor vita16
+  <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+    <questionnaire-input-range question="Ik heb genoeg energie om al mijn dagelijkse activiteiten te kunnen volbrengen" [(answer)]="answers.q01"></questionnaire-input-range>
+    <questionnaire-input-range question="Ik bruis van de energie" [(answer)]="answers.q02"></questionnaire-input-range>
+    <button ion-button type="submit" block>Save</button>
+  </form>
 </ion-content>

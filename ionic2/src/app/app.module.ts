@@ -31,6 +31,7 @@ import {
 } from "../pages/create/create";
 import {QuestionnaireOverviewPage} from "../pages/questionnaire/overview/questionnaire";
 import {QuestionnaireVita16FormPage} from "../pages/questionnaire/form/form";
+import {QuestionnaireInputRange} from "../components/questionnaire-input-range";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {QuestionnaireVita16FormPage} from "../pages/questionnaire/form/form";
     TimelineHeading,
     TimelinePanel,
 
-    OmhChart
+    OmhChart,
+    QuestionnaireInputRange
   ],
   imports: [
     IonicModule.forRoot(HealthcafeApp)
