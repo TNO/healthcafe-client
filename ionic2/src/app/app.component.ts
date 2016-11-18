@@ -3,13 +3,16 @@ import {Platform, MenuController, Nav} from "ionic-angular";
 import {IntroPage} from "../pages/intro/intro";
 import {TimelinePage} from "../pages/timeline/timeline";
 import {BloodGlucose} from "../datatypes/bloodglucose";
-import {GenericChartPage} from "../pages/chart/chart";
+import {ChartPage} from "../pages/chart/chart";
 import {BloodGlucoseService} from "../services/bloodglucose";
 import {StorageService} from "../services/storage";
 import {BodyWeight} from "../datatypes/bodyweight";
 import {Cholesterol} from "../datatypes/cholesterol";
 import {BodyWeightService} from "../services/bodyweight";
 import {CholesterolService} from "../services/cholesterol";
+import {QuestionnaireOverviewPage} from "../pages/questionnaire/overview/questionnaire";
+import {Vita16} from "../questionnairetypes/vita16";
+import {PdasFeedbackPage} from "../pages/pdas/pdas";
 
 export interface PageObj {
   title: string;
@@ -19,7 +22,9 @@ export interface PageObj {
 
 export interface MenuStructure {
   pages: PageObj[],
-  charts: PageObj[]
+  charts: PageObj[],
+  questionnaires: PageObj[],
+  feedback: PageObj[]
 }
 
 @Component({
@@ -28,6 +33,7 @@ export interface MenuStructure {
     BloodGlucose, BloodGlucoseService,
     BodyWeight, BodyWeightService,
     Cholesterol, CholesterolService,
+    Vita16,
     StorageService]
 })
 export class HealthcafeApp {
@@ -36,9 +42,9 @@ export class HealthcafeApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage = IntroPage;
-  menu: MenuStructure = { pages: [], charts: [] };
+  menu: MenuStructure = { pages: [], charts: [], questionnaires: [], feedback: [] };
 
-  constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose, bodyWeight: BodyWeight, cholesterol: Cholesterol) {
+  constructor(platform: Platform, menu: MenuController, bloodGlucose: BloodGlucose, bodyWeight: BodyWeight, cholesterol: Cholesterol, vita16: Vita16) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -51,10 +57,18 @@ export class HealthcafeApp {
     ];
 
     this.menu.charts = [
-      {title: 'Bloedglucose', component: GenericChartPage, params: {dataType: bloodGlucose}},
-      {title: 'Cholesterol', component: GenericChartPage, params: {dataType: cholesterol}},
-      {title: 'Gewicht', component: GenericChartPage, params: {dataType: bodyWeight}}
+      {title: 'Bloedglucose', component: ChartPage, params: {dataType: bloodGlucose}},
+      {title: 'Cholesterol', component: ChartPage, params: {dataType: cholesterol}},
+      {title: 'Gewicht', component: ChartPage, params: {dataType: bodyWeight}}
     ];
+
+    this.menu.questionnaires = [
+      {title: 'Vita16', component: QuestionnaireOverviewPage, params: {questionnaireType: vita16}},
+    ];
+
+    this.menu.feedback = [
+      {title: 'Food4me', component: PdasFeedbackPage},
+    ]
 
   }
 

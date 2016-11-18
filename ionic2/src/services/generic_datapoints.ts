@@ -50,6 +50,23 @@ export class GenericDatapointsService {
       });
   }
 
+  last(): Promise<Datapoint> {
+    return new Promise<Datapoint>((resolve, reject) => {
+      this.list()
+        .then((datapoints) => {
+          if(datapoints.length > 0) {
+            let sorted = new DatapointUtil().sortByDate(datapoints);
+            resolve(sorted[0]);
+          } else {
+            reject('No datapoints found');
+          }
+        })
+        .catch((e) => {
+          reject(e);
+        })
+    });
+  }
+
   list(): Promise<Datapoint[]> {
     if(this.cache !== null) {
       return Promise.resolve(this.cache);

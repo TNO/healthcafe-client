@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import {GenericDatapointsService} from "./generic_datapoints";
 import {StorageService} from "./storage";
 

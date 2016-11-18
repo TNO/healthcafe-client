@@ -15,6 +15,18 @@
       <button ion-item menuClose *ngFor="let p of menu.charts" (click)="openPage(p)">
         {{p.title}}
       </button>
+
+      <ion-item-divider>Vragenlijsten</ion-item-divider>
+      <button ion-item menuClose *ngFor="let p of menu.questionnaires" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+
+      <ion-item-divider>Feedback</ion-item-divider>
+      <button ion-item menuClose *ngFor="let p of menu.feedback" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+
+
     </ion-list>
   </ion-content>
 

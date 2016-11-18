@@ -1,6 +1,7 @@
 import {DataType} from "./datatype";
 import {BloodGlucoseService} from "../services/bloodglucose";
 import {Injectable} from "@angular/core";
+import {CreateBloodGlucosePage} from "../pages/create/create";
 
 @Injectable()
 export class BloodGlucose implements DataType {

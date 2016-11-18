@@ -10,7 +10,7 @@ import {InfoBloodGlucosePage} from "../info/info";
   templateUrl: 'chart.html',
   providers: [DatapointUtil, StorageService]
 })
-export class GenericChartPage {
+export class ChartPage {
   public loading = true;
   public datapoints = [];
   public dataType: DataType;

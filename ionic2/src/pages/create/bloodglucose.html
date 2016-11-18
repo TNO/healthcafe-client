@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Nieuwe bloedglucose meting</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-input name="date" type="date" required [(ngModel)]="bindableDate"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Blood glucose level</ion-label>
+      <ion-input name="level" type="number" step="any" required [(ngModel)]="data.level" placeholder="Blood glucose level in mmol/L"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Relationship to meal</ion-label>
+      <ion-select name="relationship_to_meal" [(ngModel)]="data.relationship_to_meal">
+        <ion-option value="fasting" selected="true">Fasting</ion-option>
+        <ion-option value="not fasting">Not fasting</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <button ion-button type="submit" block>Save</button>
+  </form>
+</ion-content>

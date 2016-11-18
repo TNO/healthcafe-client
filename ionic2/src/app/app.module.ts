@@ -22,9 +22,17 @@ import {
   InfoBodyWeightPage,
   InfoCholesterolPage,
   InfoWaistCircumferencePage
-} from "../pages/datatype_info/info";
-import {GenericChartPage} from "../pages/chart/chart";
+} from "../pages/info/info";
+import {ChartPage} from "../pages/chart/chart";
 import {OmhChart} from "../components/chart";
+import {
+  CreateWaistCircumferencePage, CreateCholesterolPage, CreateBodyWeightPage,
+  CreateBodyFatPage, CreateBmiPage, CreateBloodPressurePage, CreateBloodGlucosePage
+} from "../pages/create/create";
+import {QuestionnaireOverviewPage} from "../pages/questionnaire/overview/questionnaire";
+import {QuestionnaireVita16FormPage} from "../pages/questionnaire/form/form";
+import {QuestionnaireInputRange} from "../components/questionnaire-input-range";
+import {PdasFeedbackPage} from "../pages/pdas/pdas";
 
 @NgModule({
   declarations: [
@@ -33,7 +41,7 @@ import {OmhChart} from "../components/chart";
     TimelinePage,
     AddMenu,
 
-    GenericChartPage,
+    ChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -51,13 +59,27 @@ import {OmhChart} from "../components/chart";
     InfoCholesterolPage,
     InfoWaistCircumferencePage,
 
+    CreateBloodGlucosePage,
+    CreateBloodPressurePage,
+    CreateBmiPage,
+    CreateBodyFatPage,
+    CreateBodyWeightPage,
+    CreateCholesterolPage,
+    CreateWaistCircumferencePage,
+
+    QuestionnaireOverviewPage,
+    QuestionnaireVita16FormPage,
+
     Timeline,
     TimelineEvent,
     TimelineBadge,
     TimelineHeading,
     TimelinePanel,
 
-    OmhChart
+    OmhChart,
+    QuestionnaireInputRange,
+
+    PdasFeedbackPage
   ],
   imports: [
     IonicModule.forRoot(HealthcafeApp)
@@ -69,7 +91,7 @@ import {OmhChart} from "../components/chart";
     TimelinePage,
     AddMenu,
 
-    GenericChartPage,
+    ChartPage,
 
     DetailBloodGlucosePage,
     DetailBloodPressurePage,
@@ -85,7 +107,20 @@ import {OmhChart} from "../components/chart";
     InfoBodyFatPage,
     InfoBodyWeightPage,
     InfoCholesterolPage,
-    InfoWaistCircumferencePage
+    InfoWaistCircumferencePage,
+
+    CreateBloodGlucosePage,
+    CreateBloodPressurePage,
+    CreateBmiPage,
+    CreateBodyFatPage,
+    CreateBodyWeightPage,
+    CreateCholesterolPage,
+    CreateWaistCircumferencePage,
+
+    QuestionnaireOverviewPage,
+    QuestionnaireVita16FormPage,
+
+    PdasFeedbackPage
   ],
   providers: []
 })

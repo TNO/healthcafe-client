@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Vita16 vragenlijst</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+    <questionnaire-input-range question="Ik heb genoeg energie om al mijn dagelijkse activiteiten te kunnen volbrengen" [(answer)]="answers.q01"></questionnaire-input-range>
+    <questionnaire-input-range question="Ik bruis van de energie" [(answer)]="answers.q02"></questionnaire-input-range>
+    <button ion-button type="submit" block>Save</button>
+  </form>
+</ion-content>
