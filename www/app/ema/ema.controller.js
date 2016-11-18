@@ -2,12 +2,11 @@
 	angular.module('healthcafe.ema')
     .controller('EmaController', EmaController );
 
-		EmaController.$inject = [ '$state', '$scope', '$controller', 'Answers', 'Gender' ];
+		EmaController.$inject = [ '$state', '$scope', '$controller', 'Answers' ];
 
-		function EmaController( $state, $scope, $controller, Answers, Gender ) {
+		function EmaController( $state, $scope, $controller, Answers ) {
 		  var vm = this;
 
-      vm.genderSet = false;
       vm.answeredToday = false;
       Answers.listByQuestionnaire('ema').then(function(data) {
         var answerCount = data.length;
@@ -23,8 +22,6 @@
 
         vm.answerCount = answerCount;
       });
-
-      Gender.get().then(function(datapoint) { vm.genderSet = datapoint.body.gender != null; });
 
       $scope.selector = ".ema-container";
 

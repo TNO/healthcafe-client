@@ -2,37 +2,36 @@
 	angular.module('healthcafe.ema')
 		.controller('EmaAnswerController', EmaAnswerController );
 
-  EmaAnswerController.$inject = [ '$scope', '$controller', 'Gender', 'Answers' ];
+  EmaAnswerController.$inject = [ '$scope', '$controller', '$ionicPopup', 'Answers' ];
 
-		function EmaAnswerController( $scope, $controller, Gender, Answers ) {
+		function EmaAnswerController( $scope, $controller, $ionicPopup, Answers ) {
       var vm = this;
 
       var defaultValues = {
-        q01: '1',
-        q02: '1',
-        q03: '1',
-        q04: '1',
-        q05: '1',
-        q06: 1,
-        q07: 1,
-        q08: '0',
-        q09: '1',
-        q10: '1',
-        q11: '0',
-        q12: 1,
-        q13: '0',
-        q14: '0',
-        q15: '0',
-        q16: '0',
-        q17: '0'
+        fruit: '1',
+        sap: '1',
+        groenten: '1',
+        sla: '1',
+        snack: '1',
+        wandelen: '1',
+        fietsen: '1',
+        sporten: '1',
+        vrolijk: '1',
+        geirriteerd: '1',
+        moe: '1',
+        gestrest: '1',
+        ontspannen: '1',
+        engergiek: '1',
+        gelukkig: '1',
+        tevreden: '1',
+        leven: '1',
+        hongerig: '1'
       };
 
       var variables = {};
 
       Answers.listByQuestionnaire('ema').then(function(data) {
         if(data.length > 0) {
-          variables['foodgroup1'] = data[0]['variables']['voedingsgroep1'];
-          variables['foodgroup2'] = data[0]['variables']['voedingsgroep2'];
           variables['questionnaireCount'] = data.length+1;
         }
         else {
@@ -40,26 +39,22 @@
         }
       });
 
-      Gender.get().then(function(datapoint) {  variables['gender'] = datapoint.body.gender; });
-
-      console.log(variables);
-
       $scope.questionnaire = 'ema';
       $scope.defaultValues = defaultValues;
       $scope.variables = variables;
 
       // An alert dialog
-      $scope.showVetInformation = function() {
-        var alertPopup = $ionicPopup.alert({
-          title: 'Vet voedsel',
-          template: 'Onder vet voedsel wordt verstaan voedsel met een groot tot zeer groot vetgehalte, zoals bijvoorbeeld gefrituurd voedsel, pizza, room(boter) en melk- en witte chocola.'
-        });
-      };
-
       $scope.showTarweInformation = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Tarweproducten',
           template: 'Onder tarweproducten vallen alle tarwebroodproducten, deegwaren zoals pasta of vermicelli, couscous, gebak, muffins, donuts, koek, pannenkoeken, crackers, ontbijtgranen, muesli, witbier en kiemen (zoals voor op brood of door een salade).<br/>Let op: producten op basis van bijvoorbeeld spelt of maïs vallen <u>niet</u> onder de tarweproducten.'
+        });
+      };
+
+      $scope.showVetInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Vet voedsel',
+          template: 'Onder vet voedsel wordt verstaan voedsel met een groot tot zeer groot vetgehalte, zoals bijvoorbeeld gefrituurd voedsel, pizza, room(boter) en melk- en witte chocola.'
         });
       };
 
