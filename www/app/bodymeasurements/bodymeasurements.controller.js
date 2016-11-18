@@ -51,9 +51,15 @@
         $ionicHistory.nextViewOptions({
           disableBack: true,
         });
-        $state.go('app.timeline');
+
+        var goTo = 'app.timeline';
+
+        if ($ionicHistory.backView().stateId.startsWith('app.ema')) {
+          goTo = 'app.ema'
+        }
+
+        $state.go(goTo);
       }
-      console.log( "Waiting for saves");
 
       // If any of the saves failes, raise an error with the user
       $q.all(saves).then(function() {

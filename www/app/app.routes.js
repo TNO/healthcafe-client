@@ -159,6 +159,10 @@
                 templateUrl: 'app/' + questionnaire.name + '/feedback.html',
                 controller: questionnaire.controllerPrefix + 'Controller as ' + questionnaire.name
               }
+            },
+            params: {
+              gender: null,
+              height: null
             }
           })
 

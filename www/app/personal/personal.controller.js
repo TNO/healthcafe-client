@@ -42,14 +42,14 @@
           disableBack: true,
         });
 
-        var goTo = 'app.timeline';
+        //Is not working, gender is read from cache when returning to ema. Only works after manual refresh (reload does not work)
+        //Now giving gender and height as $stateParam, when fixed also see 'params' @ questionnaire routes and workaround in ema controller
+        if ($ionicHistory.backView().stateId.startsWith('app.ema')) {
+          $state.go('app.ema', { gender: vm.data.body.gender, height: vm.data.body.height });
+          return
+        }
 
-        // Is not working, gender is read from cache when returning to ema. Only works after manual refresh (reload does not work)
-        // if ($ionicHistory.backView().stateId == 'app.ema') {
-        //   goTo = 'app.ema'
-        // }
-
-        $state.go(goTo);
+        $state.go('app.timeline');
       }
 
       $q.all(saves).then(function() {

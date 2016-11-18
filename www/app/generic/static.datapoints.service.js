@@ -140,9 +140,10 @@
         // First delete the current datapoint
         that.remove().then(function() {
           // Store the datapoint
-          var schema = this.schema
+          var schema = this.schema;
           $indexedDB.openStore( 'datapoints', function(datapointStore) {
             datapointStore.insert(datapoint).then(function(e) {
+              this.cache = e;
               deferred.resolve(e);
             }).catch(function(e) {
               deferred.reject(e);
