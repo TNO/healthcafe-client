@@ -58,6 +58,47 @@
         });
       };
 
+
+	  $scope.showFruitPortieInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Porties fruit',
+          template: 'Voorbeelden van één portie fruit zijn: 1 appel, 1 banaan, 1 perzik, 1 kiwi, 2 mandarijnen, 2 pruimen, een handje met druiven, kersen of aarbeien'
+        });
+      };
+      
+       $scope.showSnackInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Koude warme snacks',
+          template: 'Warme snacks zijn bijvoorbeeld patat, koude snacks bijvoorbeeld een handje chips'
+        });
+      };
+
+$scope.showCarotenoidenCodeInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Code',
+          template: 'Deze code van zes letters staat op je kaartje waarop je bloeddruppel wordt opgevangen. Deze code wordt gebruikt om je resulaten anoniem naar je App te laden. Tip, maak ook een foto van deze code'
+        });
+      };
+      
+      
+ $scope.showGroenteInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Groente',
+          template: 'Een opscheplepel is ongeveer 50 gram '
+        });
+      };
+     
+      
+
+
+$scope.showSapInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Sap',
+          template: 'Let op: sap uit pak telt hier niet mee'
+        });
+      };
+
+
       $scope.showVetInformation = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Vet voedsel',

@@ -2,20 +2,22 @@
   <ion-content ng-show="ema.answerCount==0&&ema.baselineAnswered==false">
     <ion-list>
       <ion-item style="font-style: italic">
-        We hebben eerst wat basisgegevens van u nodig..
+        Onderstaande vragen gaan over hoeveel groente en fruit je gemiddeld per week eet. De andere vragen over de hoeveelheid van de afgelopen 24 uur. Doe je ook de carotenoidenmeting, vul dan hieronder ook je code in.
       </ion-item>
+           
+      <ion-item class="item-divider">Voer hieronder de code in die bij je kaartje voor bloedanalyse hoort <i class="ion-information-circled" ng-click="showCarotenoidenCodeInformation()"></i>
+      </ion-item>
+      <ion-item>
+          <input type="text" ng-model="ema.data.body.variables.carotenoidecode" min="7" max="100" step="1">
+      </ion-item>
+      
+      
       <ion-item class="item-divider">
-        Vraag1 <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
-      </ion-item>
-      <ion-item>
-          <input type="text" ng-model="ema.data.body.variables.blabla1" min="7" max="100" step="1">
-      </ion-item>
-      <ion-item class="item-divider">
-        Vraag2 <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
+        Hoeveel dagen per week eet je fruit? 
       </ion-item>
       <ion-item>
         <div class="questionnaire-input-range">
-          <input type="range" ng-model="ema.data.body.variables.blabla2" min="7" max="100" step="1">
+          <input type="range" ng-model="ema.data.body.variables.blfruit" min="0" max="7" step="1">
           <ul>
             <li>0</li>
             <li>1</li>
@@ -23,33 +25,34 @@
             <li>3</li>
             <li>4</li>
             <li>5</li>
-            <li>>5</li>
+            <li>6</li>
+            <li>7</li>
           </ul>
         </div>
       </ion-item>
       <ion-item class="item-divider">
-        Vraag3 <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
+        Op de dagen dat je fruit eet, hoeveel porties eet je dan meestal per dag? <i class="ion-information-circled" ng-click="showFruitPortieInformation()"></i>
       </ion-item>
       <ion-item>
         <div class="questionnaire-input-range">
-          <input type="range" ng-model="ema.data.body.variables.blabla3" min="7" max="100" step="1">
+          <input type="range" ng-model="ema.data.body.variables.blfruitportie" min="0" max="6" step="1">
           <ul>
             <li>0</li>
+            <li>0,5</li>
             <li>1</li>
+            <li>1,5</li>
             <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>>5</li>
+            <li>2,5</li>
+            <li>>3</li>
           </ul>
         </div>
       </ion-item>
       <ion-item class="item-divider">
-        Vraag4 <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
+        Hoeveel dagen per week eet je groente? 
       </ion-item>
       <ion-item>
         <div class="questionnaire-input-range">
-          <input type="range" ng-model="ema.data.body.variables.blabla4" min="7" max="100" step="1">
+          <input type="range" ng-model="ema.data.body.variables.blgroente" min="0" max="7" step="1">
           <ul>
             <li>0</li>
             <li>1</li>
@@ -57,29 +60,29 @@
             <li>3</li>
             <li>4</li>
             <li>5</li>
-            <li>>5</li>
+            <li>6</li>
+            <li>7</li>
           </ul>
         </div>
       </ion-item>
       <ion-item class="item-divider">
-        Vraag5 <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
+        Op de dagen dat je groente eet, hoeveel opscheplepels zijn dat dan meestal? 
       </ion-item>
       <ion-item>
         <div class="questionnaire-input-range">
-          <input type="range" ng-model="ema.data.body.variables.blabla5" min="7" max="100" step="1">
+          <input type="range" ng-model="ema.data.body.variables.blgroenteportie" min="0" max="6" step="1">
           <ul>
             <li>0</li>
             <li>1</li>
             <li>2</li>
             <li>3</li>
             <li>4</li>
-            <li>5</li>
             <li>>5</li>
           </ul>
         </div>
       </ion-item>
     </ion-list>
-    <button type="button" class="button button-block button-ssh" ng-click="ema.baselineAnswered=true">Door naar de vragenlijst</button>
+    <button type="button" class="button button-block button-ssh" ng-click="ema.baselineAnswered=true">Door naar de 24 uurs vragenlijst</button>
   </ion-content>
   <ion-content ng-show="ema.answerCount!=0||ema.baselineAnswered==true">
     <form ng-submit="ema.save()">
@@ -92,7 +95,7 @@
           Beantwoord de vragen alstublieft voor de afgelopen 24 uur.
         </ion-item>
         <ion-item class="item-divider">
-          Hoeveel stuks fruit heb je de afgelopen 24 uur gegeten? <i class="ion-information-circled" ng-click="showTarweInformation()"></i>
+          Hoeveel stuks fruit heb je de afgelopen 24 uur gegeten? 
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -109,7 +112,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Hoeveel glazen vruchtensap (vers geperst of uit pak) heb je de afgelopen 24 uur gedronken <i class="ion-information-circled" ng-click="showZuivelInformation()"></i>
+          Hoeveel glazen vers geperst vruchtensap/smoothies heb je de afgelopen 24 uur gedronken <i class="ion-information-circled" ng-click="showSapInformation()"></i>
         </ion-item>
         <ion-item>
           <div class="questionnaire-input-range">
@@ -126,7 +129,7 @@
           </div>
         </ion-item>
         <ion-item class="item-divider">
-          Hoeveel opscheplepels groente, sla of rauwkost heb je de afgelopen 24 uur gegeten? Een opscheplepel is ongeveer 50 gram <i class="ion-information-circled" ng-click="showVetInformation()"></i>
+          Hoeveel opscheplepels groente, sla of rauwkost heb je de afgelopen 24 uur gegeten? <i class="ion-information-circled" ng-click="showGroenteInformation()"></i>
         </ion-item>
         <ion-item style="font-style: italic">
           Gekookte/gebakken groenten</ion-item>
@@ -134,7 +137,7 @@
           <div class="questionnaire-input-range">
             <input type="range" ng-model="ema.data.body.answers.groenten" min="1" max="7" step="1">
             <ul>
-              <li> 1</li>
+              <li>0</li>
               <li>1</li>
               <li>2</li>
               <li>3</li>
@@ -150,7 +153,7 @@
           <div class="questionnaire-input-range">
             <input type="range" ng-model="ema.data.body.answers.sla" min="1" max="7" step="1">
             <ul>
-              <li> 1</li>
+              <li>0</li>
               <li>1 </li>
               <li>2 </li>
               <li>3 </li>
@@ -161,39 +164,20 @@
           </div>
         </ion-item>
 
-        <ion-item class="item-divider item-energized">
-          Snack consumptie
-        </ion-item>
-        <ion-item class="item-divider">
-          Hoeveel warme (bijv. patat) of koude snack (bijv. chips) heb je de afgelopen 24 uur gegeten?  <i class="ion-information-circled" ng-click="showKnoflookInformation()"></i>
-        </ion-item>
-        <ion-item>
-          <div class="questionnaire-input-range">
-            <input type="range" ng-model="ema.data.body.answers.snack" min="1" max="6" step="1">
-            <ul>
-              <li>0</li>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li>>5</li>
-            </ul>
-          </div>
-        </ion-item>
-        <ion-item class="item-divider item-energized">
+      <ion-item class="item-divider item-energized">
           Bewegen
         </ion-item>
 
         <ion-item class="item-divider">
-          Hoeveel minuten heb je de afgelopen 24 uur gefietst, gewandeld of gesport? <i class="ion-information-circled" ng-click="showKoffieInformation()"></i>
-        </ion-item>
+          Hoeveel minuten ben je de afgelopen 24 uur fysiek actief geweest (wandelen, fietsen, sporten etc)? 
+                  </ion-item>
         <ion-item style="font-style: italic">
-          Wandelen {{ema.data.body.answers.wandelen}} minuten</ion-item>
+          Ik ben {{ema.data.body.answers.activiteit -1}} minuten actief geweest</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
 
-              <input type="range" ng-model="ema.data.body.answers.wandelen" min="1" max="300">
+              <input type="range" ng-model="ema.data.body.answers.activiteit" min="1" max="300">
               <ul>
                 <li>0</li>
                 <li>50</li>
@@ -208,58 +192,19 @@
           </ion-item>
         </ion-item>
 
-        <ion-item style="font-style: italic">
-          Fietsen {{ema.data.body.answers.fietsen}} minuten</ion-item>
-        <ion-item>
-          <ion-item>
-            <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.fietsen" min="1" max="300">
-              <ul>
-                <li>0</li>
-                <li>50</li>
-                <li>100</li>
-                <li>150</li>
-                <li>200</li>
-                <li>250</li>
-                <li>300</li>
-              </ul>
-            </div>
-          </ion-item>
-        </ion-item>
-
-        <ion-item style="font-style: italic">
-          Sporten {{ema.data.body.answers.sporten}} minuten</ion-item>
-        <ion-item>
-          <ion-item>
-            <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.sporten" min="1" max="300">
-              <ul>
-                <li>0</li>
-                <li>50</li>
-                <li>100</li>
-                <li>150</li>
-                <li>200</li>
-                <li>250</li>
-                <li>300</li>
-              </ul>
-            </div>
-          </ion-item>
-        </ion-item>
-
-        </ion-item>
-        <ion-item class="item-divider item-energized">
+         <ion-item class="item-divider item-energized">
           Stemming/welzijn
         </ion-item>
 
         <ion-item class="item-divider">
-          Ik voel me ......? (0 helemaal niet, 100 heel erg) <i class="ion-information-circled" ng-click="showKoffieInformation()"></i>
+          Ik voel me ......? (0 helemaal niet, 100 heel erg) 
         </ion-item>
         <ion-item style="font-style: italic">
-          Vrolijk - {{ema.data.body.answers.vrolijk}}</ion-item>
+          Vrolijk  {{ema.data.body.answers.vrolijk -1}} </ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.vrolijk" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.vrolijk" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -272,11 +217,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Geïrriteerd - {{ema.data.body.answers.geirriteerd}}</ion-item>
+          Geïrriteerd  {{ema.data.body.answers.geirriteerd -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.geirriteerd" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.geirriteerd" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -289,11 +234,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Moe  - {{ema.data.body.answers.moe}}</ion-item>
+          Moe   {{ema.data.body.answers.moe -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.moe" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.moe" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -306,11 +251,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Gestrest - {{ema.data.body.answers.gestrest}}</ion-item>
+          Gestrest  {{ema.data.body.answers.gestrest -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.gestrest" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.gestrest" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -323,11 +268,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Ontspannen - {{ema.data.body.answers.ontspannen}}</ion-item>
+          Ontspannen  {{ema.data.body.answers.ontspannen -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.ontspannen" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.ontspannen" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -340,11 +285,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Energiek - {{ema.data.body.answers.energiek}}</ion-item>
+          Energiek  {{ema.data.body.answers.energiek -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.energiek" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.energiek" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -357,11 +302,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Gelukkig - {{ema.data.body.answers.gelukkig}}</ion-item>
+          Gelukkig  {{ema.data.body.answers.gelukkig -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.gelukkig" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.gelukkig" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -374,11 +319,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Tevreden - {{ema.data.body.answers.tevreden}}</ion-item>
+          Tevreden  {{ema.data.body.answers.tevreden -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.tevreden" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.tevreden" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -391,11 +336,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Geïnteresseerd in het leven - {{ema.data.body.answers.leven}}</ion-item>
+          Geïnteresseerd in het leven  {{ema.data.body.answers.leven -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.leven" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.leven" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
@@ -408,11 +353,11 @@
         </ion-item>
 
         <ion-item style="font-style: italic">
-          Hongerig -  {{ema.data.body.answers.hongerig}}</ion-item>
+          Hongerig   {{ema.data.body.answers.hongerig -1}}</ion-item>
         <ion-item>
           <ion-item>
             <div class="questionnaire-input-range">
-              <input type="range" ng-model="ema.data.body.answers.hongerig" min="1" max="100">
+              <input type="range" ng-model="ema.data.body.answers.hongerig" min="1" max="101">
               <ul>
                 <li>0</li>
                 <li>25</li>
