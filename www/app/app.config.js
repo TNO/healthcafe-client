@@ -40,11 +40,11 @@
     questionnaires: [
       { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
       { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' },
-      { name: 'ema', controllerPrefix: 'Ema', label: 'EMA vragenlijst' }
+      { name: 'ema', controllerPrefix: 'Ema', label: 'Groente en Fruit vragenlijst' }
     ],
 
     feedbacktypes: [
-      { name: 'pdas', controllerPrefix: 'Pdas', label: 'Food4me' },
+      { name: 'pdas', controllerPrefix: 'Pdas', label: 'Food4me feedback' },
       { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol feedback' }
     ],
 

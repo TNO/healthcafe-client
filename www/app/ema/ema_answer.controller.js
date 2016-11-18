@@ -21,7 +21,7 @@
         moe: '1',
         gestrest: '1',
         ontspannen: '1',
-        engergiek: '1',
+        energiek: '1',
         gelukkig: '1',
         tevreden: '1',
         leven: '1',
@@ -31,11 +31,18 @@
       var variables = {};
 
       Answers.listByQuestionnaire('ema').then(function(data) {
+
+        var answerCount = data.length;
+
+        vm.answerCount = answerCount;
+
         if(data.length > 0) {
-          variables['questionnaireCount'] = data.length+1;
+          variables['questionnaireCount'] = answerCount+1;
+          vm.baselineAnswered=true;
         }
         else {
           variables['questionnaireCount'] = 1;
+          vm.baselineAnswered=false
         }
       });
 

@@ -1,11 +1,11 @@
-<ion-view view-title="EMA vragenlijst">
+<ion-view view-title="Groente en Fruit vragenlijst">
   <ion-content class="padding ema-container">
     <p ng-show="ema.answeredToday==true">
       Bedankt! U heeft deze vragenlijst voor vandaag ingevuld.
     </p>
     <p ng-show="ema.answeredToday==false&&ema.answerCount<=30">
-      <a ng-show="ema.ema.length==0" href="#/app/ema/answer" nav-clear class="button button-block">Klik hier om deze vragenlijst voor de eerste keer te beantwoorden!</a>
-      <a ng-show="ema.ema.length!=0" href="#/app/ema/answer" nav-clear class="button button-block">Je hebt deze vragenlijst al <b>{{ema.answerCount}}</b> keer beantwoord. Klik hier om hem nogmaals te beantwoorden.</a>
+      <a ng-show="ema.answerCount==0" href="#/app/ema/answer" nav-clear class="button button-block">Klik hier om deze vragenlijst voor de eerste keer te beantwoorden!</a>
+      <a ng-show="ema.answerCount!=0" href="#/app/ema/answer" nav-clear class="button button-block">Je hebt deze vragenlijst al <b>{{ema.answerCount}}</b> keer beantwoord. Klik hier om hem nogmaals te beantwoorden.</a>
     </p>
     <p ng-show="ema.answerCount>30">
       U heeft de vragenlijst 30 dagen ingevuld!
