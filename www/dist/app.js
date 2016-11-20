@@ -19,7 +19,8 @@
 	    'healthcafe.timeline',
 	    'healthcafe.remarks',
 	    'healthcafe.sharing',
-      'healthcafe.pdas'
+      'healthcafe.pdas',
+      'healthcafe.ema'
     ];
 
 	angular.module('healthcafe', ['ionic', 'ngMessages', 'angularUUID2', 'angular-timeline', 'indexedDB' ].concat(appModules) )
@@ -85,11 +86,12 @@
     // Questionnaires determine the menu items.
     questionnaires: [
       { name: 'vita16', controllerPrefix: 'Vita16', label: 'Vitaliteits vragenlijst' },
-      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' }
+      { name: 'sleep', controllerPrefix: 'Sleep', label: 'Slaap vragenlijst' },
+      { name: 'ema', controllerPrefix: 'Ema', label: 'Groente en Fruit vragenlijst' }
     ],
 
     feedbacktypes: [
-      { name: 'pdas', controllerPrefix: 'Pdas', label: 'Food4me' },
+      { name: 'pdas', controllerPrefix: 'Pdas', label: 'Food4me feedback' },
       { name: 'cholesterol', controllerPrefix: 'Cholesterol', label: 'Cholesterol feedback' }
     ],
 
@@ -316,13 +318,17 @@
         $stateProvider
           // Retrieve feedback
           .state('app.' + questionnaire.name, {
-            url: '/' + questionnaire.name,
             cache: false,
+            url: '/' + questionnaire.name,
             views: {
               'mainContent': {
                 templateUrl: 'app/' + questionnaire.name + '/feedback.html',
                 controller: questionnaire.controllerPrefix + 'Controller as ' + questionnaire.name
               }
+            },
+            params: {
+              gender: null,
+              height: null
             }
           })
 
@@ -479,78 +485,6 @@
 })();
 
 (function() {
-	angular.module('healthcafe.bodyfat')
-		.controller('BodyFatController', BodyFatController );
-
-		BodyFatController.$inject = [ '$scope', '$controller', 'BodyFat' ];
-
-		function BodyFatController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-      $scope.selector = '.bodyfat-container';
-      $scope.chartableProperties = 'body_fat_percentage';
-      $scope.chartOptions =   {
-        'measures': {
-          'body_fat_percentage': {
-            'valueKeyPath': 'body.body_fat_percentage.value',
-            'range': undefined,
-            'units': '%',
-            'chart': {
-              'pointFillColor' : '#4a90e2',
-              'pointStrokeColor' : '#0066d6',
-            },
-          },
-        }
-      };
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
-	angular.module('healthcafe.bodyfat')
-		.factory('BodyFat', BodyFat );
-
-  BodyFat.$inject = [ 'Datapoints' ];
-
-  function BodyFat(Datapoints) {
-    return Datapoints.getInstance(
-      { namespace: 'omh', name: 'body-fat-percentage', version: '1.0' },
-      function(data) {
-        if( !data.bodyfat ) {
-          return null;
-        }
-        return { 'body_fat_percentage': { value: data.bodyfat, unit: '%' } };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.bodyfat')
-		.controller('BodyFatCreateController', BodyFatCreateController );
-
-		BodyFatCreateController.$inject = [ '$scope', '$controller', 'BodyFat' ];
-
-		function BodyFatCreateController( $scope, $controller, Model ) {
-		  var vm = this;
-
-      $scope.model = Model;
-
-      // Initialize the super class and extend it.
-      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
-
-		  return vm;
-		}
-})();
-
-(function() {
 	angular.module('healthcafe.bloodpressure')
 		.controller('BloodPressureController', BloodPressureController );
 
@@ -694,6 +628,78 @@
 })();
 
 (function() {
+	angular.module('healthcafe.bodyfat')
+		.controller('BodyFatController', BodyFatController );
+
+		BodyFatController.$inject = [ '$scope', '$controller', 'BodyFat' ];
+
+		function BodyFatController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+      $scope.selector = '.bodyfat-container';
+      $scope.chartableProperties = 'body_fat_percentage';
+      $scope.chartOptions =   {
+        'measures': {
+          'body_fat_percentage': {
+            'valueKeyPath': 'body.body_fat_percentage.value',
+            'range': undefined,
+            'units': '%',
+            'chart': {
+              'pointFillColor' : '#4a90e2',
+              'pointStrokeColor' : '#0066d6',
+            },
+          },
+        }
+      };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericChartController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.bodyfat')
+		.factory('BodyFat', BodyFat );
+
+  BodyFat.$inject = [ 'Datapoints' ];
+
+  function BodyFat(Datapoints) {
+    return Datapoints.getInstance(
+      { namespace: 'omh', name: 'body-fat-percentage', version: '1.0' },
+      function(data) {
+        if( !data.bodyfat ) {
+          return null;
+        }
+        return { 'body_fat_percentage': { value: data.bodyfat, unit: '%' } };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.bodyfat')
+		.controller('BodyFatCreateController', BodyFatCreateController );
+
+		BodyFatCreateController.$inject = [ '$scope', '$controller', 'BodyFat' ];
+
+		function BodyFatCreateController( $scope, $controller, Model ) {
+		  var vm = this;
+
+      $scope.model = Model;
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericCreateController', {$scope: $scope}));
+
+		  return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.bodymeasurements')
 		.controller('BodyMeasurementsController', BodyMeasurementsController );
 
@@ -746,9 +752,15 @@
         $ionicHistory.nextViewOptions({
           disableBack: true,
         });
-        $state.go('app.timeline');
+
+        var goTo = 'app.timeline';
+
+        if ($ionicHistory.backView().stateId.startsWith('app.ema')) {
+          goTo = 'app.ema'
+        }
+
+        $state.go(goTo);
       }
-      console.log( "Waiting for saves");
 
       // If any of the saves failes, raise an error with the user
       $q.all(saves).then(function() {
@@ -828,35 +840,6 @@
 
 		  return vm;
 		}
-})();
-
-(function() {
-	angular.module('healthcafe.intro')
-		.controller('IntroController', IntroController );
-
-	IntroController.$inject = [ '$scope', '$ionicHistory', 'BodyHeight', 'Gender', 'DateOfBirth' ];
-
-	function IntroController($scope, $ionicHistory, BodyHeight, Gender, DateOfBirth) {
-	  var vm = this;
-
-    // Method to reset navigation and disable back on the next page
-    vm.resetNav = function() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-      });
-    }
-
-    // Check whether personal data has been entered before. If not, ask the
-    // user to do so
-    vm.personal_data_required = true;
-
-    // If any of the personal data items have been entered, the screen can be skipped
-    BodyHeight.get().then(function() { vm.personal_data_required = false; })
-    Gender.get().then(function() { vm.personal_data_required = false; })
-    DateOfBirth.get().then(function() { vm.personal_data_required = false; })
-
-		return this;
-	}
 })();
 
 (function() {
@@ -1012,13 +995,13 @@
 	angular.module('healthcafe.cholesterol')
 		.controller('CholesterolFeedbackController', CholesterolFeedbackController );
 
-  CholesterolFeedbackController.$inject = [ '$q', 'BMI', 'WaistCircumference', 'Cholesterol', 'BloodPressure', 'Datapoints' ];
+  CholesterolFeedbackController.$inject = [ '$q', 'BMI', 'WaistCircumference', 'Cholesterol', 'BloodPressure', 'Gender', 'Datapoints' ];
 
-  function CholesterolFeedbackController( $q, BMI, WaistCircumference,  Cholesterol, BloodPressure, Datapoints ) {
+  function CholesterolFeedbackController( $q, BMI, WaistCircumference,  Cholesterol, BloodPressure, Gender, Datapoints ) {
     var vm = this;
 
     vm.loadingData = false;
-    vm.data = { bmi: null, waistcircumference: null, cholesterol: { total: null }, bloodpressure: { systolic: null, diastolic: null } };
+    vm.data = { gender: null, bmi: null, waistcircumference: null, cholesterol: { total: null }, bloodpressure: { systolic: null, diastolic: null } };
 
     vm.useLastStoredDatapoints = function useLastStoredDatapoints() {
 
@@ -1054,6 +1037,8 @@
         }
       });
 
+      Gender.get().then(function(datapoint) {  vm.data.gender = datapoint.body.gender; });
+
       vm.loadingData = false;
     }
 
@@ -1061,6 +1046,7 @@
 
       var totalCount = 0;
       var badCount = 0;
+      var badList = [];
       var gender = '';
 
       for(item in vm.data) {
@@ -1080,19 +1066,23 @@
             case 'cvd':
             case 'smoke':
               if (vm.data[item] == 'yes') {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'bmi':
               if (vm.data[item] > 25) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'waistcircumference':
               if (gender == 'male' && vm.data[item] > 92) {
+                badList.push(item);
                 badCount += 1;
               }
               if (gender == 'female' && vm.data[item] > 84) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
@@ -1105,6 +1095,7 @@
               }
 
               if (total > 6.2) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
@@ -1117,30 +1108,35 @@
               }
 
               if (sysbp >= 140 || diabp >= 90) {
+                badList.push(item);
                 badCount += 1;
               }
-
               break;
             case 'vegetable':
               if (vm.data[item] < 250) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'fruit':
               if (vm.data[item] < 200) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'fat':
               if (gender == 'male' && vm.data[item] > 28) {
+                badList.push(item);
                 badCount += 1;
               }
               if (gender == 'female' && vm.data[item] > 22) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
             case 'physical':
               if (vm.data[item] < 30) {
+                badList.push(item);
                 badCount += 1;
               }
               break;
@@ -1168,6 +1164,169 @@
 })();
 
 (function() {
+	angular.module('healthcafe.ema')
+    .controller('EmaController', EmaController );
+
+		EmaController.$inject = [ '$q', '$stateParams', '$scope', 'Answers', 'Gender', 'BodyHeight', 'BodyWeight', 'Datapoints' ];
+
+		function EmaController( $q, $stateParams, $scope, Answers, Gender, BodyHeight, BodyWeight, Datapoints ) {
+		  var vm = this;
+
+      vm.answeredToday = false;
+      Answers.listByQuestionnaire('ema').then(function(data) {
+        var answerCount = data.length;
+
+        for (var i = 0; i < answerCount; i++) {
+          var date = data[i]['date_time'];
+          var currentDate = new Date();
+
+          if (date.getUTCDate() == currentDate.getUTCDate() && date.getUTCMonth() == currentDate.getUTCMonth() && date.getUTCFullYear() == currentDate.getUTCFullYear() ) {
+            vm.answeredToday = true;
+          }
+        }
+
+        vm.answerCount = answerCount;
+      });
+
+      // // Load static datapoint Gender
+      // Gender.get().then(function(dataPoint) {
+      //   vm.gender = dataPoint.body.gender;
+      // });
+      //
+      // // Load static datapoint BodyHeight
+      // BodyHeight.get().then(function(dataPoint) {
+      //   vm.bodyHeight = dataPoint.body.body_height.value;
+      // });
+      //
+      //
+      // // Workaround: static datapoints can not be loaded on page after submit, see personal controller.
+      // if (!vm.gender) {
+      //   vm.gender = $stateParams.gender;
+      // }
+      //
+      // if (!vm.bodyHeight) {
+      //   vm.bodyHeight = $stateParams.height;
+      // }
+      //
+      // // Load last datapoint BodyWeight
+      // var models = [BodyWeight];
+      //
+      // $q.all( models.map(function(model) { return model.list() } ) ).then(function(data) {
+      //   for (var i = 0; i < data.length; i++) {
+      //
+      //     var dataPoints = Datapoints.sortByDate(data[i]);
+      //
+      //     if (dataPoints.length != 0) {
+      //       var lastDataPoint = dataPoints[0];
+      //       vm.bodyWeight = lastDataPoint.body.body_weight.value;
+      //     }
+      //   }
+      // });
+
+      $scope.selector = ".ema-container";
+
+		  return vm;
+		}
+})();
+
+(function() {
+	angular.module('healthcafe.ema')
+		.controller('EmaAnswerController', EmaAnswerController );
+
+  EmaAnswerController.$inject = [ '$scope', '$controller', '$ionicPopup', 'Answers' ];
+
+		function EmaAnswerController( $scope, $controller, $ionicPopup, Answers ) {
+      var vm = this;
+
+      var defaultValues = {
+        fruit: '1',
+        sap: '1',
+        groenten: '1',
+        sla: '1',
+        activiteit: '1',
+        geirriteerd: '1',
+        moe: '1',
+        ontspannen: '1',
+        energiek: '1',
+        gelukkig: '1',
+        tevreden: '1',
+        leven: '1',
+        hongerig: '1'
+      };
+
+      var variables = {};
+
+      Answers.listByQuestionnaire('ema').then(function(data) {
+
+        var answerCount = data.length;
+
+        vm.answerCount = answerCount;
+
+        if(data.length > 0) {
+          variables['questionnaireCount'] = answerCount+1;
+          vm.baselineAnswered=true;
+        }
+        else {
+          variables['questionnaireCount'] = 1;
+          vm.baselineAnswered=false;
+
+          //baseLine defaultValues
+          variables['carotenoidecode'] = '';
+          variables['blfruit'] = '0';
+          variables['blfruitportie'] = '0';
+          variables['blgroente'] = '0';
+          variables['blgroenteportie'] = '0';
+        }
+      });
+
+      $scope.questionnaire = 'ema';
+      $scope.defaultValues = defaultValues;
+      $scope.variables = variables;
+
+      // An alert dialog
+      $scope.showFruitPortieInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Porties fruit',
+          template: 'Voorbeelden van één portie fruit zijn: 1 appel, 1 banaan, 1 perzik, 1 kiwi, 2 mandarijnen, 2 pruimen, een handje met druiven, kersen of aarbeien'
+        });
+      };
+
+      $scope.showSnackInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Koude warme snacks',
+          template: 'Warme snacks zijn bijvoorbeeld patat, koude snacks bijvoorbeeld een handje chips'
+        });
+      };
+
+      $scope.showCarotenoidenCodeInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Code',
+          template: 'Deze code van zes letters staat op je kaartje waarop je bloeddruppel wordt opgevangen. Deze code wordt gebruikt om je resulaten anoniem naar je App te laden. Tip, maak ook een foto van deze code'
+        });
+      };
+
+      $scope.showGroenteInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Groente',
+          template: 'Een opscheplepel is ongeveer 50 gram '
+        });
+      };
+
+      $scope.showSapInformation = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Sap',
+          template: 'Let op: sap uit pak telt hier niet mee'
+        });
+      };
+
+      // Initialize the super class and extend it.
+      angular.extend(vm, $controller('GenericAnswerController', {$scope: $scope}));
+
+      return vm;
+		}
+})();
+
+(function() {
 	angular.module('healthcafe.generic')
 		.controller('GenericAnswerController', GenericAnswerController );
 
@@ -1182,7 +1341,8 @@
     vm.data = {
       body: {
         questionnaire: $scope.questionnaire,
-        answers: $scope.defaultValues
+        answers: $scope.defaultValues,
+        variables: $scope.variables
       }
     };
 
@@ -1233,8 +1393,9 @@
       var answer = {
         date_time: new Date(),
         questionnaire: body.questionnaire,
-        answers: body.answers
-      }
+        answers: body.answers,
+        variables: body.variables
+      };
 
       return answer;
     }
@@ -1258,7 +1419,7 @@
 
       $indexedDB.openStore( 'answers', function(answerStore) {
 
-        answerStore.query()
+        answerStore.query();
 
         var query = answerStore.query()
           .$index("questionnaire")
@@ -1785,7 +1946,7 @@
 
     StaticDatapoint.prototype.load = function() {
       var deferred = $q.defer();
-      var schema = this.schema
+      var schema = this.schema;
 
       $indexedDB.openStore( 'datapoints', function(datapointStore) {
         var query = datapointStore.query()
@@ -1887,9 +2048,10 @@
         // First delete the current datapoint
         that.remove().then(function() {
           // Store the datapoint
-          var schema = this.schema
+          var schema = this.schema;
           $indexedDB.openStore( 'datapoints', function(datapointStore) {
             datapointStore.insert(datapoint).then(function(e) {
+              this.cache = e;
               deferred.resolve(e);
             }).catch(function(e) {
               deferred.reject(e);
@@ -2101,18 +2263,26 @@
 		function PdasFeedbackController( $http, $q, BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol, Gender, Datapoints ) {
       var vm = this;
 
+      var missingData = [];
+      var feedback = [];
+
       // Use service locally
       var baseUri = 'http://msb2.hex.tno.nl/pdas/en/advices.json';
       var staticParams = '?snp.FTO=TT&generic.Age=45&physical.Physical+activity=120';
 
       var url = baseUri+staticParams;
 
+      var gender = null;
       Gender.get().then(function(data) {
-        url += '&generic.Gender='+data.body.gender;
+        gender = data.body.gender;
       });
 
-      var missingData = [];
-      var feedback = [];
+      if ( gender != null ) {
+        url += '&generic.Gender='+gender;
+      }
+      else {
+        missingData.push({ 'name':'Geslacht', 'url':'personal_data' });
+      }
 
       // Load all measurements
       var models = [BMI, WaistCircumference, BloodPressure, BloodGlucose, Cholesterol];
@@ -2150,14 +2320,20 @@
                 break;
 
               case 'blood-glucose':
-                for (var j = 0; j < dataPoints.length; j++) {
+
+                var found = false;
+
+                var j = 0;
+                while ( !found && j < dataPoints.length ) {
                   lastDataPoint = dataPoints[j];
 
                   if (lastDataPoint.body.temporal_relationship_to_meal == 'fasting') {
                     url += '&biomarker.Fasting+glucose='+lastDataPoint.body.blood_glucose.value;
                     validDataPoint = true;
-                    return
+                    found = true;
                   }
+
+                  j++
                 }
                 break;
 
@@ -2175,19 +2351,19 @@
 
             switch(model) {
               case BMI:
-                missingData.push({ 'name':'BMI', 'url':'bmi/add'});
+                missingData.push({ 'name':'BMI', 'url':'bmi/add' });
                 break;
               case WaistCircumference:
-                missingData.push({ 'name':'Waist circumference', 'url':'waistcircumference/add'});
+                missingData.push({ 'name':'Waist circumference', 'url':'waistcircumference/add' });
                 break;
               case BloodPressure:
-                missingData.push({ 'name':'Blood pressure', 'url':'bloodpressure/add'});
+                missingData.push({ 'name':'Blood pressure', 'url':'bloodpressure/add' });
                 break;
               case BloodGlucose:
-                missingData.push({ 'name':'Fasting blood glucose', 'url':'bloodglucose/add'});
+                missingData.push({ 'name':'Fasting blood glucose', 'url':'bloodglucose/add' });
                 break;
               case Cholesterol:
-                missingData.push({ 'name':'Cholesterol', 'url':'cholesterol/add'});
+                missingData.push({ 'name':'Cholesterol', 'url':'cholesterol/add' });
                 break;
             }
           }
@@ -2215,126 +2391,32 @@
 })();
 
 (function() {
-	angular.module('healthcafe.personal')
-		.factory('BodyHeight', BodyHeight );
+	angular.module('healthcafe.intro')
+		.controller('IntroController', IntroController );
 
-  BodyHeight.$inject = [ 'StaticDatapoint' ];
+	IntroController.$inject = [ '$scope', '$ionicHistory', 'BodyHeight', 'Gender', 'DateOfBirth' ];
 
-  function BodyHeight(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'omh', name: 'body-height', version: '1.0' },
-      function(data) {
-        if( !data.height ) {
-          return null;
-        }
-        return { 'body_height': { value: data.height, unit: 'kg' } };
-      }
-    );
-  }
+	function IntroController($scope, $ionicHistory, BodyHeight, Gender, DateOfBirth) {
+	  var vm = this;
 
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('DateOfBirth', DateOfBirth );
-
-  DateOfBirth.$inject = [ 'StaticDatapoint' ];
-
-  function DateOfBirth(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
-      function(data) {
-        if( !data.dob ) {
-          return null;
-        }
-        return { 'date_of_birth': data.dob };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.factory('Gender', Gender );
-
-  Gender.$inject = [ 'StaticDatapoint' ];
-
-  function Gender(StaticDatapoint) {
-    return StaticDatapoint.getInstance(
-      { namespace: 'nrc', name: 'gender', version: '0.1' },
-      function(data) {
-        if( !data.gender ) {
-          return null;
-        }
-        return { 'gender': data.gender };
-      }
-    );
-  }
-
-})();
-
-
-(function() {
-	angular.module('healthcafe.personal')
-		.controller('PersonalController', PersonalController );
-
-		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
-
-  /**
-   * Controller to add/view static personal data (DOB, gender, height)
-   **/
-  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
-    var vm = this;
-
-    vm.data = {
-      body: {
-        dob: null,
-        gender: null,
-        height: null
-      },
-      date: new Date()
-    };
-
-    // Load existing data
-    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
-    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
-    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
-
-    // Save new data
-    vm.save = function() {
-      var saves = [
-        DateOfBirth.set(vm.data.body),
-        Gender.set(vm.data.body),
-        BodyHeight.set(vm.data.body),
-      ]
-
-      function reload() {
-        DateOfBirth.load();
-        Gender.load();
-        BodyHeight.load();
-      }
-      function go() {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-        });
-        $state.go('app.timeline');
-      }
-
-      $q.all(saves).then(function() {
-        reload();
-        go();
-      }).catch(function(e) {
-        reload();
-        go();
+    // Method to reset navigation and disable back on the next page
+    vm.resetNav = function() {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
       });
-    };
+    }
 
-    return vm;
-  }
+    // Check whether personal data has been entered before. If not, ask the
+    // user to do so
+    vm.personal_data_required = true;
 
+    // If any of the personal data items have been entered, the screen can be skipped
+    BodyHeight.get().then(function() { vm.personal_data_required = false; })
+    Gender.get().then(function() { vm.personal_data_required = false; })
+    DateOfBirth.get().then(function() { vm.personal_data_required = false; })
+
+		return this;
+	}
 })();
 
 (function() {
@@ -2478,6 +2560,137 @@
 
 		  return vm;
 		}
+})();
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('BodyHeight', BodyHeight );
+
+  BodyHeight.$inject = [ 'StaticDatapoint' ];
+
+  function BodyHeight(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'omh', name: 'body-height', version: '1.0' },
+      function(data) {
+        if( !data.height ) {
+          return null;
+        }
+        return { 'body_height': { value: data.height, unit: 'kg' } };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('DateOfBirth', DateOfBirth );
+
+  DateOfBirth.$inject = [ 'StaticDatapoint' ];
+
+  function DateOfBirth(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'date-of-birth', version: '0.1' },
+      function(data) {
+        if( !data.dob ) {
+          return null;
+        }
+        return { 'date_of_birth': data.dob };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.factory('Gender', Gender );
+
+  Gender.$inject = [ 'StaticDatapoint' ];
+
+  function Gender(StaticDatapoint) {
+    return StaticDatapoint.getInstance(
+      { namespace: 'nrc', name: 'gender', version: '0.1' },
+      function(data) {
+        if( !data.gender ) {
+          return null;
+        }
+        return { 'gender': data.gender };
+      }
+    );
+  }
+
+})();
+
+
+(function() {
+	angular.module('healthcafe.personal')
+		.controller('PersonalController', PersonalController );
+
+		PersonalController.$inject = ['$q', '$state', '$ionicHistory', 'DateOfBirth', 'Gender', 'BodyHeight']
+
+  /**
+   * Controller to add/view static personal data (DOB, gender, height)
+   **/
+  function PersonalController($q, $state, $ionicHistory, DateOfBirth, Gender, BodyHeight) {
+    var vm = this;
+
+    vm.data = {
+      body: {
+        dob: null,
+        gender: null,
+        height: null
+      },
+      date: new Date()
+    };
+
+    // Load existing data
+    DateOfBirth.get().then(function(datapoint) { vm.data.body.dob = datapoint.body.date_of_birth; });
+    Gender.get().then(function(datapoint) { vm.data.body.gender = datapoint.body.gender; });
+    BodyHeight.get().then(function(datapoint) { vm.data.body.height = datapoint.body.body_height.value; });
+
+    // Save new data
+    vm.save = function() {
+      var saves = [
+        DateOfBirth.set(vm.data.body),
+        Gender.set(vm.data.body),
+        BodyHeight.set(vm.data.body)
+      ];
+
+      function reload() {
+        DateOfBirth.load();
+        Gender.load();
+        BodyHeight.load();
+      }
+      function go() {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+        });
+
+        //Is not working, gender is read from cache when returning to ema. Only works after manual refresh (reload does not work)
+        //Now giving gender and height as $stateParam, when fixed also see 'params' @ questionnaire routes and workaround in ema controller
+        if ($ionicHistory.backView().stateId.startsWith('app.ema')) {
+          $state.go('app.ema', { gender: vm.data.body.gender, height: vm.data.body.height });
+          return
+        }
+
+        $state.go('app.timeline');
+      }
+
+      $q.all(saves).then(function() {
+        reload();
+        go();
+      }).catch(function(e) {
+        reload();
+        go();
+      });
+    };
+
+    return vm;
+  }
+
 })();
 
 (function() {

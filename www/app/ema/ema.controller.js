@@ -23,40 +23,40 @@
         vm.answerCount = answerCount;
       });
 
-      // Load static datapoint Gender
-      Gender.get().then(function(dataPoint) {
-        vm.gender = dataPoint.body.gender;
-      });
-
-      // Load static datapoint BodyHeight
-      BodyHeight.get().then(function(dataPoint) {
-        vm.bodyHeight = dataPoint.body.body_height.value;
-      });
-
-
-      // Workaround: static datapoints can not be loaded on page after submit, see personal controller.
-      if (!vm.gender) {
-        vm.gender = $stateParams.gender;
-      }
-
-      if (!vm.bodyHeight) {
-        vm.bodyHeight = $stateParams.height;
-      }
-
-      // Load last datapoint BodyWeight
-      var models = [BodyWeight];
-
-      $q.all( models.map(function(model) { return model.list() } ) ).then(function(data) {
-        for (var i = 0; i < data.length; i++) {
-
-          var dataPoints = Datapoints.sortByDate(data[i]);
-
-          if (dataPoints.length != 0) {
-            var lastDataPoint = dataPoints[0];
-            vm.bodyWeight = lastDataPoint.body.body_weight.value;
-          }
-        }
-      });
+      // // Load static datapoint Gender
+      // Gender.get().then(function(dataPoint) {
+      //   vm.gender = dataPoint.body.gender;
+      // });
+      //
+      // // Load static datapoint BodyHeight
+      // BodyHeight.get().then(function(dataPoint) {
+      //   vm.bodyHeight = dataPoint.body.body_height.value;
+      // });
+      //
+      //
+      // // Workaround: static datapoints can not be loaded on page after submit, see personal controller.
+      // if (!vm.gender) {
+      //   vm.gender = $stateParams.gender;
+      // }
+      //
+      // if (!vm.bodyHeight) {
+      //   vm.bodyHeight = $stateParams.height;
+      // }
+      //
+      // // Load last datapoint BodyWeight
+      // var models = [BodyWeight];
+      //
+      // $q.all( models.map(function(model) { return model.list() } ) ).then(function(data) {
+      //   for (var i = 0; i < data.length; i++) {
+      //
+      //     var dataPoints = Datapoints.sortByDate(data[i]);
+      //
+      //     if (dataPoints.length != 0) {
+      //       var lastDataPoint = dataPoints[0];
+      //       vm.bodyWeight = lastDataPoint.body.body_weight.value;
+      //     }
+      //   }
+      // });
 
       $scope.selector = ".ema-container";
 
