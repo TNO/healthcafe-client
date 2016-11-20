@@ -2,7 +2,7 @@
   <ion-content ng-show="ema.baselineAnswered==false">
     <ion-list>
       <ion-item style="font-style: italic">
-        Onderstaande vragen gaan over hoeveel groente en fruit je gemiddeld per week eet. De andere vragen over de hoeveelheid van de afgelopen 24 uur. Doe je ook de carotenoidenmeting, vul dan hieronder ook je code in.
+        Onderstaande vragen gaan over hoeveel groente en fruit je gemiddeld per week eet. De andere vragen gaanover de hoeveelheid van de afgelopen 24 uur. Doe je ook de carotenoidenmeting (bloedmeting), vul dan hieronder ook je code in. Vul de gegevens in totdat je onderaan bij 'opslaan' bent.
       </ion-item>
       <ion-item class="item-divider">Voer hieronder de code in die bij je kaartje voor bloedanalyse hoort <i class="ion-information-circled" ng-click="showCarotenoidenCodeInformation()"></i>
       </ion-item>
@@ -63,7 +63,7 @@
         </div>
       </ion-item>
       <ion-item class="item-divider">
-        Op de dagen dat je groente eet, hoeveel opscheplepels zijn dat dan meestal?
+        Op de dagen dat je groente eet, hoeveel opscheplepels zijn dat dan meestal? <i class="ion-information-circled" ng-click="showGroenteInformation()"></i>
       </ion-item>
       <ion-item>
         <div class="questionnaire-input-range">
@@ -89,7 +89,7 @@
         </ion-item>
         <ion-item style="font-style: italic">
           Hieronder zijn een  een aantal vragen over je groente en fruit consumptie.<br/>
-          Beantwoord de vragen alstublieft voor de afgelopen 24 uur.
+          Beantwoord de vragen alstublieft voor de afgelopen 24 uur. Ga door totdat je 'opslaan' kunt klikken onderaan de vragenlijst.
         </ion-item>
         <ion-item class="item-divider">
           Hoeveel stuks fruit heb je de afgelopen 24 uur gegeten?
@@ -192,7 +192,11 @@
          <ion-item class="item-divider item-energized">
           Stemming/welzijn
         </ion-item>
-
+         <ion-item class="item-divider">
+          Geef op een schaal van 0 (totaal niet) tot 100 (heel erg) aan in hoeverre je geïrriteerd, moe etc bent. Standaard staan de waardes op 0
+                  </ion-item>
+        <ion-item style="font-style: italic">
+        
         <ion-item style="font-style: italic">
           Geïrriteerd  {{ema.data.body.answers.geirriteerd -1}}</ion-item>
         <ion-item>
